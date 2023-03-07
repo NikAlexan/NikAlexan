@@ -1,1 +1,1 @@
-![:nikalexan](https://count.ayaya.beauty/get/@nikalexan?theme=rule34)
+![:NikAlexan](https://count.ayaya.beauty/get/@NikAlexan?theme=rule34)
