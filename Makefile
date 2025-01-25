@@ -1,3 +1,9 @@
+run:
+	vendor/bin/sail up -d
+
+migrate:
+	vendor/bin/sail artisan migrate
+
 composer:
 	docker run --rm \
     		--volume ${CURDIR}:/app \
