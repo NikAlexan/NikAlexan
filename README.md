@@ -11,7 +11,7 @@ FullStack Developer, enthusiast, chill guy <img src="https://raw.githubuserconte
     <img src="https://raw.githubusercontent.com/NikAlexan/NikAlexan/refs/heads/master/public/images/technologies/vue.svg" alt="Vue" width="50"/>
     <img src="https://raw.githubusercontent.com/NikAlexan/NikAlexan/refs/heads/master/public/images/technologies/php.png" alt="PHP" width="50"/>
     <img src="https://raw.githubusercontent.com/NikAlexan/NikAlexan/refs/heads/master/public/images/technologies/laravel.svg" alt="Laravel" width="50"/>
-    <img src="https://raw.githubusercontent.com/NikAlexan/NikAlexan/refs/heads/master/public/images/technologies/bash.svg" alt="Bash" width="50"/>
+    <img src="https://raw.githubusercontent.com/NikAlexan/NikAlexan/refs/heads/master/public/images/technologies/bash.png" alt="Bash" width="50"/>
 </p>
 
 <br>
