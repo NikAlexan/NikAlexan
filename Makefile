@@ -1,6 +1,9 @@
 run:
 	vendor/bin/sail up -d
 
+stop:
+	vendor/bin/sail down
+
 migrate:
 	vendor/bin/sail artisan migrate
 
