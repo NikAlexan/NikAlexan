@@ -16,5 +16,3 @@ FullStack Developer, enthusiast, chill guy <img src="https://raw.githubuserconte
 </p>
 
 <br>
-
-![Achievements](https://github-profile-trophy.vercel.app/?username=nikalexan&theme=darkhub)
