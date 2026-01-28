@@ -1,0 +1,21 @@
+---
+const { footer, socials } = Astro.props;
+---
+
+<footer class="border-t border-black/5 px-6 py-10 sm:px-10">
+  <div class="max-wrap flex flex-col gap-6 text-sm text-black/60 sm:flex-row sm:items-center sm:justify-between">
+    <span>{footer.copyright}</span>
+    <div class="flex flex-wrap gap-4">
+      {socials.map((social) => (
+        <a class="transition hover:text-black" href={social.href} target="_blank" rel="noreferrer">
+          {social.label}
+        </a>
+      ))}
+    </div>
+    <div class="flex gap-4">
+      {footer.links.map((link) => (
+        <a class="transition hover:text-black" href={link.href}>{link.label}</a>
+      ))}
+    </div>
+  </div>
+</footer>

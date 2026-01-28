@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-bg: 248 248 244;
+    --color-ink: 18 24 28;
+    --color-muted: 90 95 102;
+    --color-accent: 231 111 81;
+    --color-accent-2: 42 157 143;
+    --color-card: 255 255 255;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: rgb(var(--color-ink));
+    background: rgb(var(--color-bg));
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Fraunces", "Times New Roman", serif;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all;
+  }
+
+  .btn-primary {
+    @apply bg-[rgb(var(--color-ink))] text-white hover:-translate-y-0.5 hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply border border-black/10 bg-white text-[rgb(var(--color-ink))] hover:-translate-y-0.5 hover:shadow-lg;
+  }
+
+  .chip {
+    @apply rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-black/70;
+  }
+
+  .card {
+    @apply rounded-3xl border border-black/10 bg-[rgb(var(--color-card))] p-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.25)] transition-all;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-[0_30px_70px_-35px_rgba(0,0,0,0.3)];
+  }
+}
+
+@layer utilities {
+  .section-pad {
+    @apply px-6 py-16 sm:px-10 sm:py-20;
+  }
+
+  .max-wrap {
+    @apply mx-auto w-full max-w-[1100px];
+  }
+
+  .muted {
+    @apply text-black/60;
+  }
+
+  .reveal {
+    @apply translate-y-6 opacity-0 transition-all duration-700 ease-out;
+  }
+
+  .reveal.is-visible {
+    @apply translate-y-0 opacity-100;
+  }
+}

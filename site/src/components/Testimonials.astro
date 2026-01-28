@@ -1,0 +1,21 @@
+---
+const { testimonials } = Astro.props;
+---
+
+<section class="section-pad">
+  <div class="max-wrap">
+    <div class="reveal">
+      <h2 class="text-3xl font-semibold">{testimonials.title}</h2>
+    </div>
+    <div class="mt-8 grid gap-6 lg:grid-cols-3">
+      {testimonials.items.map((item) => (
+        <figure class="card card-hover reveal">
+          <blockquote class="text-sm text-black/70">“{item.quote}”</blockquote>
+          <figcaption class="mt-4 text-xs uppercase tracking-[0.3em] text-black/50">
+            {item.name} · {item.role}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
