@@ -1,21 +1,62 @@
 ---
-const { footer, socials } = Astro.props;
+const { site } = Astro.props;
+
+const socials = site.contact.socials;
+const telegram = socials.find((item) => item.label.toLowerCase() === "telegram");
+const email = socials.find((item) => item.label.toLowerCase() === "email");
+const github = socials.find((item) => item.label.toLowerCase() === "github");
+
+const telegramHandle = telegram?.href?.includes("t.me/")
+  ? `@${telegram.href.split("t.me/")[1]}`
+  : telegram?.href ?? "@nikita_dev";
+
+const emailAddress = email?.href?.startsWith("mailto:")
+  ? email.href.replace("mailto:", "")
+  : email?.href ?? "hello@nikita.dev";
+
+const githubHandle = github?.href?.includes("github.com/")
+  ? `/${github.href.split("github.com/")[1]}`
+  : github?.href ?? "/nikitavasilenko";
 ---
 
-<footer class="border-t border-black/5 px-6 py-10 sm:px-10">
-  <div class="max-wrap flex flex-col gap-6 text-sm text-black/60 sm:flex-row sm:items-center sm:justify-between">
-    <span>{footer.copyright}</span>
-    <div class="flex flex-wrap gap-4">
-      {socials.map((social) => (
-        <a class="transition hover:text-black" href={social.href} target="_blank" rel="noreferrer">
-          {social.label}
-        </a>
-      ))}
+<footer class="border-t border-soft pt-20 relative scroll-mt-32" id="contact">
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background-dark px-4 text-ochre">
+    <span class="material-symbols-outlined animate-bounce">expand_circle_down</span>
+  </div>
+  <div class="font-mono text-xs text-ink/50 mb-12 tracking-widest uppercase flex items-center gap-2">
+    <span class="w-1.5 h-1.5 bg-ochre"></span>
+    COMMUNICATION_PROTOCOL
+  </div>
+  <div class="flex flex-col gap-2">
+    <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={telegram?.href ?? "#"}>
+      <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">Telegram</span>
+      <div class="text-right">
+        <span class="font-mono text-xs text-ink/50 group-hover:text-ochre block">{telegramHandle}</span>
+        <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity uppercase">SEND MESSAGE -&gt;</span>
+      </div>
+    </a>
+    <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={email?.href ?? "#"}>
+      <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">Email</span>
+      <div class="text-right">
+        <span class="font-mono text-xs text-ink/50 group-hover:text-ochre block">{emailAddress}</span>
+        <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity uppercase">COPY ADDRESS -&gt;</span>
+      </div>
+    </a>
+    <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={github?.href ?? "#"}>
+      <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">GitHub</span>
+      <div class="text-right">
+        <span class="font-mono text-xs text-ink/50 group-hover:text-ochre block">{githubHandle}</span>
+        <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity uppercase">VIEW REPO -&gt;</span>
+      </div>
+    </a>
+  </div>
+  <div class="mt-20 flex justify-between items-end font-mono text-[10px] text-ink/40 uppercase">
+    <div>
+      {site.footer.copyright}
     </div>
-    <div class="flex gap-4">
-      {footer.links.map((link) => (
-        <a class="transition hover:text-black" href={link.href}>{link.label}</a>
-      ))}
+    <div class="text-right">
+      BUILD_ID: 8842-AF<br />
+      <span class="text-ochre uppercase">System_Ready</span>
     </div>
   </div>
 </footer>

@@ -10,13 +10,13 @@ const { services } = Astro.props;
     <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {services.items.map((item) => (
         <div class="card card-hover reveal">
-          <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-black text-white">
+          <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-ink/20 text-cream">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
               <path d={item.iconPath} />
             </svg>
           </div>
           <h3 class="mt-5 text-xl font-semibold">{item.title}</h3>
-          <p class="mt-2 text-sm text-black/60">{item.description}</p>
+          <p class="mt-2 text-sm text-ink/60">{item.description}</p>
         </div>
       ))}
     </div>

@@ -1,11 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Header from "../../components/Header.astro";
-import Hero from "../../components/Hero.astro";
-import About from "../../components/About.astro";
-import Projects from "../../components/Projects.astro";
-import Contact from "../../components/Contact.astro";
-import Footer from "../../components/Footer.astro";
+import MainPage from "../../components/MainPage.astro";
 import { getSite } from "../../data/site";
 
 const site = getSite("en");
@@ -18,16 +13,5 @@ const site = getSite("en");
   ogImage={site.meta.ogImage}
   url={site.meta.url}
 >
-  <Header
-    logo={site.nav.logo}
-    homeHref={site.nav.homeHref}
-    links={site.nav.links}
-    cta={site.nav.cta}
-  />
-  <main>
-    <Hero hero={site.hero} />
-    <About about={site.about} />
-    <Projects projects={site.projects} />
-  </main>
-  <Footer footer={site.footer} socials={site.contact.socials} />
+  <MainPage site={site} />
 </BaseLayout>

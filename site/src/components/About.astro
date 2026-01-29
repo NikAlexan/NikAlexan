@@ -2,23 +2,27 @@
 const { about } = Astro.props;
 ---
 
-<section id="about" class="section-pad">
-  <div class="max-wrap reveal grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-    <div class="space-y-4">
-      <h2 class="text-3xl font-semibold">{about.title}</h2>
-      <p class="text-base text-black/70">{about.body}</p>
-      <ul class="mt-4 grid gap-2 text-sm text-black/70">
+<section id="about" class="scroll-mt-28 pb-20 pt-8">
+  <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="space-y-6 reveal">
+      <div class="mono text-[10px] uppercase tracking-[0.35em] text-[rgb(var(--color-muted))]">
+        02 // {about.title}
+      </div>
+      <p class="text-lg text-[rgb(var(--color-muted))]">{about.body}</p>
+      <ul class="space-y-3 text-sm text-[rgb(var(--color-muted))]">
         {about.bullets.map((item) => (
-          <li class="flex items-center gap-2">
-            <span class="h-2 w-2 rounded-full bg-[rgb(var(--color-accent))]"></span>
+          <li class="flex items-start gap-3">
+            <span class="mt-2 h-1.5 w-1.5 bg-[rgb(var(--color-accent))]"></span>
             <span>{item}</span>
           </li>
         ))}
       </ul>
     </div>
-    <div class="card card-hover">
-      <h3 class="text-xl font-semibold">Tech stack</h3>
-      <div class="mt-4 flex flex-wrap gap-2">
+    <div class="terminal-card reveal p-6">
+      <div class="mono text-[10px] uppercase tracking-[0.3em] text-[rgb(var(--color-muted))]">
+        Tech stack
+      </div>
+      <div class="mt-5 flex flex-wrap gap-2">
         {about.stack.map((item) => (
           <span class="chip">{item}</span>
         ))}

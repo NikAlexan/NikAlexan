@@ -1,0 +1,54 @@
+---
+const { contact } = Astro.props;
+---
+
+<section id="contact" class="scroll-mt-28 pb-24 pt-8">
+  <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="space-y-6 reveal">
+      <div class="mono text-[10px] uppercase tracking-[0.35em] text-[rgb(var(--color-muted))]">
+        03 // {contact.title}
+      </div>
+      <p class="text-lg text-[rgb(var(--color-muted))]">{contact.blurb}</p>
+      <div class="flex flex-wrap gap-4">
+        {contact.socials.map((social) => (
+          <a class="btn btn-ghost" href={social.href} target="_blank" rel="noreferrer">
+            {social.label}
+          </a>
+        ))}
+      </div>
+    </div>
+    {contact.formEnabled && (
+      <form class="terminal-card reveal flex flex-col gap-4 p-6" method="post" action="#">
+        <label class="mono text-[10px] uppercase tracking-[0.3em] text-[rgb(var(--color-muted))]">
+          {contact.form.nameLabel}
+          <input
+            class="mt-2 w-full border border-[color:rgb(var(--color-ink)/0.15)] bg-transparent px-3 py-2 text-sm text-[rgb(var(--color-ink))] outline-none"
+            type="text"
+            name="name"
+            placeholder={contact.form.namePlaceholder}
+          />
+        </label>
+        <label class="mono text-[10px] uppercase tracking-[0.3em] text-[rgb(var(--color-muted))]">
+          {contact.form.emailLabel}
+          <input
+            class="mt-2 w-full border border-[color:rgb(var(--color-ink)/0.15)] bg-transparent px-3 py-2 text-sm text-[rgb(var(--color-ink))] outline-none"
+            type="email"
+            name="email"
+            placeholder={contact.form.emailPlaceholder}
+          />
+        </label>
+        <label class="mono text-[10px] uppercase tracking-[0.3em] text-[rgb(var(--color-muted))]">
+          {contact.form.messageLabel}
+          <textarea
+            class="mt-2 min-h-[120px] w-full border border-[color:rgb(var(--color-ink)/0.15)] bg-transparent px-3 py-2 text-sm text-[rgb(var(--color-ink))] outline-none"
+            name="message"
+            placeholder={contact.form.messagePlaceholder}
+          ></textarea>
+        </label>
+        <button class="btn btn-primary mt-2" type="submit">
+          {contact.form.submitLabel}
+        </button>
+      </form>
+    )}
+  </div>
+</section>

@@ -10,8 +10,8 @@ const { testimonials } = Astro.props;
     <div class="mt-8 grid gap-6 lg:grid-cols-3">
       {testimonials.items.map((item) => (
         <figure class="card card-hover reveal">
-          <blockquote class="text-sm text-black/70">“{item.quote}”</blockquote>
-          <figcaption class="mt-4 text-xs uppercase tracking-[0.3em] text-black/50">
+          <blockquote class="text-sm text-ink/70">“{item.quote}”</blockquote>
+          <figcaption class="mt-4 text-xs uppercase tracking-[0.3em] text-ink/50">
             {item.name} · {item.role}
           </figcaption>
         </figure>

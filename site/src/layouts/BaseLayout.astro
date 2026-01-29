@@ -1,5 +1,8 @@
 ---
 import "../styles/global.css";
+import PageTransition from "../components/PageTransition.astro";
+import animationsScript from "../scripts/animations.ts?url";
+import { ClientRouter } from "astro:transitions";
 
 const { title, description, locale, ogImage, url } = Astro.props;
 ---
@@ -10,11 +13,14 @@ const { title, description, locale, ogImage, url } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -24,9 +30,38 @@ const { title, description, locale, ogImage, url } = Astro.props;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    />
+    <script is:inline>
+      const root = document.documentElement;
+      const forceDisplay = () => {
+        const styleAttr = root.getAttribute("style") || "";
+        if (styleAttr.includes("display: none")) {
+          root.style.display = "block";
+        } else if (!root.style.display) {
+          root.style.removeProperty("display");
+        }
+      };
+
+      forceDisplay();
+      new MutationObserver(forceDisplay).observe(root, {
+        attributes: true,
+        attributeFilter: ["style"]
+      });
+      const storedTheme = localStorage.getItem("theme");
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initialTheme = storedTheme || (systemDark ? "dark" : "light");
+      root.setAttribute("data-theme", initialTheme);
+      window.__docRoot = root;
+      root.removeAttribute("data-preloader");
+    </script>
   </head>
-  <body>
+  <body class="relative min-h-screen overflow-x-hidden">
+    <PageTransition />
     <slot />
+    <script type="module" src={animationsScript}></script>
     <script is:inline>
       const observer = new IntersectionObserver(
         (entries) => {
@@ -40,6 +75,25 @@ const { title, description, locale, ogImage, url } = Astro.props;
       );
 
       document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+    <script is:inline>
+      const updateToggles = (theme) => {
+        document.querySelectorAll("[data-theme-label]").forEach((el) => {
+          el.textContent = theme === "dark" ? "DARK" : "LIGHT";
+        });
+      };
+
+      const docRoot = window.__docRoot || document.documentElement;
+      updateToggles(docRoot.getAttribute("data-theme"));
+
+      document.addEventListener("click", (event) => {
+        const toggle = event.target.closest("[data-theme-toggle]");
+        if (!toggle) return;
+        const nextTheme = docRoot.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        docRoot.setAttribute("data-theme", nextTheme);
+        localStorage.setItem("theme", nextTheme);
+        updateToggles(nextTheme);
+      });
     </script>
   </body>
 </html>
