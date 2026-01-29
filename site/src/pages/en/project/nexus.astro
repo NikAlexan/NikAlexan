@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CaseStudyPage from "../../../components/CaseStudyPage.astro";
+import { getSite } from "../../../data/site";
+import { getCaseStudy } from "../../../data/case-studies";
+
+const site = getSite("en");
+const caseStudy = getCaseStudy("en", "nexus");
+---
+
+<BaseLayout
+  title={`${caseStudy?.title ?? "Nexus"} — Case Study`}
+  description={site.meta.description}
+  locale={site.locale}
+  ogImage={site.meta.ogImage}
+  url={`${site.meta.url}/project/nexus`}
+>
+  {caseStudy && <CaseStudyPage caseStudy={caseStudy} site={site} />}
+</BaseLayout>
