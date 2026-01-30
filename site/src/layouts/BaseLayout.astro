@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
 import PageTransition from "../components/PageTransition.astro";
-import animationsScript from "../scripts/animations.ts?url";
 import { ClientRouter } from "astro:transitions";
 
 const { title, description, locale, ogImage, url } = Astro.props;
@@ -91,7 +90,9 @@ const { title, description, locale, ogImage, url } = Astro.props;
     </a>
     <PageTransition />
     <slot />
-    <script type="module" src={animationsScript}></script>
+    <script>
+      import "../scripts/animations.ts";
+    </script>
     <script is:inline>
       if (window.__revealObserver) {
         window.__revealObserver.disconnect();
