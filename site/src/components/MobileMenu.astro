@@ -1,7 +1,9 @@
 ---
-const { items = [], locale = "en" } = Astro.props;
+const { items = [], locale = "en", ruHref = "/", enHref = "/en" } = Astro.props;
 const activeIndex = items.findIndex((item) => item.active) !== -1 ? items.findIndex((item) => item.active) : 0;
 const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Navigation";
+const altHref = locale === "ru" ? enHref : ruHref;
+const altLocale = locale === "ru" ? "en" : "ru";
 ---
 
 <div
@@ -16,12 +18,12 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
   <div class="absolute bottom-6 left-6 w-4 h-4 border-l border-b border-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] z-20"></div>
   <div class="absolute bottom-6 right-6 w-4 h-4 border-r border-b border-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] z-20"></div>
   <header class="relative z-20 flex justify-between items-center px-8 py-6 border-b border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)]">
-    <div class="font-mono text-xs tracking-[0.2em] text-[color-mix(in_srgb,var(--color-charcoal)_60%,transparent)] uppercase">
+    <div class="font-mono text-xs tracking-[0.2em] text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)] uppercase">
       <span class="w-2 h-2 inline-block bg-warm-amber mr-2 rounded-full animate-pulse"></span>
       {menuTitle}
     </div>
     <button
-      class="w-10 h-10 border border-[color-mix(in_srgb,var(--color-charcoal)_10%,transparent)] bg-surface/40 flex items-center justify-center text-charcoal hover:bg-warm-amber hover:text-cream hover:border-warm-amber transition-all duration-300 group"
+      class="w-10 h-10 border border-[color-mix(in_srgb,var(--color-charcoal)_10%,transparent)] bg-surface/30 flex items-center justify-center text-charcoal hover:bg-warm-amber hover:text-cream hover:border-warm-amber transition-all duration-300 group"
       data-menu-close
       aria-label="Close menu"
     >
@@ -72,7 +74,7 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
       </nav>
     </div>
   </div>
-  <div class="relative z-20 border-t border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] p-6 bg-surface/40 backdrop-blur-sm">
+  <div class="relative z-20 border-t border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] p-6 bg-surface/30 backdrop-blur-sm">
     <div class="flex flex-col gap-6">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-6">
@@ -81,9 +83,9 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
               class={
                 locale === "ru"
                   ? "px-4 py-2 text-xs font-mono font-bold bg-warm-amber text-cream rounded-sm shadow-sm transition-all"
-                  : "px-4 py-2 text-xs font-mono text-[color-mix(in_srgb,var(--color-charcoal)_60%,transparent)] hover:text-warm-amber transition-colors"
+                  : "px-4 py-2 text-xs font-mono text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)] hover:text-warm-amber transition-colors"
               }
-              href="/"
+              href={ruHref}
             >
               RU
             </a>
@@ -91,9 +93,9 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
               class={
                 locale === "en"
                   ? "px-4 py-2 text-xs font-mono font-bold bg-warm-amber text-cream rounded-sm shadow-sm transition-all"
-                  : "px-4 py-2 text-xs font-mono text-[color-mix(in_srgb,var(--color-charcoal)_60%,transparent)] hover:text-warm-amber transition-colors"
+                  : "px-4 py-2 text-xs font-mono text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)] hover:text-warm-amber transition-colors"
               }
-              href="/en"
+              href={enHref}
             >
               EN
             </a>
@@ -110,7 +112,7 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
       </div>
       <div class="flex justify-between items-end font-mono text-[9px] md:text-[10px] text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] uppercase tracking-wider border-t border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] pt-4">
         <div class="flex gap-4">
-          <span>SESSION_ID: <span class="text-[color-mix(in_srgb,var(--color-charcoal)_80%,transparent)]">8842-AF</span></span>
+          <span>SESSION_ID: <span class="text-[color-mix(in_srgb,var(--color-charcoal)_85%,transparent)]">8842-AF</span></span>
           <span class="hidden sm:inline">|</span>
           <span class="hidden sm:inline">LOC: UNKNOWN</span>
         </div>
