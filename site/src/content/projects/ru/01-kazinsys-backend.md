@@ -6,5 +6,5 @@ stack:
   - "Full-time"
   - "On-site"
 order: 1
-status: "ongoing"
+status: "wip"
 ---

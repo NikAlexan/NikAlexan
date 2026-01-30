@@ -6,6 +6,5 @@ stack:
   - "Full-time"
   - "On-site"
 order: 2
-status: "completed"
-caseStudySlug: "nexus"
+status: "wip"
 ---

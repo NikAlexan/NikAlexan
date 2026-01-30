@@ -121,7 +121,7 @@
     --scrollbar-thumb: var(--color-primary);
     --scrollbar-track: #0c0a09;
 
-    --text-stroke-color: currentColor;
+    --text-stroke-color: var(--color-primary);
     --text-stroke-hover: var(--color-primary);
     --glow-color: rgba(217, 119, 6, 0.3);
 

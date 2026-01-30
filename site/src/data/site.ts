@@ -49,6 +49,7 @@ type SiteContent = {
     bullets: string[];
     jokes: string[];
     stack: string[];
+    availability: string;
   };
   services: {
     title: string;
@@ -105,8 +106,8 @@ const servicesIconPaths = [
 
 const shared = {
   navLinks: [
-    { label: "About", href: "#about" },
     { label: "Projects", href: "#works" },
+    { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" }
   ],
   socials: [
@@ -130,15 +131,15 @@ export const siteRu: SiteContent = {
     logo: "Nikita Vassilenko",
     homeHref: "/",
     links: [
-      { label: "Обо_мне", href: "#about" },
       { label: "Проекты", href: "#works" },
+      { label: "Обо_мне", href: "#about" },
       { label: "Контакты", href: "#contact" }
     ],
     cta: { label: "Связаться", href: "#contact" }
   },
   hero: {
     name: "Nikita Vassilenko",
-    tagline: "Middle Back End Developer • .NET • PHP • JS",
+    tagline: "Back End Developer",
     description:
       "Победитель WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business». Изучаю .NET, PHP, JS и смежные технологии. Готов развиваться и получать новый опыт.",
     ctaPrimary: { label: "LinkedIn", href: "https://www.linkedin.com/in/nikalexan/" },
@@ -173,14 +174,15 @@ export const siteRu: SiteContent = {
       "PHP",
       "JavaScript",
       "HTML"
-    ]
+    ],
+    availability: 'Открыт для сотрудничества'
   },
   services: {
     title: "",
     items: []
   },
   projects: {
-    title: "Опыт работы",
+    title: "Проекты",
     caseStudy: {
       kicker: "Кейс // NEXUS",
       title: "NEXUS Protocol",
@@ -233,7 +235,7 @@ export const siteEn: SiteContent = {
   },
   hero: {
     name: "Nikita Vassilenko",
-    tagline: "Middle Back End Developer • .NET • PHP • JS",
+    tagline: "Back End Developer",
     description:
       "Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023 in the “IT solutions for business” competency. Learning .NET, PHP, JS and related tech. Ready to grow and gain new experience.",
     ctaPrimary: { label: "LinkedIn", href: "https://www.linkedin.com/in/nikalexan/" },
@@ -268,14 +270,15 @@ export const siteEn: SiteContent = {
       "PHP",
       "JavaScript",
       "HTML"
-    ]
+    ],
+    availability: "Open for new opportunities"
   },
   services: {
     title: "",
     items: []
   },
   projects: {
-    title: "Experience",
+    title: "Projects",
     caseStudy: {
       kicker: "Case // NEXUS",
       title: "NEXUS Protocol",
