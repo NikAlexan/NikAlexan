@@ -48,8 +48,8 @@
     --opacity-bg-strong: 0.3;
     --opacity-decor-strong: 0.4;
 
-    --color-terminal-bg: color-mix(in srgb, var(--color-ink) 30%, transparent);
-    --color-terminal-border: color-mix(in srgb, var(--color-ink) 10%, transparent);
+    --color-terminal-bg: color-mix(in srgb, var(--color-ink) 55%, transparent);
+    --color-terminal-border: color-mix(in srgb, var(--color-ink) 20%, transparent);
     --color-terminal-text: color-mix(in srgb, var(--color-ink) 85%, transparent);
     --color-terminal-prompt: #16a34a;
     --color-terminal-success: var(--color-success);
