@@ -1,0 +1,14 @@
+---
+const { title, language = "" } = Astro.props;
+const hasTitle = Boolean(title || language);
+---
+
+<div class="bg-surface/30 border border-[color-mix(in_srgb,var(--color-ochre)_20%,transparent)] p-4 md:p-5">
+  {hasTitle && (
+    <div class="flex items-center justify-between mb-3 pb-2 border-b border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)]">
+      <span class="font-mono text-[10px] text-muted uppercase">{title || "Code"}</span>
+      {language && <span class="font-mono text-[10px] text-disabled uppercase">{language}</span>}
+    </div>
+  )}
+  <pre class="font-mono text-[11px] md:text-xs text-secondary overflow-x-auto scrollbar-none"><code><slot /></code></pre>
+</div>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Main Page: Engineering Terminal - Nikita Vasilenko</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#eca013", ochre: "#d97706", "amber-glow": "#f59e0b", "background-dark": "#221c10", "surface-dark": "#0f0e0d", "technical-grey": "#292524", ink: "#fafaf9", "background-light": "#f8f7f6"}, fontFamily: {display: "Space Grotesk", mono: ["Space Mono", "monospace"]}, backgroundImage: {"grid-pattern": "linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}}}};</script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                font-family: 'Space Grotesk', sans-serif;
+                @apply bg-background-dark text-stone-300;
+            }
+        }
+        :root {
+            --grid-color: rgba(255, 255, 255, 0.03);
+        }
+        .grid-bg {
+            background-size: 40px 40px;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px currentColor;
+            color: transparent;
+        }
+        .text-stroke:hover {
+            color: #d97706;
+            -webkit-text-stroke: 0px transparent;
+        }
+        .technical-card {
+            position: relative;
+            border: 1px solid rgba(217, 119, 6, 0.15);
+            background: rgba(12, 10, 9, 0.6);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .technical-card::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px;
+            width: 8px; height: 8px;
+            border-top: 2px solid #d97706;
+            border-left: 2px solid #d97706;
+            box-shadow: -1px -1px 8px rgba(217, 119, 6, 0.5);
+        }
+        .technical-card::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; right: -1px;
+            width: 8px; height: 8px;
+            border-bottom: 2px solid #d97706;
+            border-right: 2px solid #d97706;
+            box-shadow: 1px 1px 8px rgba(217, 119, 6, 0.5);
+        }
+        .glowing-text {
+            text-shadow: 0 0 10px rgba(217, 119, 6, 0.3);
+        }
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #d97706 #0c0a09;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c0a09;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #d97706;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen relative overflow-x-hidden selection:bg-ochre/30 selection:text-ochre">
+<div class="fixed inset-0 z-0 bg-grid-pattern opacity-100 grid-bg pointer-events-none"></div>
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="absolute top-8 left-8 w-6 h-6 border-l border-t border-ochre/40"></div>
+<div class="absolute top-8 right-8 w-6 h-6 border-r border-t border-ochre/40"></div>
+<div class="absolute bottom-8 left-8 w-6 h-6 border-l border-b border-ochre/40"></div>
+<div class="absolute bottom-8 right-8 w-6 h-6 border-r border-b border-ochre/40"></div>
+<div class="absolute top-0 left-12 w-[1px] h-full bg-ochre/5 hidden md:block"></div>
+<div class="absolute top-0 right-12 w-[1px] h-full bg-ochre/5 hidden md:block"></div>
+</div>
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 mix-blend-normal bg-background-dark/80 backdrop-blur-md border-b border-white/5 md:bg-transparent md:backdrop-blur-none md:border-none">
+<a class="flex items-center gap-3 font-mono text-xs hover:text-ochre transition-colors group text-stone-400" href="#">
+<div class="w-6 h-6 border border-stone-700 flex items-center justify-center group-hover:border-ochre transition-colors">
+<span class="material-symbols-outlined text-[14px]">grid_view</span>
+</div>
+<span class="tracking-widest uppercase">Index</span>
+</a>
+<div class="hidden md:flex items-center gap-8">
+<div class="flex gap-8 font-mono text-[10px] text-stone-500 tracking-widest border-r border-white/10 pr-8">
+<span>LATENCY: 12ms</span>
+<span class="text-emerald-500/80 uppercase">Secure_Connection</span>
+<span>SYS: ONLINE</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center font-mono text-[10px] tracking-wider">
+<button class="text-stone-500 hover:text-ochre transition-colors">RU</button>
+<span class="mx-2 text-stone-700">/</span>
+<button class="text-ochre font-bold hover:opacity-80 transition-opacity">EN</button>
+</div>
+<button aria-label="Toggle Theme" class="w-8 h-8 border border-stone-700 bg-black/20 flex items-center justify-center text-stone-400 hover:text-ochre hover:border-ochre hover:shadow-[0_0_10px_rgba(217,119,6,0.3)] transition-all duration-300 rounded-sm group">
+<span class="material-symbols-outlined text-[16px]">light_mode</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4 md:hidden">
+<button class="font-mono text-[10px] text-ochre font-bold border border-stone-800 px-2 py-1 rounded">EN</button>
+<div class="w-6 h-6 border border-stone-700 text-stone-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">menu</span>
+</div>
+</div>
+</nav>
+<div class="relative z-10 w-full max-w-[1800px] mx-auto min-h-screen flex flex-col md:flex-row">
+<aside class="hidden md:flex flex-col w-64 h-screen sticky top-0 pt-32 pb-12 pl-12 justify-between">
+<div class="space-y-8 border-l border-white/10 pl-6 relative">
+<div class="absolute -left-[1px] top-32 w-[1px] h-12 bg-ochre shadow-[0_0_10px_rgba(217,119,6,0.5)]"></div>
+<div>
+<div class="font-mono text-[9px] text-stone-500 tracking-widest uppercase mb-4">Navigation</div>
+<ul class="space-y-4 font-mono text-[11px]">
+<li><a class="block text-ochre font-bold flex items-center gap-2 group glowing-text" href="#hero"><span class="w-1 h-1 bg-ochre group-hover:scale-150 transition-transform shadow-[0_0_5px_rgba(217,119,6,0.8)]"></span> 00_HOME</a></li>
+<li><a class="block text-stone-500 hover:text-ochre transition-colors group flex items-center gap-2" href="#works"><span class="w-1 h-1 bg-stone-700 group-hover:bg-ochre transition-colors"></span> 01_PROJECTS</a></li>
+<li><a class="block text-stone-500 hover:text-ochre transition-colors group flex items-center gap-2" href="#about"><span class="w-1 h-1 bg-stone-700 group-hover:bg-ochre transition-colors"></span> 02_ABOUT</a></li>
+<li><a class="block text-stone-500 hover:text-ochre transition-colors group flex items-center gap-2" href="#contact"><span class="w-1 h-1 bg-stone-700 group-hover:bg-ochre transition-colors"></span> 03_CONTACT</a></li>
+</ul>
+</div>
+</div>
+<div class="font-mono text-[9px] text-stone-500 pl-6 border-l border-white/10">
+<div class="mb-1 uppercase">System_Status</div>
+<div class="text-ochre flex items-center gap-2 uppercase"><span class="w-1.5 h-1.5 rounded-full bg-ochre animate-pulse shadow-[0_0_8px_rgba(217,119,6,0.8)]"></span> Active</div>
+</div>
+</aside>
+<main class="flex-1 pt-32 px-6 md:px-16 pb-32 max-w-6xl mx-auto w-full">
+<section class="mb-32 relative text-center md:text-left" id="hero">
+<div class="hidden md:block absolute -top-10 left-0 w-8 h-[1px] bg-ochre/50"></div>
+<div class="hidden md:block absolute -top-10 left-0 h-4 w-[1px] bg-ochre/50"></div>
+<div class="inline-flex items-center gap-3 px-3 py-1 mb-8 border border-ochre/20 bg-ochre/5 text-ochre font-mono text-[10px] tracking-[0.2em] uppercase backdrop-blur-sm">
+<span class="w-1.5 h-1.5 bg-ochre rounded-sm shadow-[0_0_5px_rgba(217,119,6,0.8)]"></span>
+                Portfolio v3.0
+            </div>
+<h1 class="font-display font-light text-[12vw] md:text-[8rem] lg:text-[8rem] leading-[0.85] tracking-tighter text-ink mb-8 select-none relative uppercase">
+                NIKITA<br/>
+<span class="text-stroke text-stone-600 hover:text-ochre transition-colors duration-500">VASILENKO</span>
+</h1>
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border-y border-white/10 py-6 mb-12">
+<h2 class="text-2xl md:text-3xl font-mono font-medium text-ochre tracking-tighter uppercase">
+                    Backend &amp; DevSecOps Engineer
+                </h2>
+<div class="flex gap-4 font-mono text-[10px] text-stone-400">
+<div class="border border-white/10 px-3 py-1.5 rounded-sm uppercase">Rust_Engineer</div>
+<div class="border border-white/10 px-3 py-1.5 rounded-sm uppercase">Cloud_Architect</div>
+<div class="border border-white/10 px-3 py-1.5 rounded-sm uppercase">Sec_Ops</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+<div class="bg-surface-dark/40 border-l border-white/10 pl-4 py-2">
+<span class="text-stone-500 block mb-1 text-[10px] tracking-widest uppercase">Location</span>
+<div class="text-white">Worldwide / Remote</div>
+</div>
+<div class="bg-surface-dark/40 border-l border-white/10 pl-4 py-2">
+<span class="text-stone-500 block mb-1 text-[10px] tracking-widest uppercase">Availability</span>
+<div class="text-emerald-500 flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                        Open to opportunities
+                    </div>
+</div>
+<div class="bg-surface-dark/40 border-l border-white/10 pl-4 py-2">
+<span class="text-stone-500 block mb-1 text-[10px] tracking-widest uppercase">Experience</span>
+<div class="text-white">8+ Years of Commercial Development</div>
+</div>
+</div>
+</section>
+<section class="mb-32 scroll-mt-32" id="works">
+<div class="flex items-end justify-between mb-12 border-b border-white/10 pb-4">
+<div class="font-mono text-ochre text-xs flex items-center gap-2 uppercase tracking-widest">
+<span class="material-symbols-outlined text-lg">folder_open</span>
+                    01 // SELECTED PROJECTS
+                </div>
+<div class="hidden md:block font-mono text-[10px] text-stone-500 uppercase">
+                    Last Update: 2024.03.15
+                </div>
+</div>
+<div class="grid grid-cols-1 gap-12">
+<article class="technical-card p-8 md:p-10 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(217,119,6,0.1)]">
+<div class="absolute top-0 right-0 p-4 opacity-50">
+<span class="font-mono text-[10px] text-ochre border border-ochre/30 px-2 py-1">CS_001</span>
+</div>
+<div class="flex flex-col md:flex-row gap-10">
+<div class="md:w-1/3 space-y-6">
+<div>
+<h3 class="text-3xl font-display font-light text-white mb-2 group-hover:text-ochre transition-colors">NEXUS PROTOCOL</h3>
+<p class="font-mono text-xs text-stone-500 uppercase">FinTech Architecture / High-Load</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">Rust</span>
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">WebGL</span>
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">React</span>
+</div>
+</div>
+<div class="md:w-2/3 flex flex-col justify-between">
+<p class="text-stone-400 font-light leading-relaxed mb-8">
+                                Engineering a high-frequency trading platform with real-time data visualization. Optimized rendering of 50k+ data points per second using a high-performance WebGL and WebAssembly pipeline.
+                            </p>
+<div class="flex items-center justify-between border-t border-white/10 pt-6">
+<div class="flex gap-6 text-[10px] font-mono text-stone-500">
+<span>LATENCY: &lt;16ms</span>
+<span>UPTIME: 99.99%</span>
+</div>
+<a class="flex items-center gap-2 text-ochre font-mono text-xs hover:underline decoration-ochre underline-offset-4 uppercase" href="#">
+                                    VIEW DETAILS <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="technical-card p-8 md:p-10 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(217,119,6,0.1)]">
+<div class="absolute top-0 right-0 p-4 opacity-50">
+<span class="font-mono text-[10px] text-ochre border border-ochre/30 px-2 py-1">CS_002</span>
+</div>
+<div class="flex flex-col md:flex-row gap-10">
+<div class="md:w-1/3 space-y-6">
+<div>
+<h3 class="text-3xl font-display font-light text-white mb-2 group-hover:text-ochre transition-colors">VOID SYSTEM</h3>
+<p class="font-mono text-xs text-stone-500 uppercase">DevSecOps / Infrastructure</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">Kubernetes</span>
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">Go</span>
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">Terraform</span>
+</div>
+</div>
+<div class="md:w-2/3 flex flex-col justify-between">
+<p class="text-stone-400 font-light leading-relaxed mb-8">
+                                Automated container orchestration system with a Zero Trust security model. Implemented GitOps pipelines that reduced deployment lead time by 70% while hardening system security postures.
+                            </p>
+<div class="flex items-center justify-between border-t border-white/10 pt-6">
+<div class="flex gap-6 text-[10px] font-mono text-stone-500">
+<span>SECURITY: A+</span>
+<span>NODES: 500+</span>
+</div>
+<a class="flex items-center gap-2 text-ochre font-mono text-xs hover:underline decoration-ochre underline-offset-4 uppercase" href="#">
+                                    VIEW DETAILS <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<article class="technical-card p-8 md:p-10 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(217,119,6,0.1)]">
+<div class="absolute top-0 right-0 p-4 opacity-50">
+<span class="font-mono text-[10px] text-stone-600 border border-stone-800 px-2 py-1 uppercase">WIP_003</span>
+</div>
+<div class="flex flex-col md:flex-row gap-10 opacity-70 hover:opacity-100 transition-opacity">
+<div class="md:w-1/3 space-y-6">
+<div>
+<h3 class="text-3xl font-display font-light text-white mb-2 group-hover:text-ochre transition-colors uppercase">Aether AI</h3>
+<p class="font-mono text-xs text-stone-500 uppercase">Machine Learning / Backend</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">Python</span>
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">PyTorch</span>
+<span class="px-2 py-1 bg-white/5 text-[10px] font-mono text-stone-300">FastAPI</span>
+</div>
+</div>
+<div class="md:w-2/3 flex flex-col justify-between">
+<p class="text-stone-400 font-light leading-relaxed mb-8">
+                                Distributed neural network training system designed for massive-scale time-series analysis and predictive modeling. Project currently under active development.
+                            </p>
+<div class="flex items-center justify-between border-t border-white/10 pt-6">
+<div class="flex gap-6 text-[10px] font-mono text-stone-500">
+<span>STATUS: IN_DEV</span>
+</div>
+<span class="flex items-center gap-2 text-stone-600 font-mono text-xs cursor-not-allowed uppercase">
+                                    COMING SOON <span class="material-symbols-outlined text-[14px]">lock</span>
+</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+<div class="mt-16 text-center">
+<a class="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-mono font-medium tracking-tighter text-black bg-ochre border border-ochre hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(217,119,6,0.4)]" href="#">
+<span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+<span class="relative flex items-center gap-3 uppercase">
+                        All Projects on GitHub
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">code</span>
+</span>
+</a>
+</div>
+</section>
+<section class="mb-32 scroll-mt-32" id="about">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div>
+<div class="font-mono text-ochre text-xs mb-8 flex items-center gap-2 uppercase tracking-widest">
+<span class="material-symbols-outlined text-lg">terminal</span>
+                        02 // Tech Stack
+                    </div>
+<h2 class="text-3xl font-light text-white mb-6 uppercase">Tech Stack</h2>
+<div class="space-y-6">
+<div class="group">
+<div class="flex justify-between text-xs font-mono text-stone-400 mb-2 uppercase tracking-widest">
+<span>Backend</span>
+<span class="text-ochre opacity-0 group-hover:opacity-100 transition-opacity">&gt;&gt;&gt;</span>
+</div>
+<div class="h-[1px] w-full bg-white/10 group-hover:bg-ochre/50 transition-colors mb-2"></div>
+<p class="text-sm text-stone-300">Rust, Go, Python, Node.js, gRPC, GraphQL</p>
+</div>
+<div class="group">
+<div class="flex justify-between text-xs font-mono text-stone-400 mb-2 uppercase tracking-widest">
+<span>Infrastructure</span>
+<span class="text-ochre opacity-0 group-hover:opacity-100 transition-opacity">&gt;&gt;&gt;</span>
+</div>
+<div class="h-[1px] w-full bg-white/10 group-hover:bg-ochre/50 transition-colors mb-2"></div>
+<p class="text-sm text-stone-300">Kubernetes, Terraform, AWS, Docker, CI/CD</p>
+</div>
+<div class="group">
+<div class="flex justify-between text-xs font-mono text-stone-400 mb-2 uppercase tracking-widest">
+<span>Database</span>
+<span class="text-ochre opacity-0 group-hover:opacity-100 transition-opacity">&gt;&gt;&gt;</span>
+</div>
+<div class="h-[1px] w-full bg-white/10 group-hover:bg-ochre/50 transition-colors mb-2"></div>
+<p class="text-sm text-stone-300">PostgreSQL, Redis, ClickHouse, MongoDB</p>
+</div>
+</div>
+</div>
+<div class="bg-black/30 border border-white/5 p-8 backdrop-blur-sm relative overflow-hidden">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-ochre/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="font-mono text-[10px] text-stone-500 mb-4 uppercase">terminal_output.log</div>
+<pre class="font-mono text-[11px] text-stone-300 overflow-x-hidden leading-relaxed"><span class="text-green-500">user@nexus:~$</span> whoami
+<span class="text-ochre">Nikita Vasilenko</span>
+<span class="text-green-500">user@nexus:~$</span> cat bio.txt
+Focused on building scalable, secure, and 
+high-performance backend systems. 
+Passionate about low-level optimization 
+and cloud architecture.
+<span class="text-green-500">user@nexus:~$</span> ./run_diagnostics.sh
+<span class="text-stone-500">Loading modules...</span>
+<span class="text-green-500">[OK]</span> Problem Solving
+<span class="text-green-500">[OK]</span> System Design
+<span class="text-green-500">[OK]</span> Leadership
+<span class="cursor-blink">_</span>
+                    </pre>
+</div>
+</div>
+</section>
+<footer class="border-t border-white/10 pt-20 relative scroll-mt-32" id="contact">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background-dark px-4 text-ochre">
+<span class="material-symbols-outlined animate-bounce">expand_circle_down</span>
+</div>
+<div class="font-mono text-xs text-stone-500 mb-12 tracking-widest uppercase flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-ochre"></span>
+                COMMUNICATION_PROTOCOL
+            </div>
+<div class="flex flex-col gap-2">
+<a class="group flex items-baseline justify-between border-b border-white/5 pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href="#">
+<span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">Telegram</span>
+<div class="text-right">
+<span class="font-mono text-xs text-stone-500 group-hover:text-ochre block">@nikita_dev</span>
+<span class="text-[10px] font-mono text-stone-600 opacity-0 group-hover:opacity-100 transition-opacity uppercase">SEND MESSAGE -&gt;</span>
+</div>
+</a>
+<a class="group flex items-baseline justify-between border-b border-white/5 pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href="#">
+<span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">Email</span>
+<div class="text-right">
+<span class="font-mono text-xs text-stone-500 group-hover:text-ochre block">hello@nikita.dev</span>
+<span class="text-[10px] font-mono text-stone-600 opacity-0 group-hover:opacity-100 transition-opacity uppercase">COPY ADDRESS -&gt;</span>
+</div>
+</a>
+<a class="group flex items-baseline justify-between border-b border-white/5 pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href="#">
+<span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">GitHub</span>
+<div class="text-right">
+<span class="font-mono text-xs text-stone-500 group-hover:text-ochre block">/nikitavasilenko</span>
+<span class="text-[10px] font-mono text-stone-600 opacity-0 group-hover:opacity-100 transition-opacity uppercase">VIEW REPO -&gt;</span>
+</div>
+</a>
+</div>
+<div class="mt-20 flex justify-between items-end font-mono text-[10px] text-stone-600 uppercase">
+<div>
+                    © 2024 UNIFIED SYSTEMS<br/>
+                    ALL RIGHTS RESERVED
+                </div>
+<div class="text-right">
+                    BUILD_ID: 8842-AF<br/>
+<span class="text-ochre uppercase">System_Ready</span>
+</div>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Кейс: NEXUS Protocol - Никита Василенко</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#A85D3D", // Sophisticated bronze/burnt orange
+                        "bronze": "#A85D3D",
+                        "cream-bg": "#FDFCF0",
+                        "charcoal": "#1C1C1C",
+                        "ink": "#1C1C1C",
+                        "surface-light": "rgba(255, 255, 255, 0.6)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Space Mono", "monospace"],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                font-family: 'Space Grotesk', sans-serif;
+                @apply bg-cream-bg text-charcoal;
+            }
+        }
+        :root {
+            --grid-color: rgba(168, 93, 61, 0.08);
+        }
+        .grid-bg {
+            background-size: 40px 40px;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px #A85D3D;
+            color: transparent;
+        }
+        .text-stroke:hover {
+            color: #A85D3D;
+            -webkit-text-stroke: 0px transparent;
+        }
+        .technical-card {
+            position: relative;
+            border: 1px solid rgba(168, 93, 61, 0.2);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(168, 93, 61, 0.05);
+        }
+        .technical-card::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px;
+            width: 8px; height: 8px;
+            border-top: 2px solid #A85D3D;
+            border-left: 2px solid #A85D3D;
+        }
+        .technical-card::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; right: -1px;
+            width: 8px; height: 8px;
+            border-bottom: 2px solid #A85D3D;
+            border-right: 2px solid #A85D3D;
+        }
+        .glowing-text {
+            text-shadow: 0 0 10px rgba(168, 93, 61, 0.2);
+        }
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #A85D3D #FDFCF0;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFCF0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #A85D3D;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen relative overflow-x-hidden selection:bg-bronze/20 selection:text-bronze">
+<div class="fixed inset-0 z-0 bg-grid-pattern opacity-100 grid-bg pointer-events-none"></div>
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="absolute top-8 left-8 w-6 h-6 border-l border-t border-bronze/30"></div>
+<div class="absolute top-8 right-8 w-6 h-6 border-r border-t border-bronze/30"></div>
+<div class="absolute bottom-8 left-8 w-6 h-6 border-l border-b border-bronze/30"></div>
+<div class="absolute bottom-8 right-8 w-6 h-6 border-r border-b border-bronze/30"></div>
+<div class="absolute top-0 left-12 w-[1px] h-full bg-bronze/10 hidden md:block"></div>
+<div class="absolute top-0 right-12 w-[1px] h-full bg-bronze/10 hidden md:block"></div>
+</div>
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 mix-blend-normal bg-cream-bg/80 backdrop-blur-md border-b border-bronze/10">
+<a class="flex items-center gap-3 font-mono text-xs hover:text-bronze transition-colors group text-charcoal/70" href="#">
+<div class="w-6 h-6 border border-charcoal/20 flex items-center justify-center group-hover:border-bronze transition-colors">
+<span class="material-symbols-outlined text-[14px]">arrow_back</span>
+</div>
+<span class="tracking-widest uppercase">Индекс</span>
+</a>
+<div class="hidden md:flex items-center gap-8">
+<div class="flex gap-8 font-mono text-[10px] text-charcoal/50 tracking-widest border-r border-bronze/20 pr-8">
+<span>ЗАДЕРЖКА: 12мс</span>
+<span class="text-bronze font-bold">БЕЗОПАСНОЕ_СОЕДИНЕНИЕ</span>
+<span>REF: CS_001</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center font-mono text-[10px] tracking-wider">
+<button class="text-bronze font-bold hover:opacity-80 transition-opacity">RU</button>
+<span class="mx-2 text-charcoal/30">/</span>
+<button class="text-charcoal/50 hover:text-bronze transition-colors">EN</button>
+</div>
+<button aria-label="Toggle Theme" class="w-8 h-8 border border-bronze/20 bg-white/40 flex items-center justify-center text-charcoal/70 hover:text-bronze hover:border-bronze hover:shadow-[0_0_10px_rgba(168,93,61,0.2)] transition-all duration-300 rounded-sm group">
+<span class="material-symbols-outlined text-[18px]">light_mode</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4 md:hidden">
+<button class="font-mono text-[10px] text-bronze font-bold border border-bronze/20 px-2 py-1 rounded">RU</button>
+<div class="w-6 h-6 border border-bronze/20 text-charcoal/70 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">menu</span>
+</div>
+</div>
+</nav>
+<div class="relative z-10 w-full max-w-[1800px] mx-auto min-h-screen flex flex-col md:flex-row">
+<aside class="hidden md:flex flex-col w-64 h-screen sticky top-0 pt-32 pb-12 pl-12 justify-between">
+<div class="space-y-8 border-l border-bronze/20 pl-6 relative">
+<div class="absolute -left-[1px] top-0 w-[1px] h-12 bg-bronze shadow-[0_0_10px_rgba(168,93,61,0.3)]"></div>
+<div>
+<div class="font-mono text-[9px] text-charcoal/40 tracking-widest uppercase mb-4">Навигация</div>
+<ul class="space-y-4 font-mono text-[11px]">
+<li><a class="block text-bronze font-bold flex items-center gap-2 group" href="#overview"><span class="w-1 h-1 bg-bronze group-hover:scale-150 transition-transform shadow-[0_0_5px_rgba(168,93,61,0.5)]"></span> 00_ОБЗОР</a></li>
+<li><a class="block text-charcoal/50 hover:text-bronze transition-colors group flex items-center gap-2" href="#challenge"><span class="w-1 h-1 bg-charcoal/20 group-hover:bg-bronze transition-colors"></span> 01_ПРОБЛЕМА</a></li>
+<li><a class="block text-charcoal/50 hover:text-bronze transition-colors group flex items-center gap-2" href="#stack"><span class="w-1 h-1 bg-charcoal/20 group-hover:bg-bronze transition-colors"></span> 02_ТЕХ_СТЕК</a></li>
+<li><a class="block text-charcoal/50 hover:text-bronze transition-colors group flex items-center gap-2" href="#outcome"><span class="w-1 h-1 bg-charcoal/20 group-hover:bg-bronze transition-colors"></span> 03_РЕЗУЛЬТАТ</a></li>
+</ul>
+</div>
+</div>
+<div class="font-mono text-[9px] text-charcoal/40 pl-6 border-l border-bronze/20">
+<div class="mb-1 uppercase tracking-tighter">СТАТУС_СИСТЕМЫ</div>
+<div class="text-bronze flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-bronze animate-pulse"></span> АКТИВНО</div>
+</div>
+</aside>
+<main class="flex-1 pt-32 px-6 md:px-16 pb-32 max-w-6xl mx-auto w-full">
+<section class="mb-32 relative text-center md:text-left" id="overview">
+<div class="hidden md:block absolute -top-10 left-0 w-8 h-[1px] bg-bronze/30"></div>
+<div class="hidden md:block absolute -top-10 left-0 h-4 w-[1px] bg-bronze/30"></div>
+<div class="inline-flex items-center gap-3 px-3 py-1 mb-8 border border-bronze/30 bg-bronze/5 text-bronze font-mono text-[10px] tracking-[0.2em] uppercase backdrop-blur-sm">
+<span class="w-1.5 h-1.5 bg-bronze rounded-sm"></span>
+                    Финтех Архитектура
+                </div>
+<h1 class="font-display font-light text-[12vw] md:text-[8rem] lg:text-[9rem] leading-[0.85] tracking-tighter text-charcoal mb-16 select-none relative uppercase">
+                    NEXUS<br/><span class="text-stroke">PROTOCOL</span>
+<span class="absolute -right-4 -top-4 md:right-20 md:top-4 text-xs md:text-sm font-mono text-bronze tracking-normal opacity-80 rotate-12 border border-bronze/30 bg-white/80 px-2 py-1 rounded-full backdrop-blur-sm shadow-sm">v2.0 Beta</span>
+</h1>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 border-y border-bronze/20 py-8 font-mono text-xs">
+<div class="border-r border-bronze/20 pr-4 last:border-none">
+<span class="text-charcoal/40 block mb-2 text-[10px] tracking-widest">РОЛЬ</span>
+                        Ведущий Инженер
+                    </div>
+<div class="border-r border-bronze/20 pr-4 last:border-none">
+<span class="text-charcoal/40 block mb-2 text-[10px] tracking-widest">СРОКИ</span>
+                        Q3 2023 - Q1 2024
+                    </div>
+<div class="col-span-2 md:col-span-2 pl-0 md:pl-4">
+<span class="text-charcoal/40 block mb-2 text-[10px] tracking-widest uppercase">Ключевые задачи</span>
+                        Системная Архитектура, Визуализация Real-time, Смарт-контракты
+                    </div>
+</div>
+</section>
+<section class="mb-24 scroll-mt-32" id="challenge">
+<div class="technical-card p-8 md:p-14 group transition-all duration-500 hover:shadow-[0_15px_40px_rgba(168,93,61,0.08)]">
+<div class="flex flex-col md:flex-row justify-between items-start gap-8">
+<div class="md:w-1/3">
+<div class="font-mono text-bronze text-xs mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">crisis_alert</span>
+                                01 // ПРОБЛЕМА
+                            </div>
+<div class="h-[1px] w-12 bg-bronze mb-8"></div>
+</div>
+<div class="md:w-2/3">
+<h2 class="text-3xl md:text-4xl font-light mb-6 leading-tight text-charcoal">Преодоление задержек в визуализации HFT.</h2>
+<p class="text-charcoal/70 leading-relaxed text-lg font-light">
+                                Основной проблемой был рендеринг <span class="text-bronze font-medium">50,000+ точек данных в секунду</span> без блокировки основного потока. Традиционные манипуляции с DOM были слишком медленными для требуемой частоты обновления 60Гц. Нам требовалось решение, способное обрабатывать огромный поток данных, сохраняя отзывчивость интерфейса.
+                            </p>
+<div class="mt-10 grid grid-cols-2 gap-4">
+<div class="bg-white/60 border border-bronze/10 p-4 backdrop-blur-md">
+<div class="text-bronze font-display text-3xl md:text-4xl mb-1">50k+</div>
+<div class="font-mono text-[10px] text-charcoal/40 uppercase">Точек / Сек</div>
+</div>
+<div class="bg-white/60 border border-bronze/10 p-4 backdrop-blur-md">
+<div class="text-bronze font-display text-3xl md:text-4xl mb-1">&lt;16ms</div>
+<div class="font-mono text-[10px] text-charcoal/40 uppercase">Бюджет Кадра</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-24 scroll-mt-32" id="stack">
+<div class="technical-card p-8 md:p-14">
+<div class="font-mono text-bronze text-xs mb-8 flex items-center justify-between">
+<span>02 // ТЕХНОЛОГИЧЕСКИЙ СТЕК</span>
+<span class="text-charcoal/30">[СИСТЕМНАЯ_АРХИТЕКТУРА]</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+<div>
+<h3 class="text-2xl font-light mb-4 text-charcoal">Гибридный Движок Рендеринга</h3>
+<p class="text-sm text-charcoal/70 leading-relaxed mb-6">
+                                Мы использовали кастомный WebGL рендерер для слоя данных, наложенный на UI на базе React. Это разделение обязанностей позволило перенести тяжелые вычисления на GPU.
+                            </p>
+<ul class="font-mono text-xs space-y-2 text-charcoal/60">
+<li class="flex items-center gap-2"><span class="text-bronze">&gt;&gt;&gt;</span> React 18 (Concurrent Mode)</li>
+<li class="flex items-center gap-2"><span class="text-bronze">&gt;&gt;&gt;</span> Three.js / WebGL Custom Shaders</li>
+<li class="flex items-center gap-2"><span class="text-bronze">&gt;&gt;&gt;</span> Rust / WebAssembly (Calculation)</li>
+<li class="flex items-center gap-2"><span class="text-bronze">&gt;&gt;&gt;</span> WebSocket (Real-time Feed)</li>
+</ul>
+</div>
+<div class="bg-charcoal p-6 rounded-sm border-l-2 border-bronze relative shadow-xl overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl text-white">code</span>
+</div>
+<div class="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
+<span class="font-mono text-[10px] text-white/40">worker_thread.rs</span>
+<div class="flex gap-1.5">
+<div class="w-2 h-2 rounded-full bg-red-400/40"></div>
+<div class="w-2 h-2 rounded-full bg-yellow-400/40"></div>
+<div class="w-2 h-2 rounded-full bg-green-400/40"></div>
+</div>
+</div>
+<pre class="font-mono text-[10px] md:text-xs text-stone-300 overflow-x-auto"><code><span class="text-orange-300">fn</span> <span class="text-blue-300">process_tick</span>(data: &amp;Tick) -&gt; Update {
+    <span class="text-stone-500">// SIMD оптимизация</span>
+    <span class="text-orange-300">let</span> vector = <span class="text-yellow-200">f32x4</span>::from(data.price);
+    <span class="text-orange-300">let</span> volatility = vector * WEIGHTS;
+    <span class="text-blue-300">Update</span> {
+        id: data.id,
+        val: volatility.<span class="text-blue-300">reduce_sum</span>()
+    }
+}</code></pre>
+<div class="mt-4 flex items-center gap-2 text-[9px] font-mono text-white/40">
+<span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> КОМПИЛЯЦИЯ_УСПЕШНА
+                            </div>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-40 scroll-mt-32" id="outcome">
+<div class="relative pl-8 md:pl-12 border-l border-bronze/30">
+<div class="absolute top-0 left-0 -translate-x-1/2 w-3 h-3 bg-cream-bg border border-bronze rotate-45 shadow-[0_0_5px_rgba(168,93,61,0.3)]"></div>
+<div class="absolute bottom-0 left-0 -translate-x-1/2 w-3 h-3 bg-cream-bg border border-bronze rotate-45 shadow-[0_0_5px_rgba(168,93,61,0.3)]"></div>
+<div class="font-mono text-bronze text-xs mb-6 uppercase tracking-wider">03 // РЕЗУЛЬТАТ</div>
+<div class="flex flex-col md:flex-row items-end gap-12">
+<div class="flex-1">
+<h2 class="text-5xl md:text-7xl font-display font-light mb-6 text-charcoal">400%<span class="text-2xl md:text-4xl text-bronze align-top ml-2">+</span></h2>
+<h3 class="text-xl font-medium mb-4 text-charcoal/80 uppercase tracking-tight">Прирост Производительности</h3>
+<p class="text-charcoal/60 max-w-xl mb-8 leading-relaxed">
+                                Финальная реализация сократила время блокировки основного потока на 95% и увеличила частоту кадров с 15fps до стабильных 60fps на среднем потребительском оборудовании. Платформа теперь обрабатывает $2B дневного объема.
+                            </p>
+</div>
+<div class="w-full md:w-auto pb-2">
+<a class="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-bronze border border-bronze hover:bg-charcoal transition-all duration-300 shadow-[0_5px_20px_rgba(168,93,61,0.2)]" href="#">
+<span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white/10 rounded-full group-hover:w-56 group-hover:h-56"></span>
+<span class="relative flex items-center gap-3">
+                                    СМОТРЕТЬ_КЕЙС 
+                                    <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_outward</span>
+</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<footer class="border-t border-bronze/20 pt-20 relative">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-cream-bg px-4 text-bronze">
+<span class="material-symbols-outlined animate-bounce">expand_circle_down</span>
+</div>
+<div class="font-mono text-xs text-charcoal/40 mb-12 tracking-widest uppercase">Протокол_Связи</div>
+<div class="flex flex-col gap-2">
+<a class="group flex items-baseline justify-between border-b border-bronze/10 pb-6 pt-2 hover:border-bronze transition-colors cursor-pointer" href="#">
+<span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-bronze transition-all duration-300">TELEGRAM</span>
+<div class="text-right">
+<span class="font-mono text-xs text-charcoal/50 group-hover:text-bronze block">@nikita_dev</span>
+<span class="text-[10px] font-mono text-bronze opacity-0 group-hover:opacity-100 transition-opacity">ОТПРАВИТЬ -&gt;</span>
+</div>
+</a>
+<a class="group flex items-baseline justify-between border-b border-bronze/10 pb-6 pt-2 hover:border-bronze transition-colors cursor-pointer" href="#">
+<span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-bronze transition-all duration-300">EMAIL</span>
+<div class="text-right">
+<span class="font-mono text-xs text-charcoal/50 group-hover:text-bronze block">hello@nikita.dev</span>
+<span class="text-[10px] font-mono text-bronze opacity-0 group-hover:opacity-100 transition-opacity uppercase">СКОПИРОВАТЬ -&gt;</span>
+</div>
+</a>
+<a class="group flex items-baseline justify-between border-b border-bronze/10 pb-6 pt-2 hover:border-bronze transition-colors cursor-pointer" href="#">
+<span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-bronze transition-all duration-300 uppercase">Github</span>
+<div class="text-right">
+<span class="font-mono text-xs text-charcoal/50 group-hover:text-bronze block">/nikitavasilenko</span>
+<span class="text-[10px] font-mono text-bronze opacity-0 group-hover:opacity-100 transition-opacity uppercase">СМОТРЕТЬ_REPO -&gt;</span>
+</div>
+</a>
+</div>
+<div class="mt-20 flex justify-between items-end font-mono text-[10px] text-charcoal/40 uppercase">
+<div>
+                        © 2024 ЕДИНЫЕ СИСТЕМЫ<br/>
+                        ВСЕ ПРАВА ЗАЩИЩЕНЫ
+                    </div>
+<div class="text-right">
+                        СБОРКА_ID: 8842-AF<br/>
+<span class="text-bronze">СИСТЕМА_ГОТОВА</span>
+</div>
+</div>
+</footer>
+</main>
+</div>
+
+</body></html>

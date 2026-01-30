@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CaseStudyPage from "../../../components/CaseStudyPage.astro";
+import { getCollection, getEntryBySlug } from "astro:content";
+import { getSite } from "../../../data/site";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("case-studies", ({ data, id }) => {
+    return id.startsWith("en/") && data.published !== false;
+  });
+
+  return entries.map((entry) => ({
+    params: { slug: entry.slug.replace(/^en\//, "") }
+  }));
+}
+
+const { slug } = Astro.params;
+const entries = await getCollection("case-studies", ({ data, id }) => {
+  return id.startsWith("en/") && data.published !== false;
+});
+const entry = entries.find((item) => item.slug === `en/${slug}`);
+const site = getSite("en");
+
+if (!entry || entry.data.published === false) {
+  throw new Error("Case study not found");
+}
+
+const caseStudy = { slug, ...entry.data };
+---
+
+<BaseLayout
+  title={`${caseStudy.title} — Case Study`}
+  description={site.meta.description}
+  locale={site.locale}
+  ogImage={site.meta.ogImage}
+  url={`${site.meta.url}/project/${slug}`}
+>
+  <CaseStudyPage caseStudy={caseStudy} site={site} />
+</BaseLayout>

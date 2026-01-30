@@ -2,37 +2,43 @@
 const { hero } = Astro.props;
 ---
 
-<section class="section-pad relative overflow-hidden">
-  <div class="max-wrap relative z-10">
-    <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-      <div class="space-y-6">
-        <p class="text-xs uppercase tracking-[0.3em] text-black/50">{hero.tagline}</p>
-        <h1 class="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-          {hero.name}
-        </h1>
-        <p class="max-w-xl text-base text-black/70 sm:text-lg">
-          {hero.description}
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a class="btn btn-primary" href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</a>
-          <a class="btn btn-secondary" href={hero.ctaSecondary.href}>{hero.ctaSecondary.label}</a>
-        </div>
-        <p class="text-sm text-black/50">{hero.note}</p>
+<section id="hero" class="relative pb-20 pt-32 md:pt-40">
+  <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+    <div class="space-y-8">
+      <div class="mono inline-flex items-center gap-3 border border-[color:rgb(var(--color-accent)/0.25)] bg-[color:rgb(var(--color-accent)/0.08)] px-3 py-1 text-[10px] uppercase tracking-[0.35em] text-[rgb(var(--color-accent))]" data-hero-item>
+        <span class="h-2 w-2 rounded-sm bg-[rgb(var(--color-accent))] shadow-[0_0_6px_rgba(217,119,6,0.5)]"></span>
+        {hero.tagline}
       </div>
-      <div class="relative">
-        <div class="card card-hover relative overflow-hidden">
-          <div class="mb-4 text-xs uppercase tracking-[0.3em] text-black/40">{hero.cardKicker}</div>
-          <h2 class="text-2xl font-semibold">{hero.cardTitle}</h2>
-          <p class="mt-4 text-sm text-black/60">{hero.cardText}</p>
-          <div class="mt-6 flex flex-wrap gap-2">
-            {hero.cardChips.map((chip) => (
-              <span class="chip">{chip}</span>
-            ))}
-          </div>
-        </div>
-        <div class="absolute -bottom-10 -right-8 hidden h-32 w-32 rounded-full bg-[rgb(var(--color-accent-2))]/20 blur-2xl lg:block"></div>
+      <h1 class="text-[12vw] font-light leading-[0.85] tracking-tight text-[rgb(var(--color-ink))] md:text-[7rem]" data-hero-item>
+        {hero.name.split(" ")[0]}
+        <br />
+        <span class="text-stroke text-[color:rgb(var(--color-ink)/0.4)]">{hero.name.split(" ").slice(1).join(" ")}</span>
+      </h1>
+      <p class="max-w-xl text-lg text-[rgb(var(--color-muted))]" data-hero-item>
+        {hero.description}
+      </p>
+      <div class="flex flex-wrap gap-4" data-hero-item>
+        <a class="btn btn-primary" href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</a>
+        <a class="btn btn-ghost" href={hero.ctaSecondary.href}>{hero.ctaSecondary.label}</a>
+      </div>
+      <div class="mono text-[10px] uppercase tracking-[0.3em] text-[rgb(var(--color-muted))]" data-hero-item>
+        {hero.note}
       </div>
     </div>
+    <div class="relative" data-hero-item>
+      <div class="terminal-card p-6 md:p-8">
+        <div class="mono mb-4 text-[10px] uppercase tracking-[0.28em] text-[rgb(var(--color-muted))]">
+          {hero.cardKicker}
+        </div>
+        <h2 class="text-2xl font-light text-[rgb(var(--color-ink))]">{hero.cardTitle}</h2>
+        <p class="mt-4 text-sm text-[rgb(var(--color-muted))]">{hero.cardText}</p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {hero.cardChips.map((chip) => (
+            <span class="chip">{chip}</span>
+          ))}
+        </div>
+      </div>
+      <div class="absolute -right-6 -top-6 hidden h-24 w-24 rounded-full border border-[color:rgb(var(--color-accent)/0.2)] blur-[1px] md:block"></div>
+    </div>
   </div>
-  <div class="pointer-events-none absolute -top-20 right-0 h-64 w-64 rounded-full bg-[rgb(var(--color-accent))]/20 blur-3xl"></div>
 </section>

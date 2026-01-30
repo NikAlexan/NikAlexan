@@ -1,0 +1,99 @@
+import { defineCollection, z } from "astro:content";
+
+const projectsCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    company: z.string().optional(),
+    role: z.string().optional(),
+    period: z
+      .object({
+        start: z.string(),
+        end: z.string().nullable()
+      })
+      .optional(),
+    location: z.string().optional(),
+    type: z.enum(["full-time", "part-time", "contract", "internship"]).optional(),
+    stack: z.array(z.string()),
+    order: z.number(),
+    status: z.enum(["completed", "ongoing", "wip"]).default("completed"),
+    tags: z.array(z.string()).optional(),
+    category: z.enum(["web", "mobile", "backend", "devops"]).optional(),
+    caseStudySlug: z.string().optional(),
+    links: z
+      .array(
+        z.object({
+          label: z.string(),
+          href: z.string(),
+          icon: z.string().optional()
+        })
+      )
+      .optional()
+  })
+});
+
+const caseStudiesCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    tag: z.string(),
+    title: z.string(),
+    subtitle: z.string(),
+    version: z.string(),
+    roleLabel: z.string(),
+    role: z.string(),
+    timelineLabel: z.string(),
+    timeline: z.string(),
+    deliverablesLabel: z.string(),
+    deliverables: z.string(),
+    challengeLabel: z.string(),
+    challengeTitle: z.string(),
+    challengeBody: z.string(),
+    challengeMetrics: z.array(z.object({ value: z.string(), label: z.string() })),
+    stackLabel: z.string(),
+    stackTitle: z.string(),
+    stackBody: z.string(),
+    stack: z.array(z.string()),
+    outcomeLabel: z.string(),
+    outcomes: z.array(z.object({ title: z.string(), text: z.string() })),
+    console: z.object({
+      filename: z.string(),
+      languageTag: z.string().optional(),
+      code: z.string(),
+      statusLabel: z.string(),
+      statusState: z.enum(["success", "warning", "error", "info"])
+    }),
+    outcome: z.object({
+      metric: z.string(),
+      title: z.string(),
+      body: z.string(),
+      ctaLabel: z.string(),
+      ctaHref: z.string()
+    }),
+    published: z.boolean().default(true)
+  })
+});
+
+const contactCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    links: z.array(
+      z.object({
+        label: z.string(),
+        href: z.string().optional(),
+        handle: z.string().optional(),
+        ctaLabel: z.string().optional(),
+        order: z.number().optional(),
+        icon: z.string().optional(),
+        note: z.string().optional(),
+        disabled: z.boolean().optional()
+      })
+    )
+  })
+});
+
+export const collections = {
+  projects: projectsCollection,
+  "case-studies": caseStudiesCollection,
+  contact: contactCollection
+};

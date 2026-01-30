@@ -1,0 +1,47 @@
+---
+const { links = [], title = "COMMUNICATION_PROTOCOL" } = Astro.props;
+
+const sortedLinks = [...links].sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+---
+
+<div class="font-mono text-xs text-muted mb-12 tracking-widest uppercase flex items-center gap-2">
+  <span class="w-1.5 h-1.5 bg-ochre"></span>
+  {title}
+</div>
+<div class="flex flex-col gap-2">
+  {sortedLinks.map((link) => {
+    const isDisabled = link.disabled || !link.href;
+    const content = (
+      <>
+        <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">
+          {link.label}
+        </span>
+        <div class="text-right">
+          {link.handle && (
+            <span class="font-mono text-xs text-muted group-hover:text-ochre block">{link.handle}</span>
+          )}
+          {link.ctaLabel && (
+            <span class="text-[10px] font-mono text-disabled opacity-0 group-hover:opacity-100 transition-opacity uppercase">
+              {link.ctaLabel}
+            </span>
+          )}
+        </div>
+      </>
+    );
+
+    const baseClass =
+      "group flex items-baseline justify-between border-b border-softer pb-6 pt-2 transition-colors";
+    const activeClass = "hover:border-ochre cursor-pointer";
+    const disabledClass = "opacity-60 cursor-not-allowed";
+
+    return isDisabled ? (
+      <div class={`${baseClass} ${disabledClass}`} aria-disabled="true">
+        {content}
+      </div>
+    ) : (
+      <a class={`${baseClass} ${activeClass}`} href={link.href}>
+        {content}
+      </a>
+    );
+  })}
+</div>

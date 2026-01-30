@@ -1,47 +1,50 @@
 ---
-const { logo, homeHref, links, cta } = Astro.props;
+const { homeHref, links, locale, ruHref = "/", enHref = "/en" } = Astro.props;
+const altLocale = locale === "ru" ? "en" : "ru";
+const altHref = locale === "ru" ? enHref : ruHref;
 ---
 
-<header class="sticky top-0 z-50 border-b border-black/5 bg-[rgb(var(--color-bg))]/80 backdrop-blur">
-  <div class="max-wrap flex items-center justify-between gap-6 px-6 py-4 sm:px-10">
-    <a href={homeHref} class="text-sm font-semibold tracking-wide text-black/80">
-      {logo}
-    </a>
-    <nav class="hidden items-center gap-6 text-sm font-medium text-black/70 md:flex">
-      {links.map((link) => (
-        <a class="transition hover:text-black" href={link.href}>{link.label}</a>
-      ))}
-    </nav>
-    <div class="hidden md:flex">
-      <a class="btn btn-primary" href={cta.href}>{cta.label}</a>
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 mix-blend-normal bg-background-dark/40 backdrop-blur-md border-b border-soft md:bg-transparent md:backdrop-blur-none md:border-none">
+  <a class="flex items-center gap-3 font-mono text-xs hover:text-ochre transition-colors group text-muted" href={homeHref}>
+    <div class="w-6 h-6 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] flex items-center justify-center group-hover:border-ochre transition-colors">
+      <span class="material-symbols-outlined text-[14px]">grid_view</span>
     </div>
+    <span class="tracking-widest uppercase">Index</span>
+  </a>
+  <div class="hidden md:flex items-center gap-8">
+    <div class="flex gap-8 font-mono text-[10px] text-muted tracking-widest border-r border-soft pr-8">
+      <span>LATENCY: 12ms</span>
+      <span class="text-[color-mix(in_srgb,var(--color-status-online)_85%,transparent)] uppercase">Secure_Connection</span>
+      <span>SYS: ONLINE</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <div class="flex items-center font-mono text-[10px] tracking-wider">
+        <a class={locale === "ru" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"} href={ruHref}>RU</a>
+        <span class="mx-2 text-[color-mix(in_srgb,var(--color-ink)_30%,transparent)]">/</span>
+        <a class={locale === "en" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"} href={enHref}>EN</a>
+      </div>
+      <button
+        aria-label="Toggle Theme"
+        class="theme-toggle w-8 h-8 border border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] bg-surface/30 flex items-center justify-center text-bronze transition-all duration-300 rounded-sm group"
+        data-theme-toggle
+      >
+        <span class="material-symbols-outlined text-[16px] theme-light group-hover:text-cream">dark_mode</span>
+        <span class="material-symbols-outlined text-[16px] theme-dark group-hover:text-cream">light_mode</span>
+      </button>
+    </div>
+  </div>
+  <div class="flex items-center gap-4 md:hidden">
+    <a class="font-mono text-[10px] text-ochre font-bold border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] px-2 py-1 rounded" href={altHref}>
+      {altLocale.toUpperCase()}
+    </a>
     <button
-      class="md:hidden"
-      type="button"
-      aria-label="Toggle menu"
+      class="w-6 h-6 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-muted flex items-center justify-center"
       data-menu-toggle
+      aria-label="Open menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
     >
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 7h16M4 12h16M4 17h16" />
-      </svg>
+      <span class="material-symbols-outlined text-[14px]">menu</span>
     </button>
   </div>
-  <div class="md:hidden" data-menu hidden>
-    <div class="flex flex-col gap-4 border-t border-black/5 bg-white px-6 py-6">
-      {links.map((link) => (
-        <a class="text-sm font-medium text-black/80" href={link.href}>{link.label}</a>
-      ))}
-      <a class="btn btn-primary w-full" href={cta.href}>{cta.label}</a>
-    </div>
-  </div>
-  <script is:inline>
-    const toggle = document.querySelector("[data-menu-toggle]");
-    const menu = document.querySelector("[data-menu]");
-
-    if (toggle && menu) {
-      toggle.addEventListener("click", () => {
-        menu.toggleAttribute("hidden");
-      });
-    }
-  </script>
-</header>
+</nav>

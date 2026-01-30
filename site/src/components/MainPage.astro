@@ -1,0 +1,310 @@
+---
+import MobileMenu from "./MobileMenu.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import { getCollection } from "astro:content";
+
+const { site } = Astro.props;
+
+const [firstName, ...restName] = site.hero.name.split(" ");
+const lastName = restName.join(" ");
+
+const navItems = [
+  { label: "HOME", href: "#hero" },
+  ...site.nav.links
+];
+
+const chips = site.hero.cardChips;
+
+const menuItems = [
+  { label: "Index", href: site.nav.homeHref },
+  ...site.nav.links.map((link, index) => ({ ...link, active: index === 0 }))
+];
+
+const github = site.contact.socials.find((item) => item.label.toLowerCase() === "github");
+
+const allProjects = await getCollection("projects");
+const projects = allProjects
+  .filter((entry) => entry.slug.startsWith(`${site.locale}/`))
+  .sort((a, b) => a.data.order - b.data.order);
+const projectsCount = projects.length;
+const caseStudy = site.projects.caseStudy;
+const heroTitle = site.hero.tagline;
+const locationNote = site.hero.note;
+const techStackGroups = [
+  { label: "Backend", items: site.about.stack.slice(0, 3) },
+  { label: "Infrastructure", items: site.about.stack.slice(1, 4) },
+  { label: "Database", items: site.about.stack.slice(0, 2) }
+];
+---
+
+<div class="fixed inset-0 z-0 bg-grid-pattern opacity-100 grid-bg pointer-events-none"></div>
+<div class="fixed inset-0 pointer-events-none z-0">
+  <div class="absolute top-8 left-8 w-6 h-6 border-l border-t border-[color-mix(in_srgb,var(--color-ochre)_40%,transparent)]"></div>
+  <div class="absolute top-8 right-8 w-6 h-6 border-r border-t border-[color-mix(in_srgb,var(--color-ochre)_40%,transparent)]"></div>
+  <div class="absolute bottom-8 left-8 w-6 h-6 border-l border-b border-[color-mix(in_srgb,var(--color-ochre)_40%,transparent)]"></div>
+  <div class="absolute bottom-8 right-8 w-6 h-6 border-r border-b border-[color-mix(in_srgb,var(--color-ochre)_40%,transparent)]"></div>
+  <div class="absolute top-0 left-12 w-[1px] h-full bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)] hidden md:block"></div>
+  <div class="absolute top-0 right-12 w-[1px] h-full bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)] hidden md:block"></div>
+</div>
+<MobileMenu items={menuItems} locale={site.locale} />
+<Header homeHref={site.nav.homeHref} links={site.nav.links} locale={site.locale} />
+<div class="relative z-10 w-full max-w-[1800px] mx-auto min-h-screen flex flex-col md:flex-row">
+  <aside class="hidden md:flex flex-col w-64 h-screen sticky top-0 pt-32 pb-12 pl-12 justify-between">
+    <div class="space-y-8 border-l border-soft pl-6 relative" data-nav-rail>
+      <div class="absolute -left-[1px] top-0 w-[1px] h-12 bg-ochre shadow-[0_0_10px_rgba(217,119,6,0.5)]" data-nav-indicator></div>
+      <div>
+        <div class="font-mono text-[9px] text-muted tracking-widest uppercase mb-4">Navigation</div>
+        <ul class="space-y-4 font-mono text-[11px]" data-nav-list>
+          {navItems.map((item, index) => (
+            <li>
+              <a
+                class={`nav-link block text-muted hover:text-ochre transition-colors group flex items-center gap-2 ${index === 0 ? "is-active text-ochre font-bold glowing-text" : ""}`}
+                data-nav-link
+                href={item.href}
+              >
+                <span class={`nav-bullet w-1 h-1 bg-[color-mix(in_srgb,var(--color-ink)_30%,transparent)] group-hover:bg-ochre transition-colors ${index === 0 ? "is-active bg-ochre shadow-[0_0_5px_rgba(217,119,6,0.8)]" : ""}`} data-nav-bullet></span>
+                {String(index).padStart(2, "0")}_{item.label.toUpperCase()}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="mt-8 pt-8 border-t border-softer opacity-80 hover:opacity-100 transition-opacity">
+        <div class="font-mono text-[9px] text-disabled uppercase mb-2">MASCOT_MODULE: ONLINE</div>
+        <div class="relative w-16 h-16 group cursor-help">
+          <svg
+            class="w-full h-full"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 100 100"
+            fill="none"
+            stroke="var(--color-bronze)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            role="img"
+            aria-label="Mascot"
+          >
+            <path d="M32 36 C 26 22, 18 28, 22 42 M 68 36 C 74 22, 82 28, 78 42"></path>
+            <path d="M38 34 C 36 22, 42 18, 46 30 M 62 34 C 64 22, 58 18, 54 30"></path>
+            <circle cx="50" cy="60" r="25"></circle>
+            <path d="M25 55 C 20 50, 20 60, 26 62 M 75 55 C 80 50, 80 60, 74 62"></path>
+            <ellipse cx="44" cy="56" rx="3" ry="5" fill="var(--color-bronze)"></ellipse>
+            <ellipse cx="56" cy="56" rx="3" ry="5" fill="var(--color-bronze)"></ellipse>
+            <ellipse cx="50" cy="64" rx="10" ry="7" fill="color-mix(in srgb, var(--color-bronze) 20%, transparent)" stroke="none"></ellipse>
+            <path d="M40 85 L 40 95 M 60 85 L 60 95"></path>
+          </svg>
+          <div class="absolute -right-2 -bottom-2 w-2 h-2 bg-status-online rounded-full animate-pulse shadow-[0_0_8px_color-mix(in_srgb,var(--color-status-online)_70%,transparent)]"></div>
+          <div class="terminal-bubble font-mono text-xs">
+            <div class="flex justify-between items-center mb-2 pb-1 border-b border-[color-mix(in_srgb,var(--color-ochre)_30%,transparent)]">
+              <span class="text-[9px] text-ochre uppercase tracking-wider">root@moose:~# joke.sh</span>
+              <button class="text-[9px] text-muted hover:text-ochre">[X] CLOSE_SESSION</button>
+            </div>
+            <div
+              class="typing-effect text-secondary leading-tight"
+              data-typing
+              data-typing-items={JSON.stringify(site.about.jokes)}
+            >
+              <span data-typing-text></span>
+              <span class="typing-cursor" data-typing-cursor>_</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="font-mono text-[9px] text-muted pl-6 border-l border-soft">
+      <div class="mb-1 uppercase">System_Status</div>
+      <div class="text-ochre flex items-center gap-2 uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-ochre animate-pulse shadow-[0_0_8px_rgba(217,119,6,0.8)]"></span>
+        Active
+      </div>
+    </div>
+  </aside>
+  <main id="main-content" class="flex-1 pt-32 px-6 md:px-16 pb-32 max-w-6xl mx-auto w-full">
+    <section class="mb-32 relative text-center md:text-left" id="hero">
+      <div class="hidden md:block absolute -top-10 left-0 w-8 h-[1px] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0"></div>
+      <div class="hidden md:block absolute -top-10 left-0 h-4 w-[1px] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0"></div>
+      <div class="inline-flex items-center gap-3 px-3 py-1 mb-8 border border-[color-mix(in_srgb,var(--color-ochre)_20%,transparent)] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)] text-ochre font-mono text-[10px] tracking-[0.2em] uppercase backdrop-blur-sm">
+        <span class="w-1.5 h-1.5 bg-ochre rounded-sm shadow-[0_0_5px_rgba(217,119,6,0.8)]"></span>
+        Portfolio v3.0
+      </div>
+      <h1 class="font-display font-light text-[12vw] md:text-[8rem] lg:text-[8rem] leading-[0.85] tracking-tighter text-ink mb-8 select-none relative uppercase">
+        {firstName}<br />
+        <span class="text-stroke text-disabled hover:text-ochre transition-colors duration-500">{lastName}</span>
+      </h1>
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border-y border-soft py-6 mb-12">
+        <h2 class="text-2xl md:text-3xl font-mono font-medium text-ochre tracking-tighter uppercase">
+          {heroTitle}
+        </h2>
+        <div class="flex gap-4 font-mono text-[10px] text-muted">
+          {chips.slice(0, 3).map((chip) => (
+            <div class="border border-soft px-3 py-1.5 rounded-sm uppercase">{chip}</div>
+          ))}
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+        <div class="bg-surface-dark/30 border-l border-soft pl-4 py-2">
+          <span class="text-muted block mb-1 text-[10px] tracking-widest uppercase">Location</span>
+          <div class="text-ink">{locationNote}</div>
+        </div>
+        <div class="bg-surface-dark/30 border-l border-soft pl-4 py-2">
+          <span class="text-muted block mb-1 text-[10px] tracking-widest uppercase">Availability</span>
+          <div class="text-status-online flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-status-online rounded-full animate-pulse"></span>
+            {site.about.availability}
+          </div>
+        </div>
+        <div class="bg-surface-dark/30 border-l border-soft pl-4 py-2">
+          <span class="text-muted block mb-1 text-[10px] tracking-widest uppercase">Experience</span>
+          <div class="text-ink">{projectsCount}+ Positions</div>
+        </div>
+      </div>
+    </section>
+    <section class="mb-32 scroll-mt-32" id="works">
+      <div class="flex items-end justify-between mb-12 border-b border-soft pb-4">
+        <div class="font-mono text-ochre text-xs flex items-center gap-2 uppercase tracking-widest">
+          <span class="material-symbols-outlined text-lg">folder_open</span>
+          01 // {site.projects.title}
+        </div>
+        <div class="hidden md:block font-mono text-[10px] text-muted uppercase">
+          Last Update: 2024.03.15
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-12">
+        {projects.map((project, index) => {
+          const isWip = project.data.status === "wip";
+          const hasCaseStudy = Boolean(project.data.caseStudySlug);
+          const projectHref = hasCaseStudy
+            ? `${site.locale === "en" ? "/en" : ""}/project/${project.data.caseStudySlug}`
+            : null;
+          return (
+          <article
+            class={
+              isWip
+                ? "technical-card p-8 md:p-10 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(217,119,6,0.1)]"
+                : "technical-card p-8 md:p-10 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(217,119,6,0.1)]"
+            }
+          >
+            <div class="absolute top-0 right-0 p-4 opacity-50">
+              <span
+                class={
+                  isWip
+                    ? "font-mono text-[10px] text-disabled border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] px-2 py-1 uppercase"
+                    : "font-mono text-[10px] text-ochre border border-[color-mix(in_srgb,var(--color-ochre)_30%,transparent)] px-2 py-1"
+                }
+              >
+                {isWip ? `WIP_00${index + 1}` : `CS_00${index + 1}`}
+              </span>
+            </div>
+            <div class={isWip ? "flex flex-col md:flex-row gap-10 opacity-70 hover:opacity-100 transition-opacity" : "flex flex-col md:flex-row gap-10"}>
+              <div class="md:w-1/3 space-y-6">
+                <div>
+                  <h3 class="text-3xl font-display font-light text-ink mb-2 group-hover:text-ochre transition-colors">{project.data.title}</h3>
+                  <p class="font-mono text-xs text-muted uppercase">{project.data.stack.join(" / ")}</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  {project.data.stack.map((stackItem) => (
+                    <span class="px-2 py-1 bg-[color-mix(in_srgb,var(--color-ink)_5%,transparent)] text-[10px] font-mono text-secondary">{stackItem}</span>
+                  ))}
+                </div>
+              </div>
+              <div class="md:w-2/3 flex flex-col justify-between">
+                <p class="text-muted font-light leading-relaxed mb-8">
+                  {project.data.description}
+                </p>
+                <div class="flex items-center justify-between border-t border-soft pt-6">
+                  <div class="flex gap-6 text-[10px] font-mono text-muted">
+                    {project.data.stack.slice(0, 2).map((stackItem) => (
+                      <span>{stackItem.toUpperCase()}</span>
+                    ))}
+                  </div>
+                  {isWip ? (
+                    <span class="flex items-center gap-2 text-disabled font-mono text-xs cursor-not-allowed uppercase">
+                      COMING SOON <span class="material-symbols-outlined text-[14px]">lock</span>
+                    </span>
+                  ) : hasCaseStudy ? (
+                    <a
+                      class="flex items-center gap-2 text-ochre font-mono text-xs hover:underline decoration-ochre underline-offset-4 uppercase"
+                      href={projectHref}
+                    >
+                      {hasCaseStudy ? (caseStudy?.ctaLabel ?? "VIEW DETAILS") : "VIEW DETAILS"}
+                      <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </a>
+                  ) : (
+                    <span class="flex items-center gap-2 text-disabled font-mono text-xs cursor-not-allowed uppercase" aria-disabled="true">
+                      {caseStudy?.ctaLabel ?? "VIEW DETAILS"}
+                      <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </article>
+        )})}
+      </div>
+      <div class="mt-16 text-center">
+        {github?.href ? (
+          <a
+            class="cta-button group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-mono font-medium tracking-tighter bg-ochre border border-ochre transition-all duration-300 shadow-[0_0_15px_rgba(217,119,6,0.4)]"
+            href={github.href}
+          >
+            <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+            <span class="relative flex items-center gap-3 uppercase">
+              All Projects on GitHub
+              <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">code</span>
+            </span>
+          </a>
+        ) : (
+          <span
+            class="cta-button relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-mono font-medium tracking-tighter bg-ochre border border-ochre opacity-60 cursor-not-allowed"
+            aria-disabled="true"
+          >
+            <span class="relative flex items-center gap-3 uppercase">
+              All Projects on GitHub
+              <span class="material-symbols-outlined text-sm">code</span>
+            </span>
+          </span>
+        )}
+      </div>
+    </section>
+    <section class="mb-32 scroll-mt-32" id="about">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <div class="font-mono text-ochre text-xs mb-8 flex items-center gap-2 uppercase tracking-widest">
+            <span class="material-symbols-outlined text-lg">terminal</span>
+            02 // {site.about.title}
+          </div>
+          <h2 class="text-3xl font-light text-ink mb-6 uppercase">Tech Stack</h2>
+          <div class="space-y-6">
+            {techStackGroups.map((group) => (
+              <div class="group">
+                <div class="flex justify-between text-xs font-mono text-muted mb-2 uppercase tracking-widest">
+                  <span>{group.label}</span>
+                  <span class="text-ochre opacity-0 group-hover:opacity-100 transition-opacity">&gt;&gt;&gt;</span>
+                </div>
+                <div class="h-[1px] w-full bg-[color-mix(in_srgb,var(--color-ink)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0 transition-colors mb-2"></div>
+                <p class="text-sm text-secondary">{group.items.join(", ")}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="terminal-card p-8 relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-[color-mix(in_srgb,var(--color-ochre)_10%,transparent)] rounded-full blur-3xl pointer-events-none"></div>
+          <div class="font-mono text-[10px] text-muted mb-4 uppercase">terminal_output.log</div>
+        <pre class="font-mono text-[11px] text-terminal-text overflow-x-hidden leading-relaxed"><span class="text-terminal-prompt">user@nexus:~$</span> whoami
+  <span class="text-ochre">{site.hero.name}</span>
+<span class="text-terminal-prompt">user@nexus:~$</span> cat bio.txt
+  {site.about.body}
+<span class="text-terminal-prompt">user@nexus:~$</span> ./run_diagnostics.sh
+  <span class="text-muted">Loading modules...</span>
+  <span class="text-terminal-success">[OK]</span> {site.about.bullets[0] ?? "Problem Solving"}
+  <span class="text-terminal-success">[OK]</span> {site.about.bullets[1] ?? "System Design"}
+  <span class="text-terminal-success">[OK]</span> {site.about.bullets[2] ?? "Leadership"}
+  <span class="cursor-blink">_</span>
+</pre>
+        </div>
+      </div>
+    </section>
+    <Footer site={site} />
+  </main>
+</div>

@@ -1,5 +1,3 @@
-import { projectsEn, projectsRu, type Project } from "./projects";
-
 export type Locale = "ru" | "en";
 
 type Service = {
@@ -49,7 +47,9 @@ type SiteContent = {
     title: string;
     body: string;
     bullets: string[];
+    jokes: string[];
     stack: string[];
+    availability: string;
   };
   services: {
     title: string;
@@ -57,7 +57,13 @@ type SiteContent = {
   };
   projects: {
     title: string;
-    items: Project[];
+    caseStudy?: {
+      kicker: string;
+      title: string;
+      summary: string;
+      ctaLabel: string;
+      href: string;
+    };
   };
   testimonials: {
     title: string;
@@ -100,8 +106,8 @@ const servicesIconPaths = [
 
 const shared = {
   navLinks: [
+    { label: "Projects", href: "#works" },
     { label: "About", href: "#about" },
-    { label: "Projects", href: "#projects" },
     { label: "Contact", href: "#contact" }
   ],
   socials: [
@@ -125,19 +131,19 @@ export const siteRu: SiteContent = {
     logo: "Nikita Vassilenko",
     homeHref: "/",
     links: [
-      { label: "Обо мне", href: "#about" },
-      { label: "Проекты", href: "#projects" },
+      { label: "Проекты", href: "#works" },
+      { label: "Обо_мне", href: "#about" },
       { label: "Контакты", href: "#contact" }
     ],
     cta: { label: "Связаться", href: "#contact" }
   },
   hero: {
     name: "Nikita Vassilenko",
-    tagline: "Middle Back End Developer • .NET • PHP • JS",
+    tagline: "Back End Developer",
     description:
       "Победитель WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business». Изучаю .NET, PHP, JS и смежные технологии. Готов развиваться и получать новый опыт.",
     ctaPrimary: { label: "LinkedIn", href: "https://www.linkedin.com/in/nikalexan/" },
-    ctaSecondary: { label: "Опыт работы", href: "#projects" },
+    ctaSecondary: { label: "Опыт работы", href: "#works" },
     note: "Астана, Казахстан",
     cardKicker: "WorldSkills",
     cardTitle: "WorldSkills 2023 Winner",
@@ -155,20 +161,36 @@ export const siteRu: SiteContent = {
       "Full Stack Developer в KAZINSYS.kz (июнь 2023 — апр. 2025)",
       "Astana IT University — Software Engineering (2024–2027)"
     ],
+    jokes: [
+      "Когда рога падают — никто не замечает, а когда прод — все",
+      "Собрал микросервис — теперь ищу, куда он делся в проде",
+      "Бэкап — это как чувство юмора: нужен до инцидента",
+      "Если фича работает, значит ты забыл про кеш",
+      "Логи молчат — значит, ты не там ищешь правду",
+      "Сначала была таблица. Потом JOIN. Потом стало грустно"
+    ],
     stack: [
       ".NET",
       "PHP",
       "JavaScript",
       "HTML"
-    ]
+    ],
+    availability: 'Открыт для сотрудничества'
   },
   services: {
     title: "",
     items: []
   },
   projects: {
-    title: "Опыт работы",
-    items: projectsRu
+    title: "Проекты",
+    caseStudy: {
+      kicker: "Кейс // NEXUS",
+      title: "NEXUS Protocol",
+      summary:
+        "Архитектура и визуализация потока данных в реальном времени для высокочастотной торговли.",
+      ctaLabel: "СМОТРЕТЬ_КЕЙС",
+      href: "/project/nexus"
+    }
   },
   testimonials: {
     title: "",
@@ -213,11 +235,11 @@ export const siteEn: SiteContent = {
   },
   hero: {
     name: "Nikita Vassilenko",
-    tagline: "Middle Back End Developer • .NET • PHP • JS",
+    tagline: "Back End Developer",
     description:
       "Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023 in the “IT solutions for business” competency. Learning .NET, PHP, JS and related tech. Ready to grow and gain new experience.",
     ctaPrimary: { label: "LinkedIn", href: "https://www.linkedin.com/in/nikalexan/" },
-    ctaSecondary: { label: "Experience", href: "#projects" },
+    ctaSecondary: { label: "Experience", href: "#works" },
     note: "Astana, Kazakhstan",
     cardKicker: "WorldSkills",
     cardTitle: "WorldSkills 2023 Winner",
@@ -235,20 +257,36 @@ export const siteEn: SiteContent = {
       "Full Stack Developer at KAZINSYS.kz (Jun 2023 — Apr 2025)",
       "Astana IT University — Software Engineering (2024–2027)"
     ],
+    jokes: [
+      "When antlers fall, no one notices; when prod falls, everyone does",
+      "Shipped a microservice — now tracking it down in prod",
+      "Backups are like jokes: you need them before the incident",
+      "If the feature works, you probably forgot the cache",
+      "When logs are quiet, you're looking in the wrong place",
+      "It started as a table. Then JOINs happened. Then sadness"
+    ],
     stack: [
       ".NET",
       "PHP",
       "JavaScript",
       "HTML"
-    ]
+    ],
+    availability: "Open for new opportunities"
   },
   services: {
     title: "",
     items: []
   },
   projects: {
-    title: "Experience",
-    items: projectsEn
+    title: "Projects",
+    caseStudy: {
+      kicker: "Case // NEXUS",
+      title: "NEXUS Protocol",
+      summary:
+        "Real-time data streaming architecture and visualization for high-frequency trading.",
+      ctaLabel: "VIEW_DETAILS",
+      href: "/en/project/nexus"
+    }
   },
   testimonials: {
     title: "",

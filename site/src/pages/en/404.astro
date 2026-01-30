@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NotFoundPage from "../../components/NotFoundPage.astro";
+import { getSite } from "../../data/site";
+
+const site = getSite("en");
+const title = "404 — Page not found";
+const description = "The requested page could not be found.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale={site.locale}
+  ogImage={site.meta.ogImage}
+  url={`${site.meta.url}/en/404`}
+>
+  <NotFoundPage site={site} />
+</BaseLayout>

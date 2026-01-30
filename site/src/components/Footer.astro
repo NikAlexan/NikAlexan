@@ -1,21 +1,25 @@
 ---
-const { footer, socials } = Astro.props;
+import { getEntry } from "astro:content";
+import ContactLinks from "./ContactLinks.astro";
+
+const { site } = Astro.props;
+
+const contactEntry = await getEntry("contact", "links");
+const contactLinks = contactEntry?.data?.links ?? [];
 ---
 
-<footer class="border-t border-black/5 px-6 py-10 sm:px-10">
-  <div class="max-wrap flex flex-col gap-6 text-sm text-black/60 sm:flex-row sm:items-center sm:justify-between">
-    <span>{footer.copyright}</span>
-    <div class="flex flex-wrap gap-4">
-      {socials.map((social) => (
-        <a class="transition hover:text-black" href={social.href} target="_blank" rel="noreferrer">
-          {social.label}
-        </a>
-      ))}
+<footer class="border-t border-soft pt-20 relative scroll-mt-32" id="contact">
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background-dark px-4 text-ochre">
+    <span class="material-symbols-outlined animate-bounce">expand_circle_down</span>
+  </div>
+  <ContactLinks links={contactLinks} />
+  <div class="mt-20 flex justify-between items-end font-mono text-[10px] text-disabled uppercase">
+    <div>
+      {site.footer.copyright}
     </div>
-    <div class="flex gap-4">
-      {footer.links.map((link) => (
-        <a class="transition hover:text-black" href={link.href}>{link.label}</a>
-      ))}
+    <div class="text-right">
+      BUILD_ID: 8842-AF<br />
+      <span class="text-ochre uppercase">System_Ready</span>
     </div>
   </div>
 </footer>

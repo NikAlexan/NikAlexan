@@ -1,0 +1,37 @@
+# План: стандартизация opacity‑шкалы
+
+- [x] Зафиксировать текущие уровни прозрачности в коде (особенно `text-[color-mix(...)]`, `bg-[color-mix(...)]`, `border-[color-mix(...)]`).
+  - Текущие `color-mix` проценты: 2, 3, 5, 10, 12, 15, 18, 20, 25, 28, 30, 35, 40, 50, 55, 60, 70, 80, 85, 90, 95.
+  - Текущие `opacity:` значения в CSS: 0, 0.15, 0.4, 1.
+  - Текущие `opacity-*` утилиты в разметке: 0, 10, 20, 40, 50, 70, 80, 100.
+  - Основные файлы‑источники: `src/styles/global.css`, `src/components/MainPage.astro`, `src/components/CaseStudyPage.astro`, `src/components/MobileMenu.astro`, `src/components/Header.astro`, `src/components/Footer.astro`, `src/components/PageTransition.astro`, `src/components/Services.astro`, `src/components/Testimonials.astro`.
+- [x] Утвердить единую шкалу.
+  - Текст (color-mix к базовому текстовому цвету): 85% (strong), 70% (secondary), 55% (muted), 40% (disabled).
+  - Фоны/бордеры/линии (color-mix к базовому цвету): 5% (subtle), 10% (soft), 20% (medium), 30% (strong).
+  - Акцент‑элементы/рамки (при необходимости): 40% как верхняя граница для декоративных линий.
+- [x] Ввести набор переменных `--opacity-*` в `:root` (как целевые значения):
+  - `--opacity-text-strong: 0.85`
+  - `--opacity-text-secondary: 0.70`
+  - `--opacity-text-muted: 0.55`
+  - `--opacity-text-disabled: 0.40`
+  - `--opacity-bg-subtle: 0.05`
+  - `--opacity-bg-soft: 0.10`
+  - `--opacity-bg-medium: 0.20`
+  - `--opacity-bg-strong: 0.30`
+  - (опционально) `--opacity-decor-strong: 0.40` для декоративных линий/рамок
+- [x] Заменить все `color-mix(... N%)` на новый набор значений по шкале.
+  - Нестандартизированные проценты (2, 3, 12, 15, 18, 25, 28, 35, 50, 60, 80, 90, 95) приведены к шкале.
+  - Классы `bg-background-dark/80`, `bg-surface/40`, `bg-surface-dark/40` заменены на `/30` с обновлением использования.
+- [x] Удалить нестандартизированные значения (например 3%, 5%, 30%, 70% и т.п., если они не входят в новую шкалу).
+  - Проверка по проекту: `color-mix` использует только значения шкалы.
+- [x] Визуальная проверка ключевых блоков (hero, projects, terminal, footer) в light/dark.
+  - [x] Главная (RU): hero / projects / terminal / footer — light
+  - [x] Главная (RU): hero / projects / terminal / footer — dark
+  - [x] Главная (EN): hero / projects / terminal / footer — light
+  - [x] Главная (EN): hero / projects / terminal / footer — dark
+  - [x] Case study (RU): hero / console / outcome / footer — light
+  - [x] Case study (RU): hero / console / outcome / footer — dark
+  - [x] Case study (EN): hero / console / outcome / footer — light
+  - [x] Case study (EN): hero / console / outcome / footer — dark
+- [x] При необходимости локально вернуть 1–2 исключения (обоснованные).
+  - Header: фон поднят до 40% для читаемости на прозрачном фоне.
