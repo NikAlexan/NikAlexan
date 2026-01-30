@@ -121,9 +121,9 @@ const shared = {
 export const siteRu: SiteContent = {
   locale: "ru",
   meta: {
-    title: "Nikita Vassilenko — Middle Back End Developer",
+    title: "Nikita Vassilenko — Back End Developer",
     description:
-      "Middle Back End Developer. WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 — победитель.",
+      "Back End Developer. WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 — победитель.",
     url: base.url,
     ogImage: base.ogImage
   },
@@ -154,7 +154,7 @@ export const siteRu: SiteContent = {
   about: {
     title: "Обо мне",
     body:
-      "Middle Back End Developer из Астаны. Работаю в KAZINSYS.kz, развиваюсь в .NET, PHP и JavaScript, открыт к новым задачам и росту.",
+      "Back End Developer из Астаны. Работаю в KAZINSYS.kz, развиваюсь в .NET, PHP и JavaScript, открыт к новым задачам и росту.",
     bullets: [
       "Победитель WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023",
       "Back End Developer в KAZINSYS.kz (апр. 2025 — настоящее время)",
@@ -221,9 +221,9 @@ export const siteRu: SiteContent = {
 export const siteEn: SiteContent = {
   locale: "en",
   meta: {
-    title: "Nikita Vassilenko — Middle Back End Developer",
+    title: "Nikita Vassilenko — Back End Developer",
     description:
-      "Middle Back End Developer. Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023.",
+      "Back End Developer. Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023.",
     url: `${base.url}/en`,
     ogImage: base.ogImage
   },
@@ -250,7 +250,7 @@ export const siteEn: SiteContent = {
   about: {
     title: "About",
     body:
-      "Middle Back End Developer based in Astana. Working at KAZINSYS.kz and building skills in .NET, PHP, and JavaScript. Open to new challenges and growth.",
+      "Back End Developer based in Astana. Working at KAZINSYS.kz and building skills in .NET, PHP, and JavaScript. Open to new challenges and growth.",
     bullets: [
       "Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023",
       "Back End Developer at KAZINSYS.kz (Apr 2025 — Present)",
