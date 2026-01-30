@@ -733,10 +733,15 @@ html.dark .theme-toggle:hover {
 
 .cta-button:hover {
   color: var(--color-contrast);
+  background-color: color-mix(in oklab, var(--color-ochre) 70%, var(--color-cream-bg));
 }
 
 html.dark .cta-button {
   color: var(--color-contrast);
+}
+
+html.dark .cta-button:hover {
+  background-color: color-mix(in oklab, var(--color-ochre) 75%, var(--color-surface-dark));
 }
 
 @keyframes blink {
