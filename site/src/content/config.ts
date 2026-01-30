@@ -74,7 +74,26 @@ const caseStudiesCollection = defineCollection({
   })
 });
 
+const contactCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    links: z.array(
+      z.object({
+        label: z.string(),
+        href: z.string().optional(),
+        handle: z.string().optional(),
+        ctaLabel: z.string().optional(),
+        order: z.number().optional(),
+        icon: z.string().optional(),
+        note: z.string().optional(),
+        disabled: z.boolean().optional()
+      })
+    )
+  })
+});
+
 export const collections = {
   projects: projectsCollection,
-  "case-studies": caseStudiesCollection
+  "case-studies": caseStudiesCollection,
+  contact: contactCollection
 };

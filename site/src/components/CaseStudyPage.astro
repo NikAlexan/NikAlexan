@@ -1,6 +1,7 @@
 ---
 import MobileMenu from "./MobileMenu.astro";
 import Header from "./Header.astro";
+import Footer from "./Footer.astro";
 
 const { caseStudy, site } = Astro.props;
 
@@ -18,19 +19,6 @@ const navItems = site.locale === "ru"
       { label: "OUTCOME", href: "#outcome" }
     ];
 
-const socials = site.contact.socials;
-const telegram = socials.find((item) => item.label.toLowerCase() === "telegram");
-const email = socials.find((item) => item.label.toLowerCase() === "email");
-const github = socials.find((item) => item.label.toLowerCase() === "github");
-
-const telegramHandle = telegram?.href?.includes("t.me/")
-  ? `@${telegram.href.split("t.me/")[1]}`
-  : telegram?.href ?? "@nikita_dev";
-
-const emailAddress = email?.href?.startsWith("mailto:")
-  ? email.href.replace("mailto:", "")
-  : email?.href ?? "hello@nikita.dev";
-
 const statusClassMap = {
   success: "text-terminal-success",
   warning: "text-terminal-warning",
@@ -44,10 +32,6 @@ const statusDotMap = {
   error: "bg-[color-mix(in_srgb,var(--color-error)_40%,transparent)]",
   info: "bg-[color-mix(in_srgb,var(--color-info)_40%,transparent)]"
 };
-
-const githubHandle = github?.href?.includes("github.com/")
-  ? `/${github.href.split("github.com/")[1]}`
-  : github?.href ?? "/nikitavasilenko";
 
 const menuItems = [
   { label: "Index", href: site.nav.homeHref },
@@ -222,43 +206,6 @@ const enHref = `/en/project/${caseStudy.slug}`;
         </div>
       </div>
     </section>
-    <footer class="border-t border-soft pt-20 relative">
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background-dark px-4 text-ochre">
-        <span class="material-symbols-outlined animate-bounce">expand_circle_down</span>
-      </div>
-      <div class="font-mono text-xs text-muted mb-12 tracking-widest uppercase">Communication_Protocol</div>
-      <div class="flex flex-col gap-2">
-        <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={telegram?.href ?? "#"}>
-          <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300">TELEGRAM</span>
-          <div class="text-right">
-            <span class="font-mono text-xs text-muted group-hover:text-ochre block">{telegramHandle}</span>
-            <span class="text-[10px] font-mono text-disabled opacity-0 group-hover:opacity-100 transition-opacity">SEND -&gt;</span>
-          </div>
-        </a>
-        <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={email?.href ?? "#"}>
-          <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300">EMAIL</span>
-          <div class="text-right">
-            <span class="font-mono text-xs text-muted group-hover:text-ochre block">{emailAddress}</span>
-            <span class="text-[10px] font-mono text-disabled opacity-0 group-hover:opacity-100 transition-opacity">COPY -&gt;</span>
-          </div>
-        </a>
-        <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={github?.href ?? "#"}>
-          <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300">GITHUB</span>
-          <div class="text-right">
-            <span class="font-mono text-xs text-muted group-hover:text-ochre block">{githubHandle}</span>
-            <span class="text-[10px] font-mono text-disabled opacity-0 group-hover:opacity-100 transition-opacity">VIEW_REPO -&gt;</span>
-          </div>
-        </a>
-      </div>
-      <div class="mt-20 flex justify-between items-end font-mono text-[10px] text-disabled uppercase">
-        <div>
-          {site.footer.copyright}
-        </div>
-        <div class="text-right">
-          BUILD_ID: 8842-AF<br />
-          <span class="text-ochre">SYSTEM_READY</span>
-        </div>
-      </div>
-    </footer>
+    <Footer site={site} />
   </main>
 </div>

@@ -1,0 +1,25 @@
+---
+const { tone = "info", title = "", label = "" } = Astro.props;
+const toneMap = {
+  info: "var(--color-info)",
+  success: "var(--color-success)",
+  warning: "var(--color-warning)",
+  error: "var(--color-error)"
+};
+const accent = toneMap[tone] || toneMap.info;
+---
+
+<div
+  class="border border-[color-mix(in_srgb,var(--callout-accent)_30%,transparent)] bg-[color-mix(in_srgb,var(--callout-accent)_5%,transparent)] px-5 py-4"
+  style={`--callout-accent: ${accent};`}
+>
+  {(label || title) && (
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      {label && <span class="font-mono text-[10px] text-muted uppercase tracking-[0.2em]">{label}</span>}
+      {title && <span class="text-ink text-base font-medium">{title}</span>}
+    </div>
+  )}
+  <div class="text-secondary text-sm leading-relaxed">
+    <slot />
+  </div>
+</div>
