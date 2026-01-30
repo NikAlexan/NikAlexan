@@ -328,8 +328,36 @@
     color: var(--color-ink);
   }
 
+  .text-strong {
+    color: color-mix(
+      in srgb,
+      var(--color-ink) calc(var(--opacity-text-strong) * 100%),
+      transparent
+    );
+  }
+
+  .text-secondary {
+    color: color-mix(
+      in srgb,
+      var(--color-ink) calc(var(--opacity-text-secondary) * 100%),
+      transparent
+    );
+  }
+
   .text-muted {
-    color: var(--color-technical-grey);
+    color: color-mix(
+      in srgb,
+      var(--color-ink) calc(var(--opacity-text-muted) * 100%),
+      transparent
+    );
+  }
+
+  .text-disabled {
+    color: color-mix(
+      in srgb,
+      var(--color-ink) calc(var(--opacity-text-disabled) * 100%),
+      transparent
+    );
   }
 
   .border-soft {

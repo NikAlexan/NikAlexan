@@ -5,9 +5,21 @@ const projectsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    company: z.string().optional(),
+    role: z.string().optional(),
+    period: z
+      .object({
+        start: z.string(),
+        end: z.string().nullable()
+      })
+      .optional(),
+    location: z.string().optional(),
+    type: z.enum(["full-time", "part-time", "contract", "internship"]).optional(),
     stack: z.array(z.string()),
     order: z.number(),
     status: z.enum(["completed", "ongoing", "wip"]).default("completed"),
+    tags: z.array(z.string()).optional(),
+    category: z.enum(["web", "mobile", "backend", "devops"]).optional(),
     caseStudySlug: z.string().optional(),
     links: z
       .array(

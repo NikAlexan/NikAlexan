@@ -78,12 +78,12 @@ const enHref = `/en/project/${caseStudy.slug}`;
     <div class="space-y-8 border-l border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] pl-6 relative" data-nav-rail>
       <div class="absolute -left-[1px] top-0 w-[1px] h-12 bg-bronze shadow-[0_0_10px_rgba(168,93,61,0.3)]" data-nav-indicator></div>
       <div>
-        <div class="font-mono text-[9px] text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] tracking-widest uppercase mb-4">Navigation</div>
+        <div class="font-mono text-[9px] text-disabled tracking-widest uppercase mb-4">Navigation</div>
         <ul class="space-y-4 font-mono text-[11px]" data-nav-list>
           {navItems.map((item, index) => (
             <li>
               <a
-                class={`nav-link block text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)] hover:text-bronze transition-colors group flex items-center gap-2 ${index === 0 ? "is-active text-bronze font-bold glowing-text" : ""}`}
+                class={`nav-link block text-muted hover:text-bronze transition-colors group flex items-center gap-2 ${index === 0 ? "is-active text-bronze font-bold glowing-text" : ""}`}
                 data-nav-link
                 href={item.href}
               >
@@ -95,7 +95,7 @@ const enHref = `/en/project/${caseStudy.slug}`;
         </ul>
       </div>
     </div>
-    <div class="font-mono text-[9px] text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] pl-6 border-l border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)]">
+    <div class="font-mono text-[9px] text-disabled pl-6 border-l border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)]">
       <div class="mb-1 uppercase tracking-tighter">SYSTEM_STATUS</div>
       <div class="text-bronze flex items-center gap-2">
         <span class="w-1.5 h-1.5 rounded-full bg-bronze animate-pulse"></span>
@@ -117,15 +117,15 @@ const enHref = `/en/project/${caseStudy.slug}`;
       </h1>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 border-y border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] py-8 font-mono text-xs">
         <div class="border-r border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] pr-4 last:border-none">
-          <span class="text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] block mb-2 text-[10px] tracking-widest">{caseStudy.roleLabel}</span>
+          <span class="text-disabled block mb-2 text-[10px] tracking-widest">{caseStudy.roleLabel}</span>
           {caseStudy.role}
         </div>
         <div class="border-r border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] pr-4 last:border-none">
-          <span class="text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] block mb-2 text-[10px] tracking-widest">{caseStudy.timelineLabel}</span>
+          <span class="text-disabled block mb-2 text-[10px] tracking-widest">{caseStudy.timelineLabel}</span>
           {caseStudy.timeline}
         </div>
         <div class="col-span-2 md:col-span-2 pl-0 md:pl-4">
-          <span class="text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] block mb-2 text-[10px] tracking-widest uppercase">{caseStudy.deliverablesLabel}</span>
+          <span class="text-disabled block mb-2 text-[10px] tracking-widest uppercase">{caseStudy.deliverablesLabel}</span>
           {caseStudy.deliverables}
         </div>
       </div>
@@ -142,14 +142,14 @@ const enHref = `/en/project/${caseStudy.slug}`;
           </div>
           <div class="md:w-2/3">
             <h2 class="text-3xl md:text-4xl font-light mb-6 leading-tight text-charcoal">{caseStudy.challengeTitle}</h2>
-            <p class="text-[color-mix(in_srgb,var(--color-charcoal)_70%,transparent)] leading-relaxed text-lg font-light">
+            <p class="text-secondary leading-relaxed text-lg font-light">
               {caseStudy.challengeBody}
             </p>
             <div class="mt-10 grid grid-cols-2 gap-4">
               {caseStudy.challengeMetrics.map((metric) => (
                 <div class="bg-surface border border-[color-mix(in_srgb,var(--color-bronze)_10%,transparent)] p-4 backdrop-blur-md">
                   <div class="text-bronze font-display text-3xl md:text-4xl mb-1 glowing-text">{metric.value}</div>
-                  <div class="font-mono text-[10px] text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)] uppercase">{metric.label}</div>
+                  <div class="font-mono text-[10px] text-muted uppercase">{metric.label}</div>
                 </div>
               ))}
             </div>
@@ -161,15 +161,15 @@ const enHref = `/en/project/${caseStudy.slug}`;
       <div class="technical-card p-8 md:p-14 bg-surface">
         <div class="font-mono text-bronze text-xs mb-8 flex items-center justify-between">
           <span>{caseStudy.stackLabel}</span>
-          <span class="text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)]">[SYSTEM_ARCHITECTURE]</span>
+          <span class="text-muted">[SYSTEM_ARCHITECTURE]</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           <div>
             <h3 class="text-2xl font-light mb-4 text-charcoal">{caseStudy.stackTitle}</h3>
-            <p class="text-sm text-[color-mix(in_srgb,var(--color-charcoal)_70%,transparent)] leading-relaxed mb-6">
+            <p class="text-sm text-secondary leading-relaxed mb-6">
               {caseStudy.stackBody}
             </p>
-            <ul class="font-mono text-xs space-y-2 text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)]">
+            <ul class="font-mono text-xs space-y-2 text-muted">
               {caseStudy.stack.map((item) => (
                 <li class="flex items-center gap-2"><span class="text-bronze">&gt;&gt;&gt;</span> {item}</li>
               ))}
@@ -180,14 +180,14 @@ const enHref = `/en/project/${caseStudy.slug}`;
               <span class="material-symbols-outlined text-4xl text-charcoal">code</span>
             </div>
             <div class="flex justify-between items-center mb-4 border-b border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] pb-2">
-              <span class="font-mono text-[10px] text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)]">{caseStudy.console.filename}</span>
+              <span class="font-mono text-[10px] text-muted">{caseStudy.console.filename}</span>
               <div class="flex gap-1.5">
                 <div class="w-2 h-2 rounded-full bg-red-900"></div>
                 <div class="w-2 h-2 rounded-full bg-yellow-900"></div>
                 <div class="w-2 h-2 rounded-full bg-green-900"></div>
               </div>
             </div>
-            <pre class="font-mono text-[10px] md:text-xs text-[color-mix(in_srgb,var(--color-charcoal)_70%,transparent)] overflow-x-auto scrollbar-none"><code>{caseStudy.console.code}</code></pre>
+            <pre class="font-mono text-[10px] md:text-xs text-secondary overflow-x-auto scrollbar-none"><code>{caseStudy.console.code}</code></pre>
             <div class={`mt-4 flex items-center gap-2 text-[9px] font-mono ${statusClassMap[caseStudy.console.statusState] ?? "text-terminal-success"}`}>
               <span class={`w-1.5 h-1.5 rounded-full animate-pulse ${statusDotMap[caseStudy.console.statusState] ?? "bg-status-online"}`}></span> {caseStudy.console.statusLabel}
             </div>
@@ -206,7 +206,7 @@ const enHref = `/en/project/${caseStudy.slug}`;
               {caseStudy.outcome.metric}
             </h2>
             <h3 class="text-xl font-medium mb-4 text-charcoal">{caseStudy.outcome.title}</h3>
-            <p class="text-[color-mix(in_srgb,var(--color-charcoal)_70%,transparent)] max-w-xl mb-8 leading-relaxed">
+            <p class="text-secondary max-w-xl mb-8 leading-relaxed">
               {caseStudy.outcome.body}
             </p>
           </div>
@@ -226,31 +226,31 @@ const enHref = `/en/project/${caseStudy.slug}`;
       <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background-dark px-4 text-ochre">
         <span class="material-symbols-outlined animate-bounce">expand_circle_down</span>
       </div>
-      <div class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)] mb-12 tracking-widest uppercase">Communication_Protocol</div>
+      <div class="font-mono text-xs text-muted mb-12 tracking-widest uppercase">Communication_Protocol</div>
       <div class="flex flex-col gap-2">
         <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={telegram?.href ?? "#"}>
           <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300">TELEGRAM</span>
           <div class="text-right">
-            <span class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)] group-hover:text-ochre block">{telegramHandle}</span>
-            <span class="text-[10px] font-mono text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity">SEND -&gt;</span>
+            <span class="font-mono text-xs text-muted group-hover:text-ochre block">{telegramHandle}</span>
+            <span class="text-[10px] font-mono text-disabled opacity-0 group-hover:opacity-100 transition-opacity">SEND -&gt;</span>
           </div>
         </a>
         <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={email?.href ?? "#"}>
           <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300">EMAIL</span>
           <div class="text-right">
-            <span class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)] group-hover:text-ochre block">{emailAddress}</span>
-            <span class="text-[10px] font-mono text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity">COPY -&gt;</span>
+            <span class="font-mono text-xs text-muted group-hover:text-ochre block">{emailAddress}</span>
+            <span class="text-[10px] font-mono text-disabled opacity-0 group-hover:opacity-100 transition-opacity">COPY -&gt;</span>
           </div>
         </a>
         <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={github?.href ?? "#"}>
           <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300">GITHUB</span>
           <div class="text-right">
-            <span class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)] group-hover:text-ochre block">{githubHandle}</span>
-            <span class="text-[10px] font-mono text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity">VIEW_REPO -&gt;</span>
+            <span class="font-mono text-xs text-muted group-hover:text-ochre block">{githubHandle}</span>
+            <span class="text-[10px] font-mono text-disabled opacity-0 group-hover:opacity-100 transition-opacity">VIEW_REPO -&gt;</span>
           </div>
         </a>
       </div>
-      <div class="mt-20 flex justify-between items-end font-mono text-[10px] text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] uppercase">
+      <div class="mt-20 flex justify-between items-end font-mono text-[10px] text-disabled uppercase">
         <div>
           {site.footer.copyright}
         </div>

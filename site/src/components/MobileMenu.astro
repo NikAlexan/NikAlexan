@@ -18,7 +18,7 @@ const altLocale = locale === "ru" ? "en" : "ru";
   <div class="absolute bottom-6 left-6 w-4 h-4 border-l border-b border-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] z-20"></div>
   <div class="absolute bottom-6 right-6 w-4 h-4 border-r border-b border-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] z-20"></div>
   <header class="relative z-20 flex justify-between items-center px-8 py-6 border-b border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)]">
-    <div class="font-mono text-xs tracking-[0.2em] text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)] uppercase">
+    <div class="font-mono text-xs tracking-[0.2em] text-muted uppercase">
       <span class="w-2 h-2 inline-block bg-warm-amber mr-2 rounded-full animate-pulse"></span>
       {menuTitle}
     </div>
@@ -32,7 +32,7 @@ const altLocale = locale === "ru" ? "en" : "ru";
   </header>
   <div class="flex-1 flex relative z-10">
     <div class="w-14 md:w-20 border-r border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] flex flex-col justify-center items-center py-8 bg-charcoal-faint">
-      <div class="vertical-text font-mono text-[10px] tracking-[0.3em] text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] whitespace-nowrap uppercase flex items-center gap-4">
+      <div class="vertical-text font-mono text-[10px] tracking-[0.3em] text-disabled whitespace-nowrap uppercase flex items-center gap-4">
         <span class="text-warm-amber font-bold">SYSTEM_MENU: ACTIVE</span>
         <span class="w-[1px] h-8 bg-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)]"></span>
         <span>V.2.0.4</span>
@@ -83,7 +83,7 @@ const altLocale = locale === "ru" ? "en" : "ru";
               class={
                 locale === "ru"
                   ? "px-4 py-2 text-xs font-mono font-bold bg-warm-amber text-cream rounded-sm shadow-sm transition-all"
-                  : "px-4 py-2 text-xs font-mono text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)] hover:text-warm-amber transition-colors"
+                  : "px-4 py-2 text-xs font-mono text-muted hover:text-warm-amber transition-colors"
               }
               href={ruHref}
             >
@@ -93,7 +93,7 @@ const altLocale = locale === "ru" ? "en" : "ru";
               class={
                 locale === "en"
                   ? "px-4 py-2 text-xs font-mono font-bold bg-warm-amber text-cream rounded-sm shadow-sm transition-all"
-                  : "px-4 py-2 text-xs font-mono text-[color-mix(in_srgb,var(--color-charcoal)_55%,transparent)] hover:text-warm-amber transition-colors"
+                  : "px-4 py-2 text-xs font-mono text-muted hover:text-warm-amber transition-colors"
               }
               href={enHref}
             >
@@ -110,9 +110,9 @@ const altLocale = locale === "ru" ? "en" : "ru";
           </button>
         </div>
       </div>
-      <div class="flex justify-between items-end font-mono text-[9px] md:text-[10px] text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] uppercase tracking-wider border-t border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] pt-4">
+      <div class="flex justify-between items-end font-mono text-[9px] md:text-[10px] text-disabled uppercase tracking-wider border-t border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] pt-4">
         <div class="flex gap-4">
-          <span>SESSION_ID: <span class="text-[color-mix(in_srgb,var(--color-charcoal)_85%,transparent)]">8842-AF</span></span>
+          <span>SESSION_ID: <span class="text-strong">8842-AF</span></span>
           <span class="hidden sm:inline">|</span>
           <span class="hidden sm:inline">LOC: UNKNOWN</span>
         </div>

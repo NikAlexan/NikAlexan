@@ -5,23 +5,23 @@ const altHref = locale === "ru" ? enHref : ruHref;
 ---
 
 <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 mix-blend-normal bg-background-dark/40 backdrop-blur-md border-b border-soft md:bg-transparent md:backdrop-blur-none md:border-none">
-  <a class="flex items-center gap-3 font-mono text-xs hover:text-ochre transition-colors group text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)]" href={homeHref}>
+  <a class="flex items-center gap-3 font-mono text-xs hover:text-ochre transition-colors group text-muted" href={homeHref}>
     <div class="w-6 h-6 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] flex items-center justify-center group-hover:border-ochre transition-colors">
       <span class="material-symbols-outlined text-[14px]">grid_view</span>
     </div>
     <span class="tracking-widest uppercase">Index</span>
   </a>
   <div class="hidden md:flex items-center gap-8">
-    <div class="flex gap-8 font-mono text-[10px] text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)] tracking-widest border-r border-soft pr-8">
+    <div class="flex gap-8 font-mono text-[10px] text-muted tracking-widest border-r border-soft pr-8">
       <span>LATENCY: 12ms</span>
       <span class="text-[color-mix(in_srgb,var(--color-status-online)_85%,transparent)] uppercase">Secure_Connection</span>
       <span>SYS: ONLINE</span>
     </div>
     <div class="flex items-center gap-6">
       <div class="flex items-center font-mono text-[10px] tracking-wider">
-        <a class={locale === "ru" ? "text-ochre font-bold" : "text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)] hover:text-ochre transition-colors"} href={ruHref}>RU</a>
+        <a class={locale === "ru" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"} href={ruHref}>RU</a>
         <span class="mx-2 text-[color-mix(in_srgb,var(--color-ink)_30%,transparent)]">/</span>
-        <a class={locale === "en" ? "text-ochre font-bold" : "text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)] hover:text-ochre transition-colors"} href={enHref}>EN</a>
+        <a class={locale === "en" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"} href={enHref}>EN</a>
       </div>
       <button
         aria-label="Toggle Theme"
@@ -38,7 +38,7 @@ const altHref = locale === "ru" ? enHref : ruHref;
       {altLocale.toUpperCase()}
     </a>
     <button
-      class="w-6 h-6 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-[color-mix(in_srgb,var(--color-ink)_55%,transparent)] flex items-center justify-center"
+      class="w-6 h-6 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-muted flex items-center justify-center"
       data-menu-toggle
       aria-label="Open menu"
       aria-controls="mobile-menu"
