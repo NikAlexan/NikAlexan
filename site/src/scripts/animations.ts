@@ -4,14 +4,50 @@ const prefersReducedMotion =
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+type CleanupTask = () => void;
+
+const cleanupTasks: CleanupTask[] = [];
+
+const registerCleanup = (task: CleanupTask) => {
+  cleanupTasks.push(task);
+};
+
+const runCleanup = () => {
+  cleanupTasks.splice(0).forEach((task) => {
+    try {
+      task();
+    } catch {
+      // Ignore cleanup errors to avoid blocking init
+    }
+  });
+};
+
+const getStorage = () => {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+};
+
+const getStoredTheme = () => {
+  const storage = getStorage();
+  if (!storage) return null;
+  try {
+    return storage.getItem("theme");
+  } catch {
+    return null;
+  }
+};
+
 const getPreferredTheme = () => {
-  const stored = localStorage.getItem("theme");
+  const stored = getStoredTheme();
   if (stored === "dark" || stored === "light") return stored;
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 };
 
 const applyTheme = (root: HTMLElement) => {
-  root.setAttribute("data-theme", getPreferredTheme());
+  root.classList.toggle("dark", getPreferredTheme() === "dark");
 };
 
 const restoreDocumentVisibility = () => {
@@ -52,9 +88,13 @@ const initPageTransition = () => {
     hideOverlay();
   }
 
-  window.addEventListener("pageshow", hideOverlay);
+  const handlePageShow = () => hideOverlay();
+  window.addEventListener("pageshow", handlePageShow);
+  registerCleanup(() => {
+    window.removeEventListener("pageshow", handlePageShow);
+  });
 
-  document.addEventListener("click", (event) => {
+  const handleClick = (event: Event) => {
     const link = (event.target as HTMLElement).closest("a[href]") as HTMLAnchorElement | null;
     if (!link) return;
     if (link.hasAttribute("data-transition-skip")) return;
@@ -100,6 +140,11 @@ const initPageTransition = () => {
       window.clearTimeout(fallback);
       go();
     }
+  };
+
+  document.addEventListener("click", handleClick);
+  registerCleanup(() => {
+    document.removeEventListener("click", handleClick);
   });
 };
 
@@ -123,33 +168,53 @@ const initMenu = () => {
 
   if (!menu || !toggles.length) return;
 
+  const setExpanded = (expanded: boolean) => {
+    const value = expanded ? "true" : "false";
+    toggles.forEach((toggle) => {
+      toggle.setAttribute("aria-expanded", value);
+    });
+    menu.setAttribute("aria-hidden", expanded ? "false" : "true");
+  };
+
   const openMenu = () => {
     menu.classList.remove("hidden");
     document.body.style.overflow = "hidden";
+    setExpanded(true);
   };
 
   const closeMenu = () => {
     menu.classList.add("hidden");
     document.body.style.overflow = "";
+    setExpanded(false);
   };
 
-  toggles.forEach((toggle) => {
-    toggle.addEventListener("click", (event) => {
-      event.preventDefault();
-      openMenu();
-    });
-  });
+  const handleToggleClick = (event: Event) => {
+    event.preventDefault();
+    openMenu();
+  };
 
-  closeBtn?.addEventListener("click", (event) => {
+  const handleCloseClick = (event: Event) => {
     event.preventDefault();
     closeMenu();
-  });
+  };
 
-  menu.addEventListener("click", (event) => {
+  const handleMenuClick = (event: Event) => {
     const target = event.target as HTMLElement;
     if (target.closest("a[href]")) {
       closeMenu();
     }
+  };
+
+  toggles.forEach((toggle) => toggle.addEventListener("click", handleToggleClick));
+  closeBtn?.addEventListener("click", handleCloseClick);
+  menu.addEventListener("click", handleMenuClick);
+
+  setExpanded(false);
+
+  registerCleanup(() => {
+    toggles.forEach((toggle) => toggle.removeEventListener("click", handleToggleClick));
+    closeBtn?.removeEventListener("click", handleCloseClick);
+    menu.removeEventListener("click", handleMenuClick);
   });
 };
 
@@ -232,9 +297,16 @@ const initSidebarNav = () => {
   const initial = targets.find((item) => item.section.getBoundingClientRect().top >= 0) ?? targets[0];
   setActive(initial.link);
 
-  window.addEventListener("resize", () => {
+  const handleResize = () => {
     const active = links.find((link) => link.classList.contains("is-active")) ?? links[0];
     if (active) setActive(active);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  registerCleanup(() => {
+    observer.disconnect();
+    window.removeEventListener("resize", handleResize);
   });
 };
 
@@ -242,9 +314,13 @@ const initMascotTyping = () => {
   const nodes = document.querySelectorAll<HTMLElement>("[data-typing]");
   if (!nodes.length) return;
 
+  const timelines: gsap.core.Timeline[] = [];
+  const trackedNodes: HTMLElement[] = [];
+
   nodes.forEach((node) => {
     if (node.dataset.typingInit === "true") return;
     node.dataset.typingInit = "true";
+    trackedNodes.push(node);
 
     const textEl = node.querySelector<HTMLElement>("[data-typing-text]");
     if (!textEl) return;
@@ -276,6 +352,7 @@ const initMascotTyping = () => {
     const startDelay = 0.2;
 
     const timeline = gsap.timeline({ repeat: -1, delay: startDelay });
+    timelines.push(timeline);
 
     items.forEach((text, itemIndex) => {
       const state = { count: 0 };
@@ -310,9 +387,18 @@ const initMascotTyping = () => {
 
     node.dataset.typingTimeline = timeline.vars.id?.toString() ?? "active";
   });
+
+  registerCleanup(() => {
+    timelines.forEach((timeline) => timeline.kill());
+    trackedNodes.forEach((node) => {
+      delete node.dataset.typingInit;
+      delete node.dataset.typingTimeline;
+    });
+  });
 };
 
 const init = () => {
+  runCleanup();
   restoreDocumentVisibility();
   applyTheme(document.documentElement);
   initPageTransition();
@@ -323,11 +409,16 @@ const init = () => {
 };
 
 if (typeof window !== "undefined") {
-  const run = (label?: string) => {
+  let hasInit = false;
+  const run = (label?: string, force = false) => {
+    if (!force && hasInit) return;
     if (label) {
       console.log(`[animations] init via ${label}`);
     }
     init();
+    if (!force) {
+      hasInit = true;
+    }
   };
   document.addEventListener("astro:before-swap", (event) => {
     const nextDocument = (event as CustomEvent).detail?.newDocument as Document | undefined;
@@ -335,10 +426,13 @@ if (typeof window !== "undefined") {
       applyTheme(nextDocument.documentElement);
     }
   });
-  window.addEventListener("DOMContentLoaded", () => run("DOMContentLoaded"));
-  window.addEventListener("load", () => run("load"));
   document.addEventListener("astro:page-load", () => run("astro:page-load"));
-  document.addEventListener("astro:after-swap", () => run("astro:after-swap"));
+  document.addEventListener("astro:after-swap", () => run("astro:after-swap", true));
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", () => run("DOMContentLoaded"));
+  } else {
+    run("ready");
+  }
   window.addEventListener("pageshow", restoreDocumentVisibility);
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") {

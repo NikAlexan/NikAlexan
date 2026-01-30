@@ -23,7 +23,7 @@ const githubHandle = github?.href?.includes("github.com/")
   <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background-dark px-4 text-ochre">
     <span class="material-symbols-outlined animate-bounce">expand_circle_down</span>
   </div>
-  <div class="font-mono text-xs text-ink/50 mb-12 tracking-widest uppercase flex items-center gap-2">
+  <div class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] mb-12 tracking-widest uppercase flex items-center gap-2">
     <span class="w-1.5 h-1.5 bg-ochre"></span>
     COMMUNICATION_PROTOCOL
   </div>
@@ -31,26 +31,26 @@ const githubHandle = github?.href?.includes("github.com/")
     <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={telegram?.href ?? "#"}>
       <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">Telegram</span>
       <div class="text-right">
-        <span class="font-mono text-xs text-ink/50 group-hover:text-ochre block">{telegramHandle}</span>
-        <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity uppercase">SEND MESSAGE -&gt;</span>
+        <span class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] group-hover:text-ochre block">{telegramHandle}</span>
+        <span class="text-[10px] font-mono text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity uppercase">SEND MESSAGE -&gt;</span>
       </div>
     </a>
     <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={email?.href ?? "#"}>
       <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">Email</span>
       <div class="text-right">
-        <span class="font-mono text-xs text-ink/50 group-hover:text-ochre block">{emailAddress}</span>
-        <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity uppercase">COPY ADDRESS -&gt;</span>
+        <span class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] group-hover:text-ochre block">{emailAddress}</span>
+        <span class="text-[10px] font-mono text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity uppercase">COPY ADDRESS -&gt;</span>
       </div>
     </a>
     <a class="group flex items-baseline justify-between border-b border-softer pb-6 pt-2 hover:border-ochre transition-colors cursor-pointer" href={github?.href ?? "#"}>
       <span class="text-4xl md:text-7xl font-display font-light text-stroke group-hover:text-ochre transition-all duration-300 uppercase">GitHub</span>
       <div class="text-right">
-        <span class="font-mono text-xs text-ink/50 group-hover:text-ochre block">{githubHandle}</span>
-        <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity uppercase">VIEW REPO -&gt;</span>
+        <span class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] group-hover:text-ochre block">{githubHandle}</span>
+        <span class="text-[10px] font-mono text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity uppercase">VIEW REPO -&gt;</span>
       </div>
     </a>
   </div>
-  <div class="mt-20 flex justify-between items-end font-mono text-[10px] text-ink/40 uppercase">
+  <div class="mt-20 flex justify-between items-end font-mono text-[10px] text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] uppercase">
     <div>
       {site.footer.copyright}
     </div>

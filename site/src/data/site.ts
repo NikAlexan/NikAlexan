@@ -1,5 +1,3 @@
-import { projectsEn, projectsRu, type Project } from "./projects";
-
 export type Locale = "ru" | "en";
 
 type Service = {
@@ -58,7 +56,6 @@ type SiteContent = {
   };
   projects: {
     title: string;
-    items: Project[];
     caseStudy?: {
       kicker: string;
       title: string;
@@ -184,7 +181,6 @@ export const siteRu: SiteContent = {
   },
   projects: {
     title: "Опыт работы",
-    items: projectsRu,
     caseStudy: {
       kicker: "Кейс // NEXUS",
       title: "NEXUS Protocol",
@@ -280,7 +276,6 @@ export const siteEn: SiteContent = {
   },
   projects: {
     title: "Experience",
-    items: projectsEn,
     caseStudy: {
       kicker: "Case // NEXUS",
       title: "NEXUS Protocol",

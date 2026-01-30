@@ -1,0 +1,24 @@
+# План: конфиг блока «Консоль» и «Итог» в case-studies
+
+- [ ] Уточнить источник конфигурации кейса: `src/content/case-studies/{ru|en}/*.md`.
+- [ ] Расширить схему `case-studies` в `src/content/config.ts`:
+  - [ ] `console` (object)
+    - [ ] `filename` (string)
+    - [ ] `languageTag` (string, optional)
+    - [ ] `code` (string)
+    - [ ] `statusLabel` (string)
+    - [ ] `statusState` (enum: `success|warning|error|info`)
+  - [ ] `outcome` (object)
+    - [ ] `metric` (string, например `400%+`)
+    - [ ] `title` (string)
+    - [ ] `body` (string)
+    - [ ] `ctaLabel` (string)
+    - [ ] `ctaHref` (string)
+- [ ] Добавить эти поля в:
+  - [ ] `src/content/case-studies/ru/nexus.md`
+  - [ ] `src/content/case-studies/en/nexus.md`
+- [ ] Обновить `src/components/CaseStudyPage.astro`:
+  - [ ] Подставить `caseStudy.console.*` вместо жёсткого блока консоли.
+  - [ ] Подставить `caseStudy.outcome.*` вместо жёсткого блока «Итог».
+  - [ ] Цвет статуса связать с `statusState` (маппинг на существующие токены/классы).
+- [ ] Проверить обе локали и визуально сверить блоки.

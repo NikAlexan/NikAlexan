@@ -2,6 +2,7 @@
 import MobileMenu from "./MobileMenu.astro";
 import Header from "./Header.astro";
 import Footer from "./Footer.astro";
+import { getCollection } from "astro:content";
 
 const { site } = Astro.props;
 
@@ -22,7 +23,11 @@ const menuItems = [
 
 const github = site.contact.socials.find((item) => item.label.toLowerCase() === "github");
 
-const projects = site.projects.items;
+const allProjects = await getCollection("projects");
+const projects = allProjects
+  .filter((entry) => entry.slug.startsWith(`${site.locale}/`))
+  .sort((a, b) => a.data.order - b.data.order);
+const projectsCount = projects.length;
 const caseStudy = site.projects.caseStudy;
 const heroTitle = site.hero.tagline;
 const locationNote = site.hero.note;
@@ -35,12 +40,12 @@ const techStackGroups = [
 
 <div class="fixed inset-0 z-0 bg-grid-pattern opacity-100 grid-bg pointer-events-none"></div>
 <div class="fixed inset-0 pointer-events-none z-0">
-  <div class="absolute top-8 left-8 w-6 h-6 border-l border-t border-ochre/40"></div>
-  <div class="absolute top-8 right-8 w-6 h-6 border-r border-t border-ochre/40"></div>
-  <div class="absolute bottom-8 left-8 w-6 h-6 border-l border-b border-ochre/40"></div>
-  <div class="absolute bottom-8 right-8 w-6 h-6 border-r border-b border-ochre/40"></div>
-  <div class="absolute top-0 left-12 w-[1px] h-full bg-ochre/5 hidden md:block"></div>
-  <div class="absolute top-0 right-12 w-[1px] h-full bg-ochre/5 hidden md:block"></div>
+  <div class="absolute top-8 left-8 w-6 h-6 border-l border-t border-[color-mix(in_srgb,var(--color-ochre)_40%,transparent)]"></div>
+  <div class="absolute top-8 right-8 w-6 h-6 border-r border-t border-[color-mix(in_srgb,var(--color-ochre)_40%,transparent)]"></div>
+  <div class="absolute bottom-8 left-8 w-6 h-6 border-l border-b border-[color-mix(in_srgb,var(--color-ochre)_40%,transparent)]"></div>
+  <div class="absolute bottom-8 right-8 w-6 h-6 border-r border-b border-[color-mix(in_srgb,var(--color-ochre)_40%,transparent)]"></div>
+  <div class="absolute top-0 left-12 w-[1px] h-full bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)] hidden md:block"></div>
+  <div class="absolute top-0 right-12 w-[1px] h-full bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)] hidden md:block"></div>
 </div>
 <MobileMenu items={menuItems} locale={site.locale} />
 <Header homeHref={site.nav.homeHref} links={site.nav.links} locale={site.locale} />
@@ -49,16 +54,16 @@ const techStackGroups = [
     <div class="space-y-8 border-l border-soft pl-6 relative" data-nav-rail>
       <div class="absolute -left-[1px] top-0 w-[1px] h-12 bg-ochre shadow-[0_0_10px_rgba(217,119,6,0.5)]" data-nav-indicator></div>
       <div>
-        <div class="font-mono text-[9px] text-ink/50 tracking-widest uppercase mb-4">Navigation</div>
+        <div class="font-mono text-[9px] text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] tracking-widest uppercase mb-4">Navigation</div>
         <ul class="space-y-4 font-mono text-[11px]" data-nav-list>
           {navItems.map((item, index) => (
             <li>
               <a
-                class={`nav-link block text-ink/50 hover:text-ochre transition-colors group flex items-center gap-2 ${index === 0 ? "is-active text-ochre font-bold glowing-text" : ""}`}
+                class={`nav-link block text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] hover:text-ochre transition-colors group flex items-center gap-2 ${index === 0 ? "is-active text-ochre font-bold glowing-text" : ""}`}
                 data-nav-link
                 href={item.href}
               >
-                <span class={`nav-bullet w-1 h-1 bg-ink/30 group-hover:bg-ochre transition-colors ${index === 0 ? "is-active bg-ochre shadow-[0_0_5px_rgba(217,119,6,0.8)]" : ""}`} data-nav-bullet></span>
+                <span class={`nav-bullet w-1 h-1 bg-[color-mix(in_srgb,var(--color-ink)_30%,transparent)] group-hover:bg-ochre transition-colors ${index === 0 ? "is-active bg-ochre shadow-[0_0_5px_rgba(217,119,6,0.8)]" : ""}`} data-nav-bullet></span>
                 {String(index).padStart(2, "0")}_{item.label.toUpperCase()}
               </a>
             </li>
@@ -66,17 +71,17 @@ const techStackGroups = [
         </ul>
       </div>
       <div class="mt-8 pt-8 border-t border-softer opacity-80 hover:opacity-100 transition-opacity">
-        <div class="font-mono text-[9px] text-ink/40 uppercase mb-2">MASCOT_MODULE: ONLINE</div>
+        <div class="font-mono text-[9px] text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] uppercase mb-2">MASCOT_MODULE: ONLINE</div>
         <div class="relative w-16 h-16 group cursor-help">
           <img src="/ico.svg" alt="Mascot" class="w-full h-full" />
-          <div class="absolute -right-2 -bottom-2 w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.7)]"></div>
+          <div class="absolute -right-2 -bottom-2 w-2 h-2 bg-status-online rounded-full animate-pulse shadow-[0_0_8px_color-mix(in_srgb,var(--color-status-online)_70%,transparent)]"></div>
           <div class="terminal-bubble font-mono text-xs">
-            <div class="flex justify-between items-center mb-2 pb-1 border-b border-ochre/30">
+            <div class="flex justify-between items-center mb-2 pb-1 border-b border-[color-mix(in_srgb,var(--color-ochre)_30%,transparent)]">
               <span class="text-[9px] text-ochre uppercase tracking-wider">root@moose:~# joke.sh</span>
-              <button class="text-[9px] text-ink/50 hover:text-ochre">[X] CLOSE_SESSION</button>
+              <button class="text-[9px] text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] hover:text-ochre">[X] CLOSE_SESSION</button>
             </div>
             <div
-              class="typing-effect text-ink/70 leading-tight"
+              class="typing-effect text-[color-mix(in_srgb,var(--color-ink)_70%,transparent)] leading-tight"
               data-typing
               data-typing-items={JSON.stringify(site.about.jokes)}
             >
@@ -87,7 +92,7 @@ const techStackGroups = [
         </div>
       </div>
     </div>
-    <div class="font-mono text-[9px] text-ink/50 pl-6 border-l border-soft">
+    <div class="font-mono text-[9px] text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] pl-6 border-l border-soft">
       <div class="mb-1 uppercase">System_Status</div>
       <div class="text-ochre flex items-center gap-2 uppercase">
         <span class="w-1.5 h-1.5 rounded-full bg-ochre animate-pulse shadow-[0_0_8px_rgba(217,119,6,0.8)]"></span>
@@ -95,23 +100,23 @@ const techStackGroups = [
       </div>
     </div>
   </aside>
-  <main class="flex-1 pt-32 px-6 md:px-16 pb-32 max-w-6xl mx-auto w-full">
+  <main id="main-content" class="flex-1 pt-32 px-6 md:px-16 pb-32 max-w-6xl mx-auto w-full">
     <section class="mb-32 relative text-center md:text-left" id="hero">
-      <div class="hidden md:block absolute -top-10 left-0 w-8 h-[1px] bg-ochre/50"></div>
-      <div class="hidden md:block absolute -top-10 left-0 h-4 w-[1px] bg-ochre/50"></div>
-      <div class="inline-flex items-center gap-3 px-3 py-1 mb-8 border border-ochre/20 bg-ochre/5 text-ochre font-mono text-[10px] tracking-[0.2em] uppercase backdrop-blur-sm">
+      <div class="hidden md:block absolute -top-10 left-0 w-8 h-[1px] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0"></div>
+      <div class="hidden md:block absolute -top-10 left-0 h-4 w-[1px] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0"></div>
+      <div class="inline-flex items-center gap-3 px-3 py-1 mb-8 border border-[color-mix(in_srgb,var(--color-ochre)_20%,transparent)] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)] text-ochre font-mono text-[10px] tracking-[0.2em] uppercase backdrop-blur-sm">
         <span class="w-1.5 h-1.5 bg-ochre rounded-sm shadow-[0_0_5px_rgba(217,119,6,0.8)]"></span>
         Portfolio v3.0
       </div>
       <h1 class="font-display font-light text-[12vw] md:text-[8rem] lg:text-[8rem] leading-[0.85] tracking-tighter text-ink mb-8 select-none relative uppercase">
         {firstName}<br />
-        <span class="text-stroke text-ink/40 hover:text-ochre transition-colors duration-500">{lastName}</span>
+        <span class="text-stroke text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] hover:text-ochre transition-colors duration-500">{lastName}</span>
       </h1>
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border-y border-soft py-6 mb-12">
         <h2 class="text-2xl md:text-3xl font-mono font-medium text-ochre tracking-tighter uppercase">
           {heroTitle}
         </h2>
-        <div class="flex gap-4 font-mono text-[10px] text-ink/60">
+        <div class="flex gap-4 font-mono text-[10px] text-[color-mix(in_srgb,var(--color-ink)_60%,transparent)]">
           {chips.slice(0, 3).map((chip) => (
             <div class="border border-soft px-3 py-1.5 rounded-sm uppercase">{chip}</div>
           ))}
@@ -119,19 +124,19 @@ const techStackGroups = [
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
         <div class="bg-surface-dark/40 border-l border-soft pl-4 py-2">
-          <span class="text-ink/50 block mb-1 text-[10px] tracking-widest uppercase">Location</span>
+          <span class="text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] block mb-1 text-[10px] tracking-widest uppercase">Location</span>
           <div class="text-ink">{locationNote}</div>
         </div>
         <div class="bg-surface-dark/40 border-l border-soft pl-4 py-2">
-          <span class="text-ink/50 block mb-1 text-[10px] tracking-widest uppercase">Availability</span>
-          <div class="text-emerald-500 flex items-center gap-2">
-            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+          <span class="text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] block mb-1 text-[10px] tracking-widest uppercase">Availability</span>
+          <div class="text-status-online flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-status-online rounded-full animate-pulse"></span>
             {site.projects.title}
           </div>
         </div>
         <div class="bg-surface-dark/40 border-l border-soft pl-4 py-2">
-          <span class="text-ink/50 block mb-1 text-[10px] tracking-widest uppercase">Experience</span>
-          <div class="text-ink">{site.projects.items.length}+ Positions</div>
+          <span class="text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] block mb-1 text-[10px] tracking-widest uppercase">Experience</span>
+          <div class="text-ink">{projectsCount}+ Positions</div>
         </div>
       </div>
     </section>
@@ -141,15 +146,21 @@ const techStackGroups = [
           <span class="material-symbols-outlined text-lg">folder_open</span>
           01 // {site.projects.title}
         </div>
-        <div class="hidden md:block font-mono text-[10px] text-ink/50 uppercase">
+        <div class="hidden md:block font-mono text-[10px] text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] uppercase">
           Last Update: 2024.03.15
         </div>
       </div>
       <div class="grid grid-cols-1 gap-12">
-        {projects.map((project, index) => (
+        {projects.map((project, index) => {
+          const isWip = project.data.status === "wip";
+          const hasCaseStudy = Boolean(project.data.caseStudySlug);
+          const projectHref = hasCaseStudy
+            ? `${site.locale === "en" ? "/en" : ""}/project/${project.data.caseStudySlug}`
+            : "#";
+          return (
           <article
             class={
-              index === 2
+              isWip
                 ? "technical-card p-8 md:p-10 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(217,119,6,0.1)]"
                 : "technical-card p-8 md:p-10 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(217,119,6,0.1)]"
             }
@@ -157,46 +168,46 @@ const techStackGroups = [
             <div class="absolute top-0 right-0 p-4 opacity-50">
               <span
                 class={
-                  index === 2
-                    ? "font-mono text-[10px] text-ink/40 border border-ink/20 px-2 py-1 uppercase"
-                    : "font-mono text-[10px] text-ochre border border-ochre/30 px-2 py-1"
+                  isWip
+                    ? "font-mono text-[10px] text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] px-2 py-1 uppercase"
+                    : "font-mono text-[10px] text-ochre border border-[color-mix(in_srgb,var(--color-ochre)_30%,transparent)] px-2 py-1"
                 }
               >
-                {index === 2 ? "WIP_003" : `CS_00${index + 1}`}
+                {isWip ? `WIP_00${index + 1}` : `CS_00${index + 1}`}
               </span>
             </div>
-            <div class={index === 2 ? "flex flex-col md:flex-row gap-10 opacity-70 hover:opacity-100 transition-opacity" : "flex flex-col md:flex-row gap-10"}>
+            <div class={isWip ? "flex flex-col md:flex-row gap-10 opacity-70 hover:opacity-100 transition-opacity" : "flex flex-col md:flex-row gap-10"}>
               <div class="md:w-1/3 space-y-6">
                 <div>
-                  <h3 class="text-3xl font-display font-light text-ink mb-2 group-hover:text-ochre transition-colors">{project.title}</h3>
-                  <p class="font-mono text-xs text-ink/50 uppercase">{project.stack.join(" / ")}</p>
+                  <h3 class="text-3xl font-display font-light text-ink mb-2 group-hover:text-ochre transition-colors">{project.data.title}</h3>
+                  <p class="font-mono text-xs text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] uppercase">{project.data.stack.join(" / ")}</p>
                 </div>
                 <div class="flex flex-wrap gap-2">
-                  {project.stack.map((stackItem) => (
-                    <span class="px-2 py-1 bg-ink/5 text-[10px] font-mono text-ink/70">{stackItem}</span>
+                  {project.data.stack.map((stackItem) => (
+                    <span class="px-2 py-1 bg-[color-mix(in_srgb,var(--color-ink)_5%,transparent)] text-[10px] font-mono text-[color-mix(in_srgb,var(--color-ink)_70%,transparent)]">{stackItem}</span>
                   ))}
                 </div>
               </div>
               <div class="md:w-2/3 flex flex-col justify-between">
-                <p class="text-ink/60 font-light leading-relaxed mb-8">
-                  {project.description}
+                <p class="text-[color-mix(in_srgb,var(--color-ink)_60%,transparent)] font-light leading-relaxed mb-8">
+                  {project.data.description}
                 </p>
                 <div class="flex items-center justify-between border-t border-soft pt-6">
-                  <div class="flex gap-6 text-[10px] font-mono text-ink/50">
-                    {project.stack.slice(0, 2).map((stackItem) => (
+                  <div class="flex gap-6 text-[10px] font-mono text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)]">
+                    {project.data.stack.slice(0, 2).map((stackItem) => (
                       <span>{stackItem.toUpperCase()}</span>
                     ))}
                   </div>
-                  {index === 2 ? (
-                    <span class="flex items-center gap-2 text-ink/40 font-mono text-xs cursor-not-allowed uppercase">
+                  {isWip ? (
+                    <span class="flex items-center gap-2 text-[color-mix(in_srgb,var(--color-ink)_40%,transparent)] font-mono text-xs cursor-not-allowed uppercase">
                       COMING SOON <span class="material-symbols-outlined text-[14px]">lock</span>
                     </span>
                   ) : (
                     <a
                       class="flex items-center gap-2 text-ochre font-mono text-xs hover:underline decoration-ochre underline-offset-4 uppercase"
-                      href={index === 0 && caseStudy?.href ? caseStudy.href : "#"}
+                      href={projectHref}
                     >
-                      {index === 0 && caseStudy?.ctaLabel ? caseStudy.ctaLabel : "VIEW DETAILS"}
+                      {hasCaseStudy ? (caseStudy?.ctaLabel ?? "VIEW DETAILS") : "VIEW DETAILS"}
                       <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                     </a>
                   )}
@@ -204,7 +215,7 @@ const techStackGroups = [
               </div>
             </div>
           </article>
-        ))}
+        )})}
       </div>
       <div class="mt-16 text-center">
         <a
@@ -230,30 +241,30 @@ const techStackGroups = [
           <div class="space-y-6">
             {techStackGroups.map((group) => (
               <div class="group">
-                <div class="flex justify-between text-xs font-mono text-ink/60 mb-2 uppercase tracking-widest">
+                <div class="flex justify-between text-xs font-mono text-[color-mix(in_srgb,var(--color-ink)_60%,transparent)] mb-2 uppercase tracking-widest">
                   <span>{group.label}</span>
                   <span class="text-ochre opacity-0 group-hover:opacity-100 transition-opacity">&gt;&gt;&gt;</span>
                 </div>
-                <div class="h-[1px] w-full bg-ink/10 group-hover:bg-ochre/50 transition-colors mb-2"></div>
-                <p class="text-sm text-ink/70">{group.items.join(", ")}</p>
+                <div class="h-[1px] w-full bg-[color-mix(in_srgb,var(--color-ink)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0 transition-colors mb-2"></div>
+                <p class="text-sm text-[color-mix(in_srgb,var(--color-ink)_70%,transparent)]">{group.items.join(", ")}</p>
               </div>
             ))}
           </div>
         </div>
         <div class="bg-terminal border border-terminal p-8 backdrop-blur-sm relative overflow-hidden">
-          <div class="absolute -right-10 -top-10 w-40 h-40 bg-ochre/10 rounded-full blur-3xl pointer-events-none"></div>
-          <div class="font-mono text-[10px] text-ink/50 mb-4 uppercase">terminal_output.log</div>
-          <pre class="font-mono text-[11px] text-ink/70 overflow-x-hidden leading-relaxed"><span class="text-green-500">user@nexus:~$</span> whoami
-<span class="text-ochre">{site.hero.name}</span>
-<span class="text-green-500">user@nexus:~$</span> cat bio.txt
-{site.about.body}
-<span class="text-green-500">user@nexus:~$</span> ./run_diagnostics.sh
-<span class="text-ink/50">Loading modules...</span>
-<span class="text-green-500">[OK]</span> {site.about.bullets[0] ?? "Problem Solving"}
-<span class="text-green-500">[OK]</span> {site.about.bullets[1] ?? "System Design"}
-<span class="text-green-500">[OK]</span> {site.about.bullets[2] ?? "Leadership"}
-<span class="cursor-blink">_</span>
-          </pre>
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-[color-mix(in_srgb,var(--color-ochre)_10%,transparent)] rounded-full blur-3xl pointer-events-none"></div>
+          <div class="font-mono text-[10px] text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)] mb-4 uppercase">terminal_output.log</div>
+        <pre class="font-mono text-[11px] text-terminal-text overflow-x-hidden leading-relaxed"><span class="text-terminal-prompt">user@nexus:~$</span> whoami
+  <span class="text-ochre">{site.hero.name}</span>
+<span class="text-terminal-prompt">user@nexus:~$</span> cat bio.txt
+  {site.about.body}
+<span class="text-terminal-prompt">user@nexus:~$</span> ./run_diagnostics.sh
+  <span class="text-[color-mix(in_srgb,var(--color-ink)_50%,transparent)]">Loading modules...</span>
+  <span class="text-terminal-success">[OK]</span> {site.about.bullets[0] ?? "Problem Solving"}
+  <span class="text-terminal-success">[OK]</span> {site.about.bullets[1] ?? "System Design"}
+  <span class="text-terminal-success">[OK]</span> {site.about.bullets[2] ?? "Leadership"}
+  <span class="cursor-blink">_</span>
+</pre>
         </div>
       </div>
     </section>

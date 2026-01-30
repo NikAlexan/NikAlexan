@@ -4,19 +4,24 @@ const activeIndex = items.findIndex((item) => item.active) !== -1 ? items.findIn
 const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Navigation";
 ---
 
-<div class="fixed inset-0 z-[100] bg-cream-bg flex flex-col overflow-hidden hidden" data-menu>
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-[100] bg-cream-bg flex flex-col overflow-hidden hidden"
+  data-menu
+  aria-hidden="true"
+>
   <div class="absolute inset-0 z-0 menu-grid-bg pointer-events-none"></div>
-  <div class="absolute top-6 left-6 w-4 h-4 border-l border-t border-charcoal/20 z-20"></div>
-  <div class="absolute top-6 right-6 w-4 h-4 border-r border-t border-charcoal/20 z-20"></div>
-  <div class="absolute bottom-6 left-6 w-4 h-4 border-l border-b border-charcoal/20 z-20"></div>
-  <div class="absolute bottom-6 right-6 w-4 h-4 border-r border-b border-charcoal/20 z-20"></div>
-  <header class="relative z-20 flex justify-between items-center px-8 py-6 border-b border-charcoal/5">
-    <div class="font-mono text-xs tracking-[0.2em] text-charcoal/60 uppercase">
+  <div class="absolute top-6 left-6 w-4 h-4 border-l border-t border-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] z-20"></div>
+  <div class="absolute top-6 right-6 w-4 h-4 border-r border-t border-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] z-20"></div>
+  <div class="absolute bottom-6 left-6 w-4 h-4 border-l border-b border-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] z-20"></div>
+  <div class="absolute bottom-6 right-6 w-4 h-4 border-r border-b border-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] z-20"></div>
+  <header class="relative z-20 flex justify-between items-center px-8 py-6 border-b border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)]">
+    <div class="font-mono text-xs tracking-[0.2em] text-[color-mix(in_srgb,var(--color-charcoal)_60%,transparent)] uppercase">
       <span class="w-2 h-2 inline-block bg-warm-amber mr-2 rounded-full animate-pulse"></span>
       {menuTitle}
     </div>
     <button
-      class="w-10 h-10 border border-charcoal/10 bg-surface/40 flex items-center justify-center text-charcoal hover:bg-warm-amber hover:text-cream hover:border-warm-amber transition-all duration-300 group"
+      class="w-10 h-10 border border-[color-mix(in_srgb,var(--color-charcoal)_10%,transparent)] bg-surface/40 flex items-center justify-center text-charcoal hover:bg-warm-amber hover:text-cream hover:border-warm-amber transition-all duration-300 group"
       data-menu-close
       aria-label="Close menu"
     >
@@ -24,10 +29,10 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
     </button>
   </header>
   <div class="flex-1 flex relative z-10">
-    <div class="w-14 md:w-20 border-r border-charcoal/5 flex flex-col justify-center items-center py-8 bg-charcoal-faint">
-      <div class="vertical-text font-mono text-[10px] tracking-[0.3em] text-charcoal/40 whitespace-nowrap uppercase flex items-center gap-4">
+    <div class="w-14 md:w-20 border-r border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] flex flex-col justify-center items-center py-8 bg-charcoal-faint">
+      <div class="vertical-text font-mono text-[10px] tracking-[0.3em] text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] whitespace-nowrap uppercase flex items-center gap-4">
         <span class="text-warm-amber font-bold">SYSTEM_MENU: ACTIVE</span>
-        <span class="w-[1px] h-8 bg-charcoal/20"></span>
+        <span class="w-[1px] h-8 bg-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)]"></span>
         <span>V.2.0.4</span>
       </div>
     </div>
@@ -58,8 +63,8 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
             <div
               class={
                 index === activeIndex
-                  ? "h-[1px] w-full bg-warm-amber/20 transition-all duration-500"
-                  : "h-[1px] w-0 group-hover:w-full bg-warm-amber/20 transition-all duration-500"
+                  ? "h-[1px] w-full bg-[color-mix(in_srgb,var(--color-warm-amber)_20%,transparent)] transition-all duration-500"
+                  : "h-[1px] w-0 group-hover:w-full bg-[color-mix(in_srgb,var(--color-warm-amber)_20%,transparent)] transition-all duration-500"
               }
             ></div>
           </a>
@@ -67,16 +72,16 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
       </nav>
     </div>
   </div>
-  <div class="relative z-20 border-t border-charcoal/5 p-6 bg-surface/40 backdrop-blur-sm">
+  <div class="relative z-20 border-t border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] p-6 bg-surface/40 backdrop-blur-sm">
     <div class="flex flex-col gap-6">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-6">
-          <div class="flex items-center bg-white border border-charcoal/10 rounded-sm p-1">
+          <div class="flex items-center bg-white border border-[color-mix(in_srgb,var(--color-charcoal)_10%,transparent)] rounded-sm p-1">
             <a
               class={
                 locale === "ru"
                   ? "px-4 py-2 text-xs font-mono font-bold bg-warm-amber text-cream rounded-sm shadow-sm transition-all"
-                  : "px-4 py-2 text-xs font-mono text-charcoal/60 hover:text-warm-amber transition-colors"
+                  : "px-4 py-2 text-xs font-mono text-[color-mix(in_srgb,var(--color-charcoal)_60%,transparent)] hover:text-warm-amber transition-colors"
               }
               href="/"
             >
@@ -86,7 +91,7 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
               class={
                 locale === "en"
                   ? "px-4 py-2 text-xs font-mono font-bold bg-warm-amber text-cream rounded-sm shadow-sm transition-all"
-                  : "px-4 py-2 text-xs font-mono text-charcoal/60 hover:text-warm-amber transition-colors"
+                  : "px-4 py-2 text-xs font-mono text-[color-mix(in_srgb,var(--color-charcoal)_60%,transparent)] hover:text-warm-amber transition-colors"
               }
               href="/en"
             >
@@ -94,7 +99,7 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
             </a>
           </div>
           <button
-            class="flex items-center gap-2 px-4 py-2.5 bg-white border border-bronze/20 rounded-sm text-bronze transition-all group"
+            class="flex items-center gap-2 px-4 py-2.5 bg-white border border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] rounded-sm text-bronze transition-all group"
             data-theme-toggle
           >
             <span class="material-symbols-outlined text-[16px] theme-light group-hover:text-bronze">dark_mode</span>
@@ -103,9 +108,9 @@ const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Naviga
           </button>
         </div>
       </div>
-      <div class="flex justify-between items-end font-mono text-[9px] md:text-[10px] text-charcoal/40 uppercase tracking-wider border-t border-charcoal/5 pt-4">
+      <div class="flex justify-between items-end font-mono text-[9px] md:text-[10px] text-[color-mix(in_srgb,var(--color-charcoal)_40%,transparent)] uppercase tracking-wider border-t border-[color-mix(in_srgb,var(--color-charcoal)_5%,transparent)] pt-4">
         <div class="flex gap-4">
-          <span>SESSION_ID: <span class="text-charcoal/80">8842-AF</span></span>
+          <span>SESSION_ID: <span class="text-[color-mix(in_srgb,var(--color-charcoal)_80%,transparent)]">8842-AF</span></span>
           <span class="hidden sm:inline">|</span>
           <span class="hidden sm:inline">LOC: UNKNOWN</span>
         </div>

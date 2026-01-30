@@ -30,12 +30,38 @@ const { title, description, locale, ogImage, url } = Astro.props;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     />
     <script is:inline>
       const root = document.documentElement;
+      const getStorage = () => {
+        try {
+          return window.localStorage;
+        } catch {
+          return null;
+        }
+      };
+      const storage = getStorage();
+      const getStoredTheme = () => {
+        if (!storage) return null;
+        try {
+          return storage.getItem("theme");
+        } catch {
+          return null;
+        }
+      };
+      const getPreferredTheme = () => {
+        const stored = getStoredTheme();
+        if (stored === "dark" || stored === "light") return stored;
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      };
+      const applyTheme = (theme) => {
+        root.classList.toggle("dark", theme === "dark");
+      };
       const forceDisplay = () => {
         const styleAttr = root.getAttribute("style") || "";
         if (styleAttr.includes("display: none")) {
@@ -50,19 +76,26 @@ const { title, description, locale, ogImage, url } = Astro.props;
         attributes: true,
         attributeFilter: ["style"]
       });
-      const storedTheme = localStorage.getItem("theme");
-      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const initialTheme = storedTheme || (systemDark ? "dark" : "light");
-      root.setAttribute("data-theme", initialTheme);
+      const initialTheme = getPreferredTheme();
+      applyTheme(initialTheme);
       window.__docRoot = root;
       root.removeAttribute("data-preloader");
     </script>
   </head>
   <body class="relative min-h-screen overflow-x-hidden">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[1000] focus:px-4 focus:py-2 focus:rounded-sm focus:bg-ochre focus:text-cream focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest"
+    >
+      Skip to main content
+    </a>
     <PageTransition />
     <slot />
     <script type="module" src={animationsScript}></script>
     <script is:inline>
+      if (window.__revealObserver) {
+        window.__revealObserver.disconnect();
+      }
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -75,6 +108,7 @@ const { title, description, locale, ogImage, url } = Astro.props;
       );
 
       document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      window.__revealObserver = observer;
     </script>
     <script is:inline>
       const updateToggles = (theme) => {
@@ -84,14 +118,16 @@ const { title, description, locale, ogImage, url } = Astro.props;
       };
 
       const docRoot = window.__docRoot || document.documentElement;
-      updateToggles(docRoot.getAttribute("data-theme"));
+      updateToggles(docRoot.classList.contains("dark") ? "dark" : "light");
 
       document.addEventListener("click", (event) => {
         const toggle = event.target.closest("[data-theme-toggle]");
         if (!toggle) return;
-        const nextTheme = docRoot.getAttribute("data-theme") === "dark" ? "light" : "dark";
-        docRoot.setAttribute("data-theme", nextTheme);
-        localStorage.setItem("theme", nextTheme);
+        const nextTheme = docRoot.classList.contains("dark") ? "light" : "dark";
+        docRoot.classList.toggle("dark", nextTheme === "dark");
+        try {
+          window.localStorage.setItem("theme", nextTheme);
+        } catch {}
         updateToggles(nextTheme);
       });
     </script>
