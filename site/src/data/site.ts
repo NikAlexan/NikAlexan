@@ -123,7 +123,7 @@ export const siteRu: SiteContent = {
   meta: {
     title: "Nikita Vassilenko — Back End Developer",
     description:
-      "Back End Developer. WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 — победитель.",
+      "Back End Developer и энтузиаст.",
     url: base.url,
     ogImage: base.ogImage
   },
@@ -223,7 +223,7 @@ export const siteEn: SiteContent = {
   meta: {
     title: "Nikita Vassilenko — Back End Developer",
     description:
-      "Back End Developer. Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023.",
+      "Back End Developer and enthusiast.",
     url: `${base.url}/en`,
     ogImage: base.ogImage
   },
