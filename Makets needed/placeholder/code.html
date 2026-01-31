@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html class="" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OG Image: Engineering Terminal - Nikita Vasilenko</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#eca013",
+                        ochre: "#d97706",
+                        "amber-glow": "#f59e0b",
+                        "background-dark": "#221c10",
+                        "surface-dark": "#0f0e0d",
+                        "technical-grey": "#292524",
+                        ink: "#fafaf9",
+                        "background-light": "#f8f7f6"
+                    },
+                    fontFamily: {
+                        display: "Space Grotesk",
+                        mono: ["Space Mono", "monospace"]
+                    },
+                    backgroundImage: {
+                        "grid-pattern": "linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    }
+                }
+            }
+        };
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                font-family: 'Space Grotesk', sans-serif;
+                @apply bg-background-dark text-stone-300;
+            }
+        }
+        :root {
+            --grid-color: rgba(255, 255, 255, 0.03);
+        }
+        .grid-bg {
+            background-size: 40px 40px;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px #d97706;
+            color: transparent;
+        }.og-container {
+            width: 1200px;
+            height: 630px;
+            position: relative;
+            overflow: hidden;
+            background-color: #0c0a09;}
+        .moose-glow {
+             filter: drop-shadow(0 0 5px rgba(217, 119, 6, 0.4));
+        }
+        .glow-bracket {
+            box-shadow: 0 0 10px rgba(217, 119, 6, 0.5);
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen flex items-center justify-center bg-stone-900 p-8">
+<div class="og-container border border-stone-800 shadow-2xl relative flex flex-col justify-between p-12">
+<div class="absolute inset-0 z-0 bg-grid-pattern opacity-100 grid-bg pointer-events-none"></div>
+<div class="absolute inset-0 bg-gradient-to-br from-black/80 via-transparent to-black/80 pointer-events-none z-0"></div>
+<div class="absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 border-ochre z-10"></div>
+<div class="absolute top-8 right-8 w-12 h-12 border-r-2 border-t-2 border-ochre z-10"></div>
+<div class="absolute bottom-8 left-8 w-12 h-12 border-l-2 border-b-2 border-ochre z-10"></div>
+<div class="absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 border-ochre z-10"></div>
+<div class="relative z-20 flex justify-between items-start w-full font-mono text-sm tracking-widest text-stone-500 uppercase">
+<div class="flex gap-6">
+<span class="text-ochre">LATENCY: 12ms</span>
+<span>SYSTEM: <span class="text-emerald-500">ONLINE</span></span>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span>BUILD_ID: 8842-AF</span>
+<span class="text-[10px] opacity-60">SECURE_CONNECTION_ESTABLISHED</span>
+</div>
+</div>
+<div class="relative z-20 flex-1 flex flex-col justify-center items-center text-center">
+<div class="inline-flex items-center gap-3 px-4 py-1 mb-6 border border-ochre/30 bg-ochre/5 text-ochre font-mono text-xs tracking-[0.3em] uppercase backdrop-blur-sm">
+<span class="w-2 h-2 bg-ochre rounded-sm shadow-[0_0_8px_rgba(217,119,6,0.8)]"></span>
+                Portfolio v3.0
+            </div>
+<h1 class="font-display font-bold text-[8rem] leading-[0.8] tracking-tighter text-white mb-4 select-none uppercase drop-shadow-2xl">
+                NIKITA<br/>
+<span class="text-stroke text-stone-600">VASILENKO</span>
+</h1>
+<div class="h-[1px] w-32 bg-gradient-to-r from-transparent via-ochre to-transparent mb-6 opacity-60"></div>
+<h2 class="text-3xl font-mono font-medium text-ochre tracking-tight uppercase">
+                Backend Developer
+            </h2>
+<div class="flex gap-4 mt-8 font-mono text-xs text-stone-400">
+<div class="border border-white/10 bg-black/40 px-4 py-2 rounded-sm uppercase tracking-wider">PHP</div>
+<div class="border border-white/10 bg-black/40 px-4 py-2 rounded-sm uppercase tracking-wider">.NET</div>
+<div class="border border-white/10 bg-black/40 px-4 py-2 rounded-sm uppercase tracking-wider">DevOps</div>
+</div>
+</div>
+<div class="relative z-20 flex justify-between items-end w-full">
+<div class="relative w-24 h-24 group">
+<svg class="w-full h-full text-ochre moose-glow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 100 100">
+<path d="M25 40 C 20 20, 10 30, 15 45 M 75 40 C 80 20, 90 30, 85 45"></path>
+<path d="M30 35 C 28 20, 35 15, 40 30 M 70 35 C 72 20, 65 15, 60 30"></path>
+<circle cx="50" cy="60" r="25"></circle>
+<path d="M25 55 C 20 50, 20 60, 26 62 M 75 55 C 80 50, 80 60, 74 62"></path>
+<ellipse class="opacity-80" cx="43" cy="55" fill="currentColor" rx="3" ry="5"></ellipse>
+<ellipse class="opacity-80" cx="57" cy="55" fill="currentColor" rx="3" ry="5"></ellipse>
+<path d="M40 65 Q 50 75 60 65 C 60 65 50 55 40 65 Z" fill="rgba(217,119,6,0.2)"></path>
+<path d="M40 85 L 40 95 M 60 85 L 60 95"></path>
+</svg>
+<div class="absolute -right-1 -bottom-1 w-3 h-3 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
+</div>
+<div class="text-right font-mono text-xs text-stone-600 uppercase tracking-widest">
+<div>© UNIFIED SYSTEMS</div>
+<div class="mt-1 text-stone-500">Terminal_Mode: <span class="text-ochre">ACTIVE</span></div>
+</div>
+</div>
+<div class="absolute top-0 left-20 w-[1px] h-full bg-ochre/5 z-0"></div>
+<div class="absolute top-0 right-20 w-[1px] h-full bg-ochre/5 z-0"></div>
+<div class="absolute top-20 left-0 w-full h-[1px] bg-ochre/5 z-0"></div>
+<div class="absolute bottom-20 left-0 w-full h-[1px] bg-ochre/5 z-0"></div>
+</div>
+
+</body></html>

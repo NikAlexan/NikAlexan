@@ -1,17 +1,157 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#F6F4EF"/>
-      <stop offset="100%" stop-color="#E9F0EE"/>
+    <style>
+      .mono {
+      font-family: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      }
+      .display {
+      font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+      .upper {
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      }
+    </style>
+
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="vignette" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
+    </radialGradient>
+
+    <linearGradient id="sepGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="50%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
     </linearGradient>
+
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="rgba(217,119,6,.45)"/>
+    </filter>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="1020" cy="120" r="120" fill="#E76F51" opacity="0.25"/>
-  <circle cx="160" cy="520" r="180" fill="#2A9D8F" opacity="0.2"/>
-  <text x="90" y="290" font-family="Space Grotesk, Arial, sans-serif" font-size="64" fill="#11181C" font-weight="700">
-    Nikita Vassilenko
-  </text>
-  <text x="90" y="360" font-family="Space Grotesk, Arial, sans-serif" font-size="28" fill="#4B5563">
-    Backend · DevSecOps · Laravel · CI/CD
-  </text>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="#0c0a09"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#vignette)"/>
+
+  <!-- outer frame -->
+  <rect x="0.5" y="0.5" width="1199" height="629" fill="none" stroke="#292524"/>
+
+  <!-- OUTWARD CORNERS -->
+  <!-- top-left (outward ↑) -->
+  <path d="M56 80 V56 H80" stroke="#d97706" stroke-width="2" fill="none"/>
+  <!-- top-right (outward ↑) -->
+  <path d="M1144 80 V56 H1120" stroke="#d97706" stroke-width="2" fill="none"/>
+  <!-- bottom-left (outward ↓) -->
+  <path d="M56 550 V574 H80" stroke="#d97706" stroke-width="2" fill="none"/>
+  <!-- bottom-right (outward ↓) -->
+  <path d="M1144 550 V574 H1120" stroke="#d97706" stroke-width="2" fill="none"/>
+
+  <!-- guide lines -->
+  <line x1="200" y1="0" x2="200" y2="630" stroke="rgba(217,119,6,0.08)"/>
+  <line x1="1000" y1="0" x2="1000" y2="630" stroke="rgba(217,119,6,0.08)"/>
+  <line x1="0" y1="200" x2="1200" y2="200" stroke="rgba(217,119,6,0.08)"/>
+  <line x1="0" y1="430" x2="1200" y2="430" stroke="rgba(217,119,6,0.08)"/>
+
+  <!-- top status -->
+  <g class="mono upper" font-size="14" fill="#78716c">
+    <text x="96" y="92">
+      <tspan fill="#d97706">LATENCY: 12ms</tspan>
+      <tspan dx="20">SYSTEM:</tspan>
+      <tspan dx="10" fill="#10b981">ONLINE</tspan>
+    </text>
+
+    <text x="1104" y="92" text-anchor="end">BUILD_ID: 8842-AF</text>
+    <text x="1104" y="112" text-anchor="end" font-size="10" opacity=".65">
+      SECURE_CONNECTION_ESTABLISHED
+    </text>
+  </g>
+
+  <!-- center -->
+  <g transform="translate(600 315)" text-anchor="middle">
+    <!-- pill -->
+    <g transform="translate(0 -150)">
+      <rect x="-160" y="-18" width="320" height="36" rx="4"
+            fill="rgba(217,119,6,.06)" stroke="rgba(217,119,6,.3)"/>
+      <rect x="-142" y="-6" width="12" height="12" rx="2" fill="#d97706"/>
+      <text class="mono upper" x="14" y="6" font-size="12" fill="#d97706">
+        Portfolio v3.0
+      </text>
+    </g>
+
+    <!-- name -->
+    <text class="display upper" font-size="128" font-weight="700" fill="#fff"
+          style="letter-spacing:-.04em">
+      <tspan x="0" dy="0">NIKITA</tspan>
+      <tspan x="0" dy="100"></tspan>
+    </text>
+
+    <text class="display upper" y="110" font-size="128" font-weight="700"
+          fill="none" stroke="#d97706" stroke-width="2"
+          style="letter-spacing:-.04em">
+      VASILENKO
+    </text>
+
+    <rect x="-160" y="150" width="320" height="1" fill="url(#sepGrad)"/>
+
+    <text class="mono upper" y="205" font-size="32" fill="#d97706">
+      Backend Developer
+    </text>
+
+    <!-- tags -->
+    <g class="mono upper" font-size="12" fill="#a8a29e" transform="translate(0 255)">
+      <g transform="translate(-140)">
+        <rect x="-40" y="-16" width="80" height="32" rx="4"
+              fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.1)"/>
+        <text y="5">PHP</text>
+      </g>
+      <g>
+        <rect x="-45" y="-16" width="90" height="32" rx="4"
+              fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.1)"/>
+        <text y="5">.NET</text>
+      </g>
+      <g transform="translate(140)">
+        <rect x="-55" y="-16" width="110" height="32" rx="4"
+              fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.1)"/>
+        <text y="5">DevOps</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- bottom-left: MASCOT (restored) + online dot -->
+  <g transform="translate(96 468)" filter="url(#glow)">
+    <!-- Moose icon -->
+    <g transform="scale(1.08)">
+      <svg x="0" y="0" width="96" height="96" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25 40 C 20 20, 10 30, 15 45 M 75 40 C 80 20, 90 30, 85 45"
+              fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M30 35 C 28 20, 35 15, 40 30 M 70 35 C 72 20, 65 15, 60 30"
+              fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="50" cy="60" r="25" fill="none" stroke="#d97706" stroke-width="2"/>
+        <path d="M25 55 C 20 50, 20 60, 26 62 M 75 55 C 80 50, 80 60, 74 62"
+              fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <ellipse cx="43" cy="55" rx="3" ry="5" fill="#d97706" opacity="0.8"/>
+        <ellipse cx="57" cy="55" rx="3" ry="5" fill="#d97706" opacity="0.8"/>
+        <path d="M40 65 Q 50 75 60 65 C 60 65 50 55 40 65 Z" fill="rgba(217,119,6,0.20)"/>
+        <path d="M40 85 L 40 95 M 60 85 L 60 95"
+              fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </g>
+
+    <!-- Online dot -->
+    <circle cx="92" cy="92" r="6" fill="#10b981"/>
+    <circle cx="92" cy="92" r="10" fill="rgba(16,185,129,.25)"/>
+  </g>
+
+  <!-- footer -->
+  <g class="mono upper" font-size="12" fill="#57534e" text-anchor="end">
+    <text x="1104" y="552">© UNIFIED SYSTEMS</text>
+    <text x="1104" y="572">
+      Terminal_Mode: <tspan fill="#d97706">ACTIVE</tspan>
+    </text>
+  </g>
 </svg>
