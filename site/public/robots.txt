@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /project/
 Sitemap: https://nikalexan.com/sitemap.xml
