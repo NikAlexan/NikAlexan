@@ -25,7 +25,7 @@ const github = site.contact.socials.find((item) => item.label.toLowerCase() === 
 
 const allProjects = await getCollection("projects");
 const projects = allProjects
-  .filter((entry) => entry.slug.startsWith(`${site.locale}/`))
+  .filter((entry) => entry.id.startsWith(`${site.locale}/`))
   .sort((a, b) => a.data.order - b.data.order);
 const projectsCount = projects.length;
 const caseStudy = site.projects.caseStudy;
