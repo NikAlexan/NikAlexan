@@ -81,6 +81,19 @@ type SiteContent = {
     };
     socials: Social[];
   };
+  ui: {
+    home: string;
+    navigation: string;
+    location: string;
+    availability: string;
+    experience: string;
+    positions: (count: number) => string;
+    lastUpdate: string;
+    viewDetails: string;
+    comingSoon: string;
+    allProjectsOnGitHub: string;
+    techStack: string;
+  };
   footer: {
     copyright: string;
     links: { label: string; href: string }[];
@@ -114,6 +127,14 @@ const shared = {
     { label: "LinkedIn", href: "https://linkedin.com/in/nikalexan" },
     { label: "GitHub", href: "https://github.com/nikalexan" }
   ]
+};
+
+const pluralRu = (count: number, [one, few, many]: [string, string, string]) => {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+  if (mod10 === 1 && mod100 !== 11) return one;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
+  return many;
 };
 
 export const siteRu: SiteContent = {
@@ -170,11 +191,11 @@ export const siteRu: SiteContent = {
       "Сначала была таблица. Потом JOIN. Потом стало грустно"
     ],
     stack: [
-      { label: "Backend", items: ["PHP", "Java", "Go", "Python"] },
-      { label: "Frontend", items: ["JavaScript", "Vue", "Nuxt"] },
-      { label: "Infrastructure", items: ["Docker", "Kubernetes", "Terraform"] },
-      { label: "Data & messaging", items: ["PostgreSQL", "gRPC", "NATS", "MQTT"] },
-      { label: "Blockchain", items: ["Solidity", "Foundry"] }
+      { label: "Бэкенд", items: ["PHP", "Java", "Go", "Python"] },
+      { label: "Фронтенд", items: ["JavaScript", "Vue", "Nuxt"] },
+      { label: "Инфраструктура", items: ["Docker", "Kubernetes", "Terraform"] },
+      { label: "Данные и очереди", items: ["PostgreSQL", "gRPC", "NATS", "MQTT"] },
+      { label: "Блокчейн", items: ["Solidity", "Foundry"] }
     ],
     availability: 'Открыт для сотрудничества'
   },
@@ -208,6 +229,19 @@ export const siteRu: SiteContent = {
       submitLabel: "Отправить"
     },
     socials: shared.socials
+  },
+  ui: {
+    home: "Главная",
+    navigation: "Навигация",
+    location: "Город",
+    availability: "Статус",
+    experience: "Опыт",
+    positions: (count) => `${count}+ ${pluralRu(count, ["должность", "должности", "должностей"])}`,
+    lastUpdate: "Обновлено: 2024.03.15",
+    viewDetails: "Подробнее",
+    comingSoon: "Скоро",
+    allProjectsOnGitHub: "Все проекты на GitHub",
+    techStack: "Стек"
   },
   footer: {
     copyright: "© 2026 Nikita Vassilenko",
@@ -302,6 +336,19 @@ export const siteEn: SiteContent = {
       submitLabel: "Send message"
     },
     socials: shared.socials
+  },
+  ui: {
+    home: "Home",
+    navigation: "Navigation",
+    location: "Location",
+    availability: "Availability",
+    experience: "Experience",
+    positions: (count) => `${count}+ ${count === 1 ? "Position" : "Positions"}`,
+    lastUpdate: "Last Update: 2024.03.15",
+    viewDetails: "View details",
+    comingSoon: "Coming soon",
+    allProjectsOnGitHub: "All Projects on GitHub",
+    techStack: "Tech Stack"
   },
   footer: {
     copyright: "© 2026 Nikita Vassilenko",
