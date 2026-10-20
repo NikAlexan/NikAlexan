@@ -88,7 +88,6 @@ type SiteContent = {
     availability: string;
     experience: string;
     positions: (count: number) => string;
-    lastUpdate: string;
     viewDetails: string;
     comingSoon: string;
     allProjectsOnGitHub: string;
@@ -237,7 +236,6 @@ export const siteRu: SiteContent = {
     availability: "Статус",
     experience: "Опыт",
     positions: (count) => `${count}+ ${pluralRu(count, ["должность", "должности", "должностей"])}`,
-    lastUpdate: "Обновлено: 2024.03.15",
     viewDetails: "Подробнее",
     comingSoon: "Скоро",
     allProjectsOnGitHub: "Все проекты на GitHub",
@@ -344,7 +342,6 @@ export const siteEn: SiteContent = {
     availability: "Availability",
     experience: "Experience",
     positions: (count) => `${count}+ ${count === 1 ? "Position" : "Positions"}`,
-    lastUpdate: "Last Update: 2024.03.15",
     viewDetails: "View details",
     comingSoon: "Coming soon",
     allProjectsOnGitHub: "All Projects on GitHub",
