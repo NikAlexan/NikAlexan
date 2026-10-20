@@ -112,12 +112,12 @@
       <g>
         <rect x="-45" y="-16" width="90" height="32" rx="4"
               fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.1)"/>
-        <text y="5">.NET</text>
+        <text y="5">Java</text>
       </g>
       <g transform="translate(140)">
         <rect x="-55" y="-16" width="110" height="32" rx="4"
               fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.1)"/>
-        <text y="5">DevOps</text>
+        <text y="5">Go</text>
       </g>
     </g>
   </g>

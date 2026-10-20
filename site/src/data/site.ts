@@ -127,7 +127,7 @@ export const siteRu: SiteContent = {
   meta: {
     title: "Никита Василенко (Nikita Vassilenko) — backend-разработчик",
     description:
-      "Backend-разработчик из Астаны: .NET, PHP, JavaScript. Работаю в KAZINSYS.kz, победитель WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business».",
+      "Backend-разработчик из Астаны: PHP, Java, Go. Работаю в KAZINSYS.kz, победитель WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business».",
     url: `${base.url}/`,
     ogImage: base.ogImage,
     siteName: "Никита Василенко",
@@ -229,9 +229,9 @@ export const siteRu: SiteContent = {
 export const siteEn: SiteContent = {
   locale: "en",
   meta: {
-    title: "Nikita Vassilenko — Backend Developer (.NET, PHP)",
+    title: "Nikita Vassilenko — Backend Developer (PHP, Java, Go)",
     description:
-      "Backend developer in Astana, Kazakhstan, working with .NET, PHP and JavaScript at KAZINSYS.kz. Winner of WorldSkills Kazakhstan 2023 in IT solutions for business.",
+      "Backend developer in Astana, Kazakhstan, writing PHP, Java and Go at KAZINSYS.kz. Winner of WorldSkills Kazakhstan 2023 in IT solutions for business.",
     url: `${base.url}/en/`,
     ogImage: base.ogImage,
     siteName: "Nikita Vassilenko",
