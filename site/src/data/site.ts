@@ -143,15 +143,15 @@ const pluralRu = (count: number, [one, few, many]: [string, string, string]) => 
 export const siteRu: SiteContent = {
   locale: "ru",
   meta: {
-    title: "Никита Василенко (Nikita Vassilenko) — backend-разработчик",
+    title: "Никита Василенко (Nikita Vassilenko) — backend-разработчик на PHP, Java и Go",
     description:
-      "Backend-разработчик из Астаны: PHP, Java, Go. Работаю в KAZINSYS.kz, победитель WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business».",
+      "Middle Backend Developer из Астаны: PHP, Laravel, Java, Go. Поддерживаю государственные порталы с аудиторией 750K+ визитов в месяц. Победитель WorldSkills Kazakhstan 2023.",
     url: `${base.url}/`,
     ogImage: base.ogImage,
     siteName: "Никита Василенко",
     personName: "Никита Василенко",
     personAlternateName: "Nikita Vassilenko",
-    jobTitle: "Backend-разработчик"
+    jobTitle: "Middle Backend Developer"
   },
   nav: {
     logo: "Nikita Vassilenko",
@@ -166,9 +166,9 @@ export const siteRu: SiteContent = {
   },
   hero: {
     name: "Nikita Vassilenko",
-    tagline: "Back End Developer",
+    tagline: "Middle Backend Developer",
     description:
-      "Победитель WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business». На работе пишу на PHP, Java и Go. В своих проектах добавляю Kubernetes и Terraform.",
+      "Пишу бэкенд на PHP, Java и Go: API, базы данных, очереди, CI/CD. Поддерживаю государственные порталы с аудиторией 750K+ визитов в месяц.",
     ctaPrimary: { label: "LinkedIn", href: "https://www.linkedin.com/in/nikalexan/" },
     ctaSecondary: { label: "Опыт работы", href: "#works" },
     note: "Астана, Казахстан",
@@ -176,18 +176,19 @@ export const siteRu: SiteContent = {
     cardTitle: "WorldSkills 2023 Winner",
     cardText:
       "WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 — «IT solutions for business».",
-    cardChips: ["PHP", "Java", "Go", "Kubernetes"]
+    cardChips: ["PHP", "Laravel", "Java", "Go"]
   },
   about: {
     title: "Обо мне",
     body:
-      "Back End Developer из Астаны, работаю в KAZINSYS.kz. На работе пишу на PHP, Java и Go. В учёбе и своих проектах беру ещё Python, деплою в Kubernetes через Terraform, пишу смарт-контракты на Solidity.",
+      "Middle Backend Developer в KazInSys, Астана. С 2023 года делаю бэкенд для государственных сайтов: в основном PHP и Laravel, на работе также Java и Go. Проектирую API, ускоряю запросы к базе, настраиваю Docker и CI/CD. В своих проектах пишу микросервисы на Go с gRPC и NATS и деплою их в Kubernetes через Terraform.",
     bullets: [
       "Победитель WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023",
-      "Back End Developer в KAZINSYS.kz (апр. 2025 — настоящее время)",
-      "Full Stack Developer в KAZINSYS.kz (июнь 2023 — апр. 2025)",
+      "Middle Backend Developer в KazInSys (апр. 2025 — настоящее время)",
+      "Junior Full Stack Developer в KazInSys (июль 2023 — апр. 2025)",
       "Astana IT University — Software Engineering (2024–2027)",
-      "HackNU: цифровой двойник локомотива для КТЖ"
+      "Астанинский политехнический колледж — информационные системы (2020–2024)",
+      "Сертификаты: Senior Laravel Developer, Red Hat RH124, Linux Essentials (Cisco)"
     ],
     jokes: [
       "Когда рога падают — никто не замечает, а когда прод — все",
@@ -198,11 +199,12 @@ export const siteRu: SiteContent = {
       "Сначала была таблица. Потом JOIN. Потом стало грустно"
     ],
     stack: [
-      { label: "Бэкенд", items: ["PHP", "Java", "Go", "Python"] },
-      { label: "Фронтенд", items: ["JavaScript", "Vue", "Nuxt"] },
-      { label: "Инфраструктура", items: ["Docker", "Kubernetes", "Terraform"] },
-      { label: "Данные и очереди", items: ["PostgreSQL", "gRPC", "NATS", "MQTT"] },
-      { label: "Блокчейн", items: ["Solidity", "Foundry"] }
+      { label: "Языки", items: ["PHP", "Java", "Go", "SQL"] },
+      { label: "Фреймворки", items: ["Laravel", "Symfony", "Spring Boot", "Gin"] },
+      { label: "Базы данных", items: ["MySQL", "PostgreSQL", "Redis", "MongoDB"] },
+      { label: "DevOps", items: ["Docker", "Kubernetes", "Nginx", "Linux", "GitLab CI/CD"] },
+      { label: "Логи, метрики, тесты", items: ["Graylog", "Grafana", "PHPUnit", "JUnit"] },
+      { label: "В своих проектах", items: ["gRPC", "NATS", "Terraform", "Vue", "Solidity"] }
     ],
     availability: 'Открыт для сотрудничества'
   },
@@ -260,13 +262,13 @@ export const siteEn: SiteContent = {
   meta: {
     title: "Nikita Vassilenko — Backend Developer (PHP, Java, Go)",
     description:
-      "Backend developer in Astana, Kazakhstan, writing PHP, Java and Go at KAZINSYS.kz. Winner of WorldSkills Kazakhstan 2023 in IT solutions for business.",
+      "Middle Backend Developer in Astana, Kazakhstan: PHP, Laravel, Java, Go. I maintain government portals with 750K+ monthly visits. WorldSkills Kazakhstan 2023 winner.",
     url: `${base.url}/en/`,
     ogImage: base.ogImage,
     siteName: "Nikita Vassilenko",
     personName: "Nikita Vassilenko",
     personAlternateName: "Никита Василенко",
-    jobTitle: "Backend Developer"
+    jobTitle: "Middle Backend Developer"
   },
   nav: {
     logo: "Nikita Vassilenko",
@@ -276,9 +278,9 @@ export const siteEn: SiteContent = {
   },
   hero: {
     name: "Nikita Vassilenko",
-    tagline: "Back End Developer",
+    tagline: "Middle Backend Developer",
     description:
-      "Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023 in the “IT solutions for business” competency. I write PHP, Java and Go at work and use Kubernetes and Terraform in my own projects.",
+      "I build backends in PHP, Java and Go: APIs, databases, queues, CI/CD. I maintain government portals with 750K+ monthly visits.",
     ctaPrimary: { label: "LinkedIn", href: "https://www.linkedin.com/in/nikalexan/" },
     ctaSecondary: { label: "Experience", href: "#works" },
     note: "Astana, Kazakhstan",
@@ -286,18 +288,19 @@ export const siteEn: SiteContent = {
     cardTitle: "WorldSkills 2023 Winner",
     cardText:
       "WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023 — “IT solutions for business”.",
-    cardChips: ["PHP", "Java", "Go", "Kubernetes"]
+    cardChips: ["PHP", "Laravel", "Java", "Go"]
   },
   about: {
     title: "About",
     body:
-      "Back End Developer in Astana, working at KAZINSYS.kz. At work I write PHP, Java and Go. In university and side projects I also use Python, deploy to Kubernetes with Terraform, and write Solidity contracts.",
+      "Middle Backend Developer at KazInSys in Astana. Since 2023 I have built backends for government websites, mostly in PHP and Laravel, with some Java and Go at work. I design APIs, speed up database queries and set up Docker and CI/CD. In my own projects I write Go microservices with gRPC and NATS and deploy them to Kubernetes with Terraform.",
     bullets: [
       "Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023",
-      "Back End Developer at KAZINSYS.kz (Apr 2025 — Present)",
-      "Full Stack Developer at KAZINSYS.kz (Jun 2023 — Apr 2025)",
+      "Middle Backend Developer at KazInSys (Apr 2025 — Present)",
+      "Junior Full Stack Developer at KazInSys (Jul 2023 — Apr 2025)",
       "Astana IT University — Software Engineering (2024–2027)",
-      "HackNU: locomotive digital twin for KTZ"
+      "Astana Polytechnic College — Information Systems (2020–2024)",
+      "Certificates: Senior Laravel Developer, Red Hat RH124, Cisco Linux Essentials"
     ],
     jokes: [
       "When antlers fall, no one notices; when prod falls, everyone does",
@@ -308,11 +311,12 @@ export const siteEn: SiteContent = {
       "It started as a table. Then JOINs happened. Then sadness"
     ],
     stack: [
-      { label: "Backend", items: ["PHP", "Java", "Go", "Python"] },
-      { label: "Frontend", items: ["JavaScript", "Vue", "Nuxt"] },
-      { label: "Infrastructure", items: ["Docker", "Kubernetes", "Terraform"] },
-      { label: "Data & messaging", items: ["PostgreSQL", "gRPC", "NATS", "MQTT"] },
-      { label: "Blockchain", items: ["Solidity", "Foundry"] }
+      { label: "Languages", items: ["PHP", "Java", "Go", "SQL"] },
+      { label: "Frameworks", items: ["Laravel", "Symfony", "Spring Boot", "Gin"] },
+      { label: "Databases", items: ["MySQL", "PostgreSQL", "Redis", "MongoDB"] },
+      { label: "DevOps", items: ["Docker", "Kubernetes", "Nginx", "Linux", "GitLab CI/CD"] },
+      { label: "Logs, metrics, tests", items: ["Graylog", "Grafana", "PHPUnit", "JUnit"] },
+      { label: "Side projects", items: ["gRPC", "NATS", "Terraform", "Vue", "Solidity"] }
     ],
     availability: "Open for new opportunities"
   },

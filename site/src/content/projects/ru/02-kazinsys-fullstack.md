@@ -1,10 +1,19 @@
 ---
-title: "KAZINSYS.kz — Full Stack Developer"
-description: "июнь 2023 — апр. 2025 · 1 г. 11 мес. · работа в офисе."
+title: "KazInSys — Junior Full Stack Developer"
+description: "июль 2023 — апр. 2025 · Астана, Казахстан"
+highlights:
+  - "Вёл 37 сайтов госорганов, среди них Нацбанк, Канцелярия Премьер-министра, KEGOC и «Байтерек»."
+  - "Для портала Нацбанка подключил API курсов валют и ускорил загрузку на пиках трафика в дни объявления курса."
+  - "Интегрировал сайты с внешними государственными системами по REST API."
+tags:
+  - "PHP"
+  - "Laravel"
+  - "JavaScript"
+  - "jQuery"
+  - "Sass"
+  - "Bootstrap"
 stack:
   - "Full stack"
   - "Полная занятость"
-  - "Офис"
 order: 2
-status: "wip"
 ---
