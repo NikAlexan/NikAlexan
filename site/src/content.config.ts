@@ -76,6 +76,24 @@ const caseStudiesCollection = defineCollection({
   })
 });
 
+const petProjectsCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/pet-projects" }),
+  schema: z.object({
+    title: z.string(),
+    kind: z.string(),
+    description: z.string(),
+    stack: z.array(z.string()),
+    order: z.number(),
+    featured: z.boolean().default(false),
+    links: z.array(
+      z.object({
+        label: z.string(),
+        href: z.string()
+      })
+    )
+  })
+});
+
 const contactCollection = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/contact" }),
   schema: z.object({
@@ -96,6 +114,7 @@ const contactCollection = defineCollection({
 
 export const collections = {
   projects: projectsCollection,
+  "pet-projects": petProjectsCollection,
   "case-studies": caseStudiesCollection,
   contact: contactCollection
 };
