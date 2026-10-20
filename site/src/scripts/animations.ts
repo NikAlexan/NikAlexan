@@ -98,6 +98,7 @@ const initPageTransition = () => {
   });
 
   const handleClick = (event: Event) => {
+    if (event.defaultPrevented) return;
     const link = (event.target as HTMLElement).closest("a[href]") as HTMLAnchorElement | null;
     if (!link) return;
     if (link.hasAttribute("data-transition-skip")) return;
@@ -162,6 +163,28 @@ const initHero = () => {
     ease: "power2.out",
     stagger: 0.08
   });
+};
+
+const MENU_REOPEN_KEY = "menu-reopen";
+
+// The language switch loads the other locale's page, so the menu state is
+// carried over in sessionStorage and the menu reopens on the new page.
+const takeMenuReopen = () => {
+  try {
+    const value = window.sessionStorage.getItem(MENU_REOPEN_KEY);
+    window.sessionStorage.removeItem(MENU_REOPEN_KEY);
+    return value === "1";
+  } catch {
+    return false;
+  }
+};
+
+const markMenuReopen = () => {
+  try {
+    window.sessionStorage.setItem(MENU_REOPEN_KEY, "1");
+  } catch {
+    // Without storage the menu simply stays closed after the switch
+  }
 };
 
 const initMenu = () => {
@@ -233,6 +256,22 @@ const initMenu = () => {
 
   const handleMenuClick = (event: Event) => {
     const target = event.target as HTMLElement;
+    const langLink = target.closest<HTMLAnchorElement>("[data-menu-lang]");
+    if (langLink) {
+      if (langLink.getAttribute("aria-current") === "true") {
+        event.preventDefault();
+        return;
+      }
+      // Move the highlight right away so the switch reads as a toggle while the page loads
+      const current = menu.querySelector<HTMLAnchorElement>('[data-menu-lang][aria-current="true"]');
+      if (current) {
+        [current.className, langLink.className] = [langLink.className, current.className];
+        current.removeAttribute("aria-current");
+        langLink.setAttribute("aria-current", "true");
+      }
+      markMenuReopen();
+      return;
+    }
     if (target.closest("a[href]")) {
       closeMenu();
     }
@@ -242,7 +281,11 @@ const initMenu = () => {
   closeBtn?.addEventListener("click", handleCloseClick);
   menu.addEventListener("click", handleMenuClick);
 
-  setExpanded(false);
+  if (takeMenuReopen()) {
+    openMenu();
+  } else {
+    setExpanded(false);
+  }
 
   registerCleanup(() => {
     toggles.forEach((toggle) => toggle.removeEventListener("click", handleToggleClick));

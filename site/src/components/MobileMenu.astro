@@ -74,6 +74,8 @@ const altLocale = locale === "ru" ? "en" : "ru";
                   : "px-4 py-2 text-xs font-mono text-muted hover:text-warm-amber transition-colors"
               }
               href={ruHref}
+              data-menu-lang
+              aria-current={locale === "ru" ? "true" : undefined}
             >
               RU
             </a>
@@ -84,6 +86,8 @@ const altLocale = locale === "ru" ? "en" : "ru";
                   : "px-4 py-2 text-xs font-mono text-muted hover:text-warm-amber transition-colors"
               }
               href={enHref}
+              data-menu-lang
+              aria-current={locale === "en" ? "true" : undefined}
             >
               EN
             </a>
