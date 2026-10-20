@@ -17,13 +17,17 @@ type Social = {
   href: string;
 };
 
-type SiteContent = {
+export type SiteContent = {
   locale: Locale;
   meta: {
     title: string;
     description: string;
     url: string;
     ogImage: string;
+    siteName: string;
+    personName: string;
+    personAlternateName: string;
+    jobTitle: string;
   };
   nav: {
     logo: string;
@@ -101,7 +105,7 @@ type SiteContent = {
 
 const base = {
   url: "https://nikalexan.com",
-  ogImage: "/og-placeholder.svg"
+  ogImage: "https://nikalexan.com/og-image.png"
 };
 
 const servicesIconPaths = [
@@ -139,11 +143,15 @@ const pluralRu = (count: number, [one, few, many]: [string, string, string]) => 
 export const siteRu: SiteContent = {
   locale: "ru",
   meta: {
-    title: "Nikita Vassilenko — Back End Developer",
+    title: "Никита Василенко (Nikita Vassilenko) — backend-разработчик",
     description:
-      "Back End Developer и энтузиаст.",
-    url: base.url,
-    ogImage: base.ogImage
+      "Backend-разработчик из Астаны: PHP, Java, Go. Работаю в KAZINSYS.kz, победитель WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business».",
+    url: `${base.url}/`,
+    ogImage: base.ogImage,
+    siteName: "Никита Василенко",
+    personName: "Никита Василенко",
+    personAlternateName: "Nikita Vassilenko",
+    jobTitle: "Backend-разработчик"
   },
   nav: {
     logo: "Nikita Vassilenko",
@@ -243,22 +251,26 @@ export const siteRu: SiteContent = {
   },
   footer: {
     copyright: "© 2026 Nikita Vassilenko",
-    links: [{ label: "English", href: "/en" }]
+    links: [{ label: "English", href: "/en/" }]
   }
 };
 
 export const siteEn: SiteContent = {
   locale: "en",
   meta: {
-    title: "Nikita Vassilenko — Back End Developer",
+    title: "Nikita Vassilenko — Backend Developer (PHP, Java, Go)",
     description:
-      "Back End Developer and enthusiast.",
-    url: `${base.url}/en`,
-    ogImage: base.ogImage
+      "Backend developer in Astana, Kazakhstan, writing PHP, Java and Go at KAZINSYS.kz. Winner of WorldSkills Kazakhstan 2023 in IT solutions for business.",
+    url: `${base.url}/en/`,
+    ogImage: base.ogImage,
+    siteName: "Nikita Vassilenko",
+    personName: "Nikita Vassilenko",
+    personAlternateName: "Никита Василенко",
+    jobTitle: "Backend Developer"
   },
   nav: {
     logo: "Nikita Vassilenko",
-    homeHref: "/en",
+    homeHref: "/en/",
     links: shared.navLinks,
     cta: { label: "Get in touch", href: "#contact" }
   },

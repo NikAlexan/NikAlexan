@@ -1,5 +1,5 @@
 ---
-const { items = [], locale = "en", ruHref = "/", enHref = "/en" } = Astro.props;
+const { items = [], locale = "en", ruHref = "/", enHref = "/en/" } = Astro.props;
 const activeIndex = items.findIndex((item) => item.active) !== -1 ? items.findIndex((item) => item.active) : 0;
 const menuTitle = locale === "ru" ? "Меню_Навигации" : "Menu_Navigation";
 const altHref = locale === "ru" ? enHref : ruHref;
