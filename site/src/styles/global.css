@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant short (@media (max-height: 560px));
+
 @layer base {
   :root {
+    color-scheme: light;
     --font-display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
     --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
 
@@ -9,7 +13,7 @@
     --primitive-charcoal: #1c1c1c;
     --primitive-amber: #a85d3d;
     --primitive-amber-bright: #d97706;
-    --primitive-green: #16a34a;
+    --primitive-green: #15803d;
     --primitive-green-bright: #22c55e;
     --primitive-red: #dc2626;
     --primitive-red-bright: #ef4444;
@@ -40,8 +44,8 @@
 
     --opacity-text-strong: 0.85;
     --opacity-text-secondary: 0.7;
-    --opacity-text-muted: 0.55;
-    --opacity-text-disabled: 0.4;
+    --opacity-text-muted: 0.64;
+    --opacity-text-disabled: 0.52;
     --opacity-bg-subtle: 0.05;
     --opacity-bg-soft: 0.1;
     --opacity-bg-medium: 0.2;
@@ -87,6 +91,9 @@
   }
 
   html.dark {
+    color-scheme: dark;
+    --opacity-text-muted: 0.55;
+    --opacity-text-disabled: 0.45;
     --color-background-dark: #221c10;
     --color-surface-dark: #0f0e0d;
     --color-bg: #221c10;
@@ -117,6 +124,7 @@
     --color-terminal-cursor: rgba(250, 250, 249, 0.7);
 
     --grid-color: rgba(255, 255, 255, 0.03);
+    --grid-color-menu: rgba(255, 255, 255, 0.03);
 
     --scrollbar-thumb: var(--color-primary);
     --scrollbar-track: #0c0a09;
@@ -737,10 +745,11 @@ html.dark .theme-toggle:hover {
 }
 
 html.dark .cta-button {
-  color: var(--color-contrast);
+  color: var(--primitive-charcoal);
 }
 
 html.dark .cta-button:hover {
+  color: var(--color-contrast);
   background-color: color-mix(in oklab, var(--color-ochre) 75%, var(--color-surface-dark));
 }
 

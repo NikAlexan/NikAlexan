@@ -12,6 +12,7 @@ const { title, description, locale, ogImage, url } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#fdfcf0" />
     <ClientRouter />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -60,6 +61,8 @@ const { title, description, locale, ogImage, url } = Astro.props;
       };
       const applyTheme = (theme) => {
         root.classList.toggle("dark", theme === "dark");
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) themeColor.setAttribute("content", theme === "dark" ? "#221c10" : "#fdfcf0");
       };
       const forceDisplay = () => {
         const styleAttr = root.getAttribute("style") || "";
@@ -77,6 +80,16 @@ const { title, description, locale, ogImage, url } = Astro.props;
       });
       const initialTheme = getPreferredTheme();
       applyTheme(initialTheme);
+      window.__applyTheme = applyTheme;
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+        const stored = getStoredTheme();
+        if (stored === "dark" || stored === "light") return;
+        const theme = event.matches ? "dark" : "light";
+        applyTheme(theme);
+        document.querySelectorAll("[data-theme-label]").forEach((el) => {
+          el.textContent = theme === "dark" ? "DARK" : "LIGHT";
+        });
+      });
       window.__docRoot = root;
       root.removeAttribute("data-preloader");
     </script>
@@ -86,7 +99,7 @@ const { title, description, locale, ogImage, url } = Astro.props;
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[1000] focus:px-4 focus:py-2 focus:rounded-sm focus:bg-ochre focus:text-cream focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest"
     >
-      Skip to main content
+      {locale === "ru" ? "Перейти к содержимому" : "Skip to main content"}
     </a>
     <PageTransition />
     <slot />
@@ -125,7 +138,11 @@ const { title, description, locale, ogImage, url } = Astro.props;
         const toggle = event.target.closest("[data-theme-toggle]");
         if (!toggle) return;
         const nextTheme = docRoot.classList.contains("dark") ? "light" : "dark";
-        docRoot.classList.toggle("dark", nextTheme === "dark");
+        if (window.__applyTheme) {
+          window.__applyTheme(nextTheme);
+        } else {
+          docRoot.classList.toggle("dark", nextTheme === "dark");
+        }
         try {
           window.localStorage.setItem("theme", nextTheme);
         } catch {}

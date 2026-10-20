@@ -24,7 +24,7 @@ const altHref = locale === "ru" ? enHref : ruHref;
         <a class={locale === "en" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"} href={enHref}>EN</a>
       </div>
       <button
-        aria-label="Toggle Theme"
+        aria-label={locale === "ru" ? "Переключить тему" : "Toggle theme"}
         class="theme-toggle w-8 h-8 border border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] bg-surface/30 flex items-center justify-center text-bronze transition-all duration-300 rounded-sm group"
         data-theme-toggle
       >
@@ -38,13 +38,13 @@ const altHref = locale === "ru" ? enHref : ruHref;
       {altLocale.toUpperCase()}
     </a>
     <button
-      class="w-6 h-6 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-muted flex items-center justify-center"
+      class="w-10 h-10 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-muted flex items-center justify-center"
       data-menu-toggle
-      aria-label="Open menu"
+      aria-label={locale === "ru" ? "Открыть меню" : "Open menu"}
       aria-controls="mobile-menu"
       aria-expanded="false"
     >
-      <span class="material-symbols-outlined text-[14px]">menu</span>
+      <span class="material-symbols-outlined text-[20px]">menu</span>
     </button>
   </div>
 </nav>

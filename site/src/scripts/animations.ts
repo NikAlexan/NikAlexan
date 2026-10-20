@@ -47,7 +47,10 @@ const getPreferredTheme = () => {
 };
 
 const applyTheme = (root: HTMLElement) => {
-  root.classList.toggle("dark", getPreferredTheme() === "dark");
+  const isDark = getPreferredTheme() === "dark";
+  root.classList.toggle("dark", isDark);
+  const themeColor = root.ownerDocument.querySelector('meta[name="theme-color"]');
+  themeColor?.setAttribute("content", isDark ? "#221c10" : "#fdfcf0");
 };
 
 const restoreDocumentVisibility = () => {

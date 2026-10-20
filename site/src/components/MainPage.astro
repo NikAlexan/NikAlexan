@@ -17,8 +17,8 @@ const navItems = [
 const chips = site.hero.cardChips;
 
 const menuItems = [
-  { label: "Index", href: site.nav.homeHref },
-  ...site.nav.links.map((link, index) => ({ ...link, active: index === 0 }))
+  { label: "Index", href: site.nav.homeHref, active: true },
+  ...site.nav.links
 ];
 
 const github = site.contact.socials.find((item) => item.label.toLowerCase() === "github");
@@ -50,7 +50,7 @@ const techStackGroups = [
 <MobileMenu items={menuItems} locale={site.locale} />
 <Header homeHref={site.nav.homeHref} links={site.nav.links} locale={site.locale} />
 <div class="relative z-10 w-full max-w-[1800px] mx-auto min-h-screen flex flex-col md:flex-row">
-  <aside class="hidden md:flex flex-col w-64 h-screen sticky top-0 pt-32 pb-12 pl-12 justify-between">
+  <aside class="hidden md:flex flex-col w-64 h-screen sticky top-0 pt-32 pb-12 pl-12 justify-between short:pt-24 short:pb-6">
     <div class="space-y-8 border-l border-soft pl-6 relative" data-nav-rail>
       <div class="absolute -left-[1px] top-0 w-[1px] h-12 bg-ochre shadow-[0_0_10px_rgba(217,119,6,0.5)]" data-nav-indicator></div>
       <div>
@@ -70,7 +70,7 @@ const techStackGroups = [
           ))}
         </ul>
       </div>
-      <div class="mt-8 pt-8 border-t border-softer opacity-80 hover:opacity-100 transition-opacity">
+      <div class="mt-8 pt-8 border-t border-softer opacity-80 hover:opacity-100 transition-opacity short:hidden">
         <div class="font-mono text-[9px] text-disabled uppercase mb-2">MASCOT_MODULE: ONLINE</div>
         <div class="relative w-16 h-16 group cursor-help">
           <svg
@@ -120,23 +120,23 @@ const techStackGroups = [
       </div>
     </div>
   </aside>
-  <main id="main-content" class="flex-1 pt-32 px-6 md:px-16 pb-32 max-w-6xl mx-auto w-full">
+  <main id="main-content" class="flex-1 min-w-0 pt-32 px-6 md:px-16 pb-32 max-w-6xl mx-auto w-full">
     <section class="mb-32 relative text-center md:text-left" id="hero">
-      <div class="hidden md:block absolute -top-10 left-0 w-8 h-[1px] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0"></div>
-      <div class="hidden md:block absolute -top-10 left-0 h-4 w-[1px] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0"></div>
+      <div class="hidden md:block absolute -top-10 left-0 w-8 h-[1px] bg-[color-mix(in_srgb,var(--color-ochre)_50%,transparent)]"></div>
+      <div class="hidden md:block absolute -top-10 left-0 h-4 w-[1px] bg-[color-mix(in_srgb,var(--color-ochre)_50%,transparent)]"></div>
       <div class="inline-flex items-center gap-3 px-3 py-1 mb-8 border border-[color-mix(in_srgb,var(--color-ochre)_20%,transparent)] bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)] text-ochre font-mono text-[10px] tracking-[0.2em] uppercase backdrop-blur-sm">
         <span class="w-1.5 h-1.5 bg-ochre rounded-sm shadow-[0_0_5px_rgba(217,119,6,0.8)]"></span>
         Portfolio v3.0
       </div>
-      <h1 class="font-display font-light text-[12vw] md:text-[8rem] lg:text-[8rem] leading-[0.85] tracking-tighter text-ink mb-8 select-none relative uppercase">
+      <h1 class="font-display font-light text-[12vw] md:text-[min(8rem,calc((100vw-24rem)/5.6))] leading-[0.85] tracking-tighter text-ink mb-8 select-none relative uppercase">
         {firstName}<br />
         <span class="text-stroke text-disabled hover:text-ochre transition-colors duration-500">{lastName}</span>
       </h1>
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border-y border-soft py-6 mb-12">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 border-y border-soft py-6 mb-12">
         <h2 class="text-2xl md:text-3xl font-mono font-medium text-ochre tracking-tighter uppercase">
           {heroTitle}
         </h2>
-        <div class="flex gap-4 font-mono text-[10px] text-muted">
+        <div class="flex flex-wrap gap-4 font-mono text-[10px] text-muted">
           {chips.slice(0, 3).map((chip) => (
             <div class="border border-soft px-3 py-1.5 rounded-sm uppercase">{chip}</div>
           ))}
@@ -185,7 +185,7 @@ const techStackGroups = [
                 : "technical-card p-8 md:p-10 group transition-all duration-500 hover:shadow-[0_0_30px_rgba(217,119,6,0.1)]"
             }
           >
-            <div class="absolute top-0 right-0 p-4 opacity-50">
+            <div class="absolute top-0 right-0 p-4">
               <span
                 class={
                   isWip
@@ -196,10 +196,10 @@ const techStackGroups = [
                 {isWip ? `WIP_00${index + 1}` : `CS_00${index + 1}`}
               </span>
             </div>
-            <div class={isWip ? "flex flex-col md:flex-row gap-10 opacity-70 hover:opacity-100 transition-opacity" : "flex flex-col md:flex-row gap-10"}>
-              <div class="md:w-1/3 space-y-6">
+            <div class={isWip ? "flex flex-col lg:flex-row gap-10" : "flex flex-col lg:flex-row gap-10"}>
+              <div class="lg:w-1/3 min-w-0 space-y-6">
                 <div>
-                  <h3 class="text-3xl font-display font-light text-ink mb-2 group-hover:text-ochre transition-colors">{project.data.title}</h3>
+                  <h3 class="text-3xl font-display font-light text-ink mb-2 break-words hyphens-auto group-hover:text-ochre transition-colors">{project.data.title}</h3>
                   <p class="font-mono text-xs text-muted uppercase">{project.data.stack.join(" / ")}</p>
                 </div>
                 <div class="flex flex-wrap gap-2">
@@ -208,7 +208,7 @@ const techStackGroups = [
                   ))}
                 </div>
               </div>
-              <div class="md:w-2/3 flex flex-col justify-between">
+              <div class="lg:w-2/3 min-w-0 flex flex-col justify-between">
                 <p class="text-muted font-light leading-relaxed mb-8">
                   {project.data.description}
                 </p>
@@ -282,7 +282,7 @@ const techStackGroups = [
                   <span>{group.label}</span>
                   <span class="text-ochre opacity-0 group-hover:opacity-100 transition-opacity">&gt;&gt;&gt;</span>
                 </div>
-                <div class="h-[1px] w-full bg-[color-mix(in_srgb,var(--color-ink)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-ochre)_5%,transparent)]0 transition-colors mb-2"></div>
+                <div class="h-[1px] w-full bg-[color-mix(in_srgb,var(--color-ink)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-ochre)_50%,transparent)] transition-colors mb-2"></div>
                 <p class="text-sm text-secondary">{group.items.join(", ")}</p>
               </div>
             ))}

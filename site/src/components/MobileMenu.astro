@@ -8,7 +8,7 @@ const altLocale = locale === "ru" ? "en" : "ru";
 
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-[100] bg-cream-bg flex flex-col overflow-hidden hidden"
+  class="fixed inset-0 z-[100] bg-background-dark flex flex-col overflow-hidden hidden"
   data-menu
   aria-hidden="true"
 >
@@ -25,7 +25,7 @@ const altLocale = locale === "ru" ? "en" : "ru";
     <button
       class="w-10 h-10 border border-[color-mix(in_srgb,var(--color-charcoal)_10%,transparent)] bg-surface/30 flex items-center justify-center text-charcoal hover:bg-warm-amber hover:text-cream hover:border-warm-amber transition-all duration-300 group"
       data-menu-close
-      aria-label="Close menu"
+      aria-label={locale === "ru" ? "Закрыть меню" : "Close menu"}
     >
       <span class="material-symbols-outlined text-xl group-hover:rotate-90 transition-transform duration-300">close</span>
     </button>
@@ -78,7 +78,7 @@ const altLocale = locale === "ru" ? "en" : "ru";
     <div class="flex flex-col gap-6">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-6">
-          <div class="flex items-center bg-white border border-[color-mix(in_srgb,var(--color-charcoal)_10%,transparent)] rounded-sm p-1">
+          <div class="flex items-center bg-surface border border-[color-mix(in_srgb,var(--color-charcoal)_10%,transparent)] rounded-sm p-1">
             <a
               class={
                 locale === "ru"
@@ -101,9 +101,9 @@ const altLocale = locale === "ru" ? "en" : "ru";
             </a>
           </div>
           <button
-            class="flex items-center gap-2 px-4 py-2.5 bg-white border border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] rounded-sm text-bronze transition-all group"
+            class="flex items-center gap-2 px-4 py-2.5 bg-surface border border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] rounded-sm text-bronze transition-all group"
             data-theme-toggle
-            aria-label="Toggle Theme"
+            aria-label={locale === "ru" ? "Переключить тему" : "Toggle theme"}
           >
             <span class="material-symbols-outlined text-[16px] theme-light group-hover:text-bronze">dark_mode</span>
             <span class="material-symbols-outlined text-[16px] theme-dark group-hover:text-ochre">light_mode</span>
