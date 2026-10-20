@@ -13,7 +13,8 @@ const description = "Запрошенная страница не найдена
   description={description}
   locale={site.locale}
   ogImage={site.meta.ogImage}
-  url={`${site.meta.url}/404`}
+  siteName={site.meta.siteName}
+  noindex
 >
   <NotFoundPage site={site} />
 </BaseLayout>

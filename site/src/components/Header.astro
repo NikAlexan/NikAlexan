@@ -1,5 +1,5 @@
 ---
-const { homeHref, links, locale, ruHref = "/", enHref = "/en" } = Astro.props;
+const { homeHref, links, locale, ruHref = "/", enHref = "/en/" } = Astro.props;
 const altLocale = locale === "ru" ? "en" : "ru";
 const altHref = locale === "ru" ? enHref : ruHref;
 ---
@@ -24,7 +24,7 @@ const altHref = locale === "ru" ? enHref : ruHref;
         <a class={locale === "en" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"} href={enHref}>EN</a>
       </div>
       <button
-        aria-label={locale === "ru" ? "Переключить тему" : "Toggle theme"}
+        aria-label={locale === "ru" ? "Сменить тему" : "Toggle theme"}
         class="theme-toggle w-8 h-8 border border-[color-mix(in_srgb,var(--color-bronze)_20%,transparent)] bg-surface/30 flex items-center justify-center text-bronze transition-all duration-300 rounded-sm group"
         data-theme-toggle
       >
