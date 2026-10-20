@@ -4,7 +4,7 @@ const altLocale = locale === "ru" ? "en" : "ru";
 const altHref = locale === "ru" ? enHref : ruHref;
 ---
 
-<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 mix-blend-normal bg-background-dark/40 backdrop-blur-md border-b border-soft md:bg-transparent md:backdrop-blur-none md:border-none">
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-5 py-3 md:px-8 md:py-6 mix-blend-normal bg-background-dark/40 backdrop-blur-md border-b border-soft md:bg-transparent md:backdrop-blur-none md:border-none">
   <a class="flex items-center gap-3 font-mono text-xs hover:text-ochre transition-colors group text-muted" href={homeHref}>
     <div class="w-6 h-6 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] flex items-center justify-center group-hover:border-ochre transition-colors">
       <span class="material-symbols-outlined text-[14px]">grid_view</span>
@@ -33,12 +33,12 @@ const altHref = locale === "ru" ? enHref : ruHref;
       </button>
     </div>
   </div>
-  <div class="flex items-center gap-4 md:hidden">
+  <div class="flex items-center gap-3 md:hidden">
     <a class="font-mono text-[10px] text-ochre font-bold border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] px-2 py-1 rounded" href={altHref}>
       {altLocale.toUpperCase()}
     </a>
     <button
-      class="w-10 h-10 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-muted flex items-center justify-center"
+      class="w-9 h-9 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-muted flex items-center justify-center"
       data-menu-toggle
       aria-label={locale === "ru" ? "Открыть меню" : "Open menu"}
       aria-controls="mobile-menu"
