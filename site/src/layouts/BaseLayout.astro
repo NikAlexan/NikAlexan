@@ -2,8 +2,31 @@
 import "../styles/global.css";
 import PageTransition from "../components/PageTransition.astro";
 import { ClientRouter } from "astro:transitions";
+import { getOgLocale } from "../data/seo";
 
-const { title, description, locale, ogImage, url } = Astro.props;
+const {
+  title,
+  description,
+  locale,
+  ogImage,
+  siteName,
+  alternates,
+  noindex = false,
+  structuredData
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const alternateLinks = alternates
+  ? Object.entries(alternates).map(([lang, path]) => ({
+      lang,
+      href: new URL(path, Astro.site).href
+    }))
+  : [];
+const defaultAlternate = alternates ? new URL(alternates.ru, Astro.site).href : null;
+const ogLocale = getOgLocale(locale);
+const ogLocaleAlternates = alternateLinks
+  .filter((link) => link.lang !== locale)
+  .map((link) => getOgLocale(link.lang));
 ---
 
 <!doctype html>
@@ -15,6 +38,11 @@ const { title, description, locale, ogImage, url } = Astro.props;
     <ClientRouter />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {!noindex && alternateLinks.map((link) => (
+      <link rel="alternate" hreflang={link.lang} href={link.href} />
+    ))}
+    {!noindex && defaultAlternate && <link rel="alternate" hreflang="x-default" href={defaultAlternate} />}
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -23,12 +51,18 @@ const { title, description, locale, ogImage, url } = Astro.props;
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={url} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlternates.map((alt) => <meta property="og:locale:alternate" content={alt} />)}
+    {siteName && <meta property="og:site_name" content={siteName} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

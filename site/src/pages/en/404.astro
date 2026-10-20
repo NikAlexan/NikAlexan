@@ -13,7 +13,8 @@ const description = "The requested page could not be found.";
   description={description}
   locale={site.locale}
   ogImage={site.meta.ogImage}
-  url={`${site.meta.url}/en/404`}
+  siteName={site.meta.siteName}
+  noindex
 >
   <NotFoundPage site={site} />
 </BaseLayout>

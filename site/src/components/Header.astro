@@ -1,5 +1,5 @@
 ---
-const { homeHref, links, locale, ruHref = "/", enHref = "/en" } = Astro.props;
+const { homeHref, links, locale, ruHref = "/", enHref = "/en/" } = Astro.props;
 const altLocale = locale === "ru" ? "en" : "ru";
 const altHref = locale === "ru" ? enHref : ruHref;
 ---

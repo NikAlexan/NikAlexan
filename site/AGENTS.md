@@ -7,7 +7,7 @@ This is an Astro + Tailwind CSS portfolio site. Key paths:
 - `src/layouts/` for page shells.
 - `src/data/` for content (`src/data/site.ts`, `src/data/projects.ts`).
 - `src/styles/` for global styling (`src/styles/global.css`).
-- `public/` for static assets like `robots.txt`, `sitemap.xml`, and OG images.
+- `public/` for static assets like `robots.txt`, `_redirects`, and OG images. The sitemap is generated at build time by `@astrojs/sitemap`.
 
 ## Build, Test, and Development Commands
 Use npm scripts from `package.json`:
@@ -33,4 +33,5 @@ For pull requests:
 
 ## Security & Configuration Tips
 - Content updates should remain in `src/data/` to keep templates stable.
-- SEO files live in `public/`; update `public/og-placeholder.svg` if you add a real OG image.
+- SEO tags (canonical, hreflang, Open Graph, JSON-LD) are rendered in `src/layouts/BaseLayout.astro`; helpers live in `src/data/seo.ts`.
+- `public/og-image.png` (1200×630) is rendered from `public/og-placeholder.svg`; re-export the PNG when the SVG changes.
