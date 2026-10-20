@@ -42,10 +42,10 @@
     --color-info: var(--primitive-blue);
     --color-status-online: var(--primitive-green);
 
-    --opacity-text-strong: 0.85;
-    --opacity-text-secondary: 0.7;
-    --opacity-text-muted: 0.64;
-    --opacity-text-disabled: 0.52;
+    --opacity-text-strong: 0.9;
+    --opacity-text-secondary: 0.78;
+    --opacity-text-muted: 0.7;
+    --opacity-text-disabled: 0.58;
     --opacity-bg-subtle: 0.05;
     --opacity-bg-soft: 0.1;
     --opacity-bg-medium: 0.2;
@@ -92,6 +92,8 @@
 
   html.dark {
     color-scheme: dark;
+    --opacity-text-strong: 0.85;
+    --opacity-text-secondary: 0.7;
     --opacity-text-muted: 0.55;
     --opacity-text-disabled: 0.45;
     --color-background-dark: #221c10;
