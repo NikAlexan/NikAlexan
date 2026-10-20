@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CaseStudyPage from "../../components/CaseStudyPage.astro";
-import { getCollection, getEntryBySlug } from "astro:content";
+import { getCollection } from "astro:content";
 import { getSite } from "../../data/site";
 
 export async function getStaticPaths() {
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   });
 
   return entries.map((entry) => ({
-    params: { slug: entry.slug.replace(/^ru\//, "") }
+    params: { slug: entry.id.replace(/^ru\//, "") }
   }));
 }
 
@@ -18,7 +18,7 @@ const { slug } = Astro.params;
 const entries = await getCollection("case-studies", ({ data, id }) => {
   return id.startsWith("ru/") && data.published !== false;
 });
-const entry = entries.find((item) => item.slug === `ru/${slug}`);
+const entry = entries.find((item) => item.id === `ru/${slug}`);
 const site = getSite("ru");
 
 if (!entry || entry.data.published === false) {
