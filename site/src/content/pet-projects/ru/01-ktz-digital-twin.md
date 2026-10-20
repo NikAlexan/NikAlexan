@@ -8,8 +8,7 @@ stack:
   - "WebSocket"
   - "PostgreSQL"
   - "Docker"
-order: 1
-featured: true
+order: 2
 links:
   - label: "GitHub"
     href: "https://github.com/NikAlexan/-HackNU-KTZ"

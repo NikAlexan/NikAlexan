@@ -1,15 +1,18 @@
 ---
 title: "Сервис доставки еды"
 kind: "Командный проект"
-description: "Четыре микросервиса на Go: пользователи, рестораны, заказы и доставка. Сервисы общаются по gRPC, события идут через NATS JetStream. Я сделал фронтенд на Nuxt и развернул систему в Kubernetes на DigitalOcean через Terraform."
+description: "Четыре независимых микросервиса на Go по Clean Architecture: пользователи, рестораны, заказы и доставка, всего 34+ эндпоинта на gRPC. Статусы заказов идут через NATS JetStream и доходят до курьера и клиента сразу, не блокируя основной поток. Я сделал фронтенд на Nuxt и развернул систему в Kubernetes, инфраструктура описана в Terraform."
 stack:
   - "Go"
+  - "Gin"
   - "gRPC"
   - "NATS"
+  - "Redis"
   - "Nuxt"
   - "Kubernetes"
   - "Terraform"
-order: 2
+order: 1
+featured: true
 links:
   - label: "Код"
     href: "https://github.com/NikAlexan/Food-Delivery-project-Go"
