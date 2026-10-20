@@ -23,7 +23,7 @@ const { about } = Astro.props;
         Tech stack
       </div>
       <div class="mt-5 flex flex-wrap gap-2">
-        {about.stack.map((item) => (
+        {about.stack.flatMap((group) => group.items).map((item) => (
           <span class="chip">{item}</span>
         ))}
       </div>
