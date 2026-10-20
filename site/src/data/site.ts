@@ -48,7 +48,7 @@ type SiteContent = {
     body: string;
     bullets: string[];
     jokes: string[];
-    stack: string[];
+    stack: { label: string; items: string[] }[];
     availability: string;
   };
   services: {
@@ -57,13 +57,10 @@ type SiteContent = {
   };
   projects: {
     title: string;
-    caseStudy?: {
-      kicker: string;
-      title: string;
-      summary: string;
-      ctaLabel: string;
-      href: string;
-    };
+  };
+  petProjects: {
+    title: string;
+    note: string;
   };
   testimonials: {
     title: string;
@@ -106,7 +103,8 @@ const servicesIconPaths = [
 
 const shared = {
   navLinks: [
-    { label: "Projects", href: "#works" },
+    { label: "Experience", href: "#works" },
+    { label: "Side projects", href: "#pet-projects" },
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" }
   ],
@@ -131,7 +129,8 @@ export const siteRu: SiteContent = {
     logo: "Nikita Vassilenko",
     homeHref: "/",
     links: [
-      { label: "Проекты", href: "#works" },
+      { label: "Опыт", href: "#works" },
+      { label: "Пет-проекты", href: "#pet-projects" },
       { label: "Обо_мне", href: "#about" },
       { label: "Контакты", href: "#contact" }
     ],
@@ -141,7 +140,7 @@ export const siteRu: SiteContent = {
     name: "Nikita Vassilenko",
     tagline: "Back End Developer",
     description:
-      "Победитель WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business». Изучаю .NET, PHP, JS и смежные технологии. Готов развиваться и получать новый опыт.",
+      "Победитель WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 в компетенции «IT solutions for business». На работе пишу на PHP, Java и Go. В своих проектах добавляю Kubernetes и Terraform.",
     ctaPrimary: { label: "LinkedIn", href: "https://www.linkedin.com/in/nikalexan/" },
     ctaSecondary: { label: "Опыт работы", href: "#works" },
     note: "Астана, Казахстан",
@@ -149,17 +148,18 @@ export const siteRu: SiteContent = {
     cardTitle: "WorldSkills 2023 Winner",
     cardText:
       "WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 — «IT solutions for business».",
-    cardChips: [".NET", "PHP", "JS"]
+    cardChips: ["PHP", "Java", "Go", "Kubernetes"]
   },
   about: {
     title: "Обо мне",
     body:
-      "Back End Developer из Астаны. Работаю в KAZINSYS.kz, развиваюсь в .NET, PHP и JavaScript, открыт к новым задачам и росту.",
+      "Back End Developer из Астаны, работаю в KAZINSYS.kz. На работе пишу на PHP, Java и Go. В учёбе и своих проектах беру ещё Python, деплою в Kubernetes через Terraform, пишу смарт-контракты на Solidity.",
     bullets: [
       "Победитель WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023",
       "Back End Developer в KAZINSYS.kz (апр. 2025 — настоящее время)",
       "Full Stack Developer в KAZINSYS.kz (июнь 2023 — апр. 2025)",
-      "Astana IT University — Software Engineering (2024–2027)"
+      "Astana IT University — Software Engineering (2024–2027)",
+      "HackNU: цифровой двойник локомотива для КТЖ"
     ],
     jokes: [
       "Когда рога падают — никто не замечает, а когда прод — все",
@@ -170,10 +170,11 @@ export const siteRu: SiteContent = {
       "Сначала была таблица. Потом JOIN. Потом стало грустно"
     ],
     stack: [
-      ".NET",
-      "PHP",
-      "JavaScript",
-      "HTML"
+      { label: "Backend", items: ["PHP", "Java", "Go", "Python"] },
+      { label: "Frontend", items: ["JavaScript", "Vue", "Nuxt"] },
+      { label: "Infrastructure", items: ["Docker", "Kubernetes", "Terraform"] },
+      { label: "Data & messaging", items: ["PostgreSQL", "gRPC", "NATS", "MQTT"] },
+      { label: "Blockchain", items: ["Solidity", "Foundry"] }
     ],
     availability: 'Открыт для сотрудничества'
   },
@@ -182,15 +183,11 @@ export const siteRu: SiteContent = {
     items: []
   },
   projects: {
-    title: "Проекты",
-    caseStudy: {
-      kicker: "Кейс // NEXUS",
-      title: "NEXUS Protocol",
-      summary:
-        "Архитектура и визуализация потока данных в реальном времени для высокочастотной торговли.",
-      ctaLabel: "СМОТРЕТЬ_КЕЙС",
-      href: "/project/nexus"
-    }
+    title: "Опыт работы"
+  },
+  petProjects: {
+    title: "Пет-проекты",
+    note: "Хакатоны, командные и учебные проекты"
   },
   testimonials: {
     title: "",
@@ -237,7 +234,7 @@ export const siteEn: SiteContent = {
     name: "Nikita Vassilenko",
     tagline: "Back End Developer",
     description:
-      "Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023 in the “IT solutions for business” competency. Learning .NET, PHP, JS and related tech. Ready to grow and gain new experience.",
+      "Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023 in the “IT solutions for business” competency. I write PHP, Java and Go at work and use Kubernetes and Terraform in my own projects.",
     ctaPrimary: { label: "LinkedIn", href: "https://www.linkedin.com/in/nikalexan/" },
     ctaSecondary: { label: "Experience", href: "#works" },
     note: "Astana, Kazakhstan",
@@ -245,17 +242,18 @@ export const siteEn: SiteContent = {
     cardTitle: "WorldSkills 2023 Winner",
     cardText:
       "WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023 — “IT solutions for business”.",
-    cardChips: [".NET", "PHP", "JS"]
+    cardChips: ["PHP", "Java", "Go", "Kubernetes"]
   },
   about: {
     title: "About",
     body:
-      "Back End Developer based in Astana. Working at KAZINSYS.kz and building skills in .NET, PHP, and JavaScript. Open to new challenges and growth.",
+      "Back End Developer in Astana, working at KAZINSYS.kz. At work I write PHP, Java and Go. In university and side projects I also use Python, deploy to Kubernetes with Terraform, and write Solidity contracts.",
     bullets: [
       "Winner of WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023",
       "Back End Developer at KAZINSYS.kz (Apr 2025 — Present)",
       "Full Stack Developer at KAZINSYS.kz (Jun 2023 — Apr 2025)",
-      "Astana IT University — Software Engineering (2024–2027)"
+      "Astana IT University — Software Engineering (2024–2027)",
+      "HackNU: locomotive digital twin for KTZ"
     ],
     jokes: [
       "When antlers fall, no one notices; when prod falls, everyone does",
@@ -266,10 +264,11 @@ export const siteEn: SiteContent = {
       "It started as a table. Then JOINs happened. Then sadness"
     ],
     stack: [
-      ".NET",
-      "PHP",
-      "JavaScript",
-      "HTML"
+      { label: "Backend", items: ["PHP", "Java", "Go", "Python"] },
+      { label: "Frontend", items: ["JavaScript", "Vue", "Nuxt"] },
+      { label: "Infrastructure", items: ["Docker", "Kubernetes", "Terraform"] },
+      { label: "Data & messaging", items: ["PostgreSQL", "gRPC", "NATS", "MQTT"] },
+      { label: "Blockchain", items: ["Solidity", "Foundry"] }
     ],
     availability: "Open for new opportunities"
   },
@@ -278,15 +277,11 @@ export const siteEn: SiteContent = {
     items: []
   },
   projects: {
-    title: "Projects",
-    caseStudy: {
-      kicker: "Case // NEXUS",
-      title: "NEXUS Protocol",
-      summary:
-        "Real-time data streaming architecture and visualization for high-frequency trading.",
-      ctaLabel: "VIEW_DETAILS",
-      href: "/en/project/nexus"
-    }
+    title: "Experience"
+  },
+  petProjects: {
+    title: "Side projects",
+    note: "Hackathons, team and university projects"
   },
   testimonials: {
     title: "",
