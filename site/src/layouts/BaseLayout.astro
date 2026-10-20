@@ -35,6 +35,7 @@ const ogLocaleAlternates = alternateLinks
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#fdfcf0" />
     <ClientRouter />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -94,6 +95,8 @@ const ogLocaleAlternates = alternateLinks
       };
       const applyTheme = (theme) => {
         root.classList.toggle("dark", theme === "dark");
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) themeColor.setAttribute("content", theme === "dark" ? "#221c10" : "#fdfcf0");
       };
       const forceDisplay = () => {
         const styleAttr = root.getAttribute("style") || "";
@@ -111,6 +114,16 @@ const ogLocaleAlternates = alternateLinks
       });
       const initialTheme = getPreferredTheme();
       applyTheme(initialTheme);
+      window.__applyTheme = applyTheme;
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+        const stored = getStoredTheme();
+        if (stored === "dark" || stored === "light") return;
+        const theme = event.matches ? "dark" : "light";
+        applyTheme(theme);
+        document.querySelectorAll("[data-theme-label]").forEach((el) => {
+          el.textContent = theme === "dark" ? "DARK" : "LIGHT";
+        });
+      });
       window.__docRoot = root;
       root.removeAttribute("data-preloader");
     </script>
@@ -159,7 +172,11 @@ const ogLocaleAlternates = alternateLinks
         const toggle = event.target.closest("[data-theme-toggle]");
         if (!toggle) return;
         const nextTheme = docRoot.classList.contains("dark") ? "light" : "dark";
-        docRoot.classList.toggle("dark", nextTheme === "dark");
+        if (window.__applyTheme) {
+          window.__applyTheme(nextTheme);
+        } else {
+          docRoot.classList.toggle("dark", nextTheme === "dark");
+        }
         try {
           window.localStorage.setItem("theme", nextTheme);
         } catch {}

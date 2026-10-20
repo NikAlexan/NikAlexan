@@ -47,7 +47,10 @@ const getPreferredTheme = () => {
 };
 
 const applyTheme = (root: HTMLElement) => {
-  root.classList.toggle("dark", getPreferredTheme() === "dark");
+  const isDark = getPreferredTheme() === "dark";
+  root.classList.toggle("dark", isDark);
+  const themeColor = root.ownerDocument.querySelector('meta[name="theme-color"]');
+  themeColor?.setAttribute("content", isDark ? "#221c10" : "#fdfcf0");
 };
 
 const restoreDocumentVisibility = () => {
@@ -176,7 +179,37 @@ const initMenu = () => {
     menu.setAttribute("aria-hidden", expanded ? "false" : "true");
   };
 
+  const syncActiveLink = () => {
+    const links = Array.from(menu.querySelectorAll<HTMLAnchorElement>("[data-menu-link]"));
+    if (!links.length) return;
+    const probe = window.innerHeight * 0.35;
+    let active = links[0];
+    links.forEach((link) => {
+      const href = link.getAttribute("href") ?? "";
+      if (!href.startsWith("#")) return;
+      const section = document.getElementById(href.slice(1));
+      if (section && section.getBoundingClientRect().top <= probe) {
+        active = link;
+      }
+    });
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    const lastHashLink = links.filter((link) => link.getAttribute("href")?.startsWith("#")).pop();
+    if (atBottom && lastHashLink && window.scrollY > 0) {
+      active = lastHashLink;
+    }
+    links.forEach((link) => {
+      const isActive = link === active;
+      link.dataset.active = isActive ? "true" : "false";
+      if (isActive) {
+        link.setAttribute("aria-current", "true");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+
   const openMenu = () => {
+    syncActiveLink();
     menu.classList.remove("hidden");
     document.body.style.overflow = "hidden";
     setExpanded(true);
