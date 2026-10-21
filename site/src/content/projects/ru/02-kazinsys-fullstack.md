@@ -1,5 +1,5 @@
 ---
-title: "KazInSys — Junior Full Stack Developer"
+title: "Junior Full Stack Developer"
 description: "июль 2023 — апр. 2025 · Астана, Казахстан"
 highlights:
   - "Вёл 37 сайтов госорганов, среди них Нацбанк, Канцелярия Премьер-министра, KEGOC и «Байтерек»."
@@ -13,7 +13,7 @@ tags:
   - "Sass"
   - "Bootstrap"
 stack:
-  - "Full stack"
+  - "KazInSys"
   - "Полная занятость"
 order: 2
 ---
