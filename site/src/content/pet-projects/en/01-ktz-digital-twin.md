@@ -9,6 +9,7 @@ stack:
   - "PostgreSQL"
   - "Docker"
 order: 2
+caseStudySlug: "ktz-digital-twin"
 links:
   - label: "GitHub"
     href: "https://github.com/NikAlexan/-HackNU-KTZ"

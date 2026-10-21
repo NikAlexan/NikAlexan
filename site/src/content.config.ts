@@ -86,6 +86,7 @@ const petProjectsCollection = defineCollection({
     stack: z.array(z.string()),
     order: z.number(),
     featured: z.boolean().default(false),
+    caseStudySlug: z.string().optional(),
     links: z.array(
       z.object({
         label: z.string(),

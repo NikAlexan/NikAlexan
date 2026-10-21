@@ -13,6 +13,7 @@ stack:
   - "Terraform"
 order: 1
 featured: true
+caseStudySlug: "food-delivery"
 links:
   - label: "Код"
     href: "https://github.com/NikAlexan/Food-Delivery-project-Go"
