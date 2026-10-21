@@ -94,7 +94,14 @@ const ogLocaleAlternates = alternateLinks
         return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       };
       const applyTheme = (theme) => {
+        // Switch colors without transitions: off-screen elements otherwise
+        // keep a half-finished color transition until they are repainted.
+        root.classList.add("theme-switching");
         root.classList.toggle("dark", theme === "dark");
+        void root.offsetHeight;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => root.classList.remove("theme-switching"));
+        });
         const themeColor = document.querySelector('meta[name="theme-color"]');
         if (themeColor) themeColor.setAttribute("content", theme === "dark" ? "#221c10" : "#fdfcf0");
       };

@@ -814,3 +814,9 @@ html.dark .cta-button:hover {
     scroll-behavior: auto !important;
   }
 }
+
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
