@@ -176,7 +176,7 @@ export const siteRu: SiteContent = {
     cardTitle: "WorldSkills 2023 Winner",
     cardText:
       "WorldSkills Astana 2023 и WorldSkills Kazakhstan 2023 — «IT solutions for business».",
-    cardChips: ["PHP", "Laravel", "Java", "Go"]
+    cardChips: ["PHP", "Java", "Go"]
   },
   about: {
     title: "Обо мне",
@@ -288,7 +288,7 @@ export const siteEn: SiteContent = {
     cardTitle: "WorldSkills 2023 Winner",
     cardText:
       "WorldSkills Astana 2023 and WorldSkills Kazakhstan 2023 — “IT solutions for business”.",
-    cardChips: ["PHP", "Laravel", "Java", "Go"]
+    cardChips: ["PHP", "Java", "Go"]
   },
   about: {
     title: "About",
