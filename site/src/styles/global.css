@@ -1,15 +1,40 @@
-/* The icon font's stylesheet sets .material-symbols-outlined { font-size: 24px }.
-   Loaded unlayered it outranks every Tailwind text-* utility, so it goes into the base layer. */
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap") layer(base);
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant short (@media (max-height: 560px));
 
+/* Material Symbols subset with only the icons used on the site. When adding an icon, re-download it from
+   fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=...
+   Current list: arrow_forward, arrow_outward, close, code, crisis_alert, dark_mode, deployed_code,
+   expand_circle_down, folder_open, grid_view, light_mode, menu, terminal. */
+@font-face {
+  font-family: "Material Symbols Outlined";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("/fonts/material-symbols-outlined.woff2") format("woff2");
+}
+
 @layer base {
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "liga";
+  }
+
   :root {
     color-scheme: light;
-    --font-display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Space Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
     --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
 
     --primitive-cream: #fdfcf0;
@@ -58,7 +83,7 @@
     --color-terminal-bg: color-mix(in srgb, var(--color-ink) 55%, transparent);
     --color-terminal-border: color-mix(in srgb, var(--color-ink) 20%, transparent);
     --color-terminal-text: color-mix(in srgb, var(--color-ink) 85%, transparent);
-    --color-terminal-prompt: #16a34a;
+    --color-terminal-prompt: #15803d;
     --color-terminal-success: var(--color-success);
     --color-terminal-warning: var(--color-warning);
     --color-terminal-error: var(--color-error);
