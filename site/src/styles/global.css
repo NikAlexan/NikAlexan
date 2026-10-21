@@ -21,6 +21,13 @@
   animation-duration: 300ms;
 }
 
+/* Theme toggle: the circle reveal is driven from JS, so drop the crossfade */
+.theme-vt::view-transition-old(root),
+.theme-vt::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 @layer base {
   .material-symbols-outlined {
     font-family: "Material Symbols Outlined";
