@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/site"
+    schedule:
+      interval: "weekly"
+    groups:
+      astro:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+    open-pull-requests-limit: 5
