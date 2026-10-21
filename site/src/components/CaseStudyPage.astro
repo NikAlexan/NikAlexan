@@ -34,13 +34,10 @@ const statusDotMap = {
   info: "bg-[color-mix(in_srgb,var(--color-info)_40%,transparent)]"
 };
 
+// On mobile the side rail is hidden, so the menu carries the case sections.
 const menuItems = [
   { label: "Index", href: site.nav.homeHref },
-  ...site.nav.links.map((link, index) => ({
-    label: link.label,
-    href: `${site.nav.homeHref}${link.href}`,
-    active: index === 0
-  }))
+  ...navItems.map((item, index) => ({ ...item, active: index === 0 }))
 ];
 
 const ruHref = `/project/${caseStudy.slug}`;
@@ -68,11 +65,11 @@ const enHref = `/en/project/${caseStudy.slug}`;
           {navItems.map((item, index) => (
             <li>
               <a
-                class={`nav-link block text-muted hover:text-bronze transition-colors group flex items-center gap-2 ${index === 0 ? "is-active text-bronze font-bold glowing-text" : ""}`}
+                class={`nav-link block text-muted hover:text-ochre transition-colors group flex items-center gap-2 ${index === 0 ? "is-active text-ochre font-bold glowing-text" : ""}`}
                 data-nav-link
                 href={item.href}
               >
-                <span class={`nav-bullet w-1.5 h-1.5 bg-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] group-hover:bg-bronze transition-colors ${index === 0 ? "is-active bg-bronze shadow-[0_0_5px_rgba(168,93,61,0.5)]" : ""}`} data-nav-bullet></span>
+                <span class={`nav-bullet w-1.5 h-1.5 bg-[color-mix(in_srgb,var(--color-charcoal)_20%,transparent)] group-hover:bg-bronze transition-colors ${index === 0 ? "is-active bg-ochre shadow-[0_0_5px_rgba(217,119,6,0.8)]" : ""}`} data-nav-bullet></span>
                 {String(index).padStart(2, "0")}_{item.label}
               </a>
             </li>
