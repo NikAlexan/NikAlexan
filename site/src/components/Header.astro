@@ -18,10 +18,10 @@ const altHref = locale === "ru" ? enHref : ruHref;
       <span>SYS: ONLINE</span>
     </div>
     <div class="flex items-center gap-6">
-      <div class="flex items-center font-mono text-[10px] tracking-wider">
-        <a class={locale === "ru" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"} href={ruHref}>RU</a>
-        <span class="mx-2 text-[color-mix(in_srgb,var(--color-ink)_30%,transparent)]">/</span>
-        <a class={locale === "en" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"} href={enHref}>EN</a>
+      <div class="flex items-center font-mono text-sm tracking-wider">
+        <a class={`px-1.5 py-1 ${locale === "ru" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"}`} href={ruHref}>RU</a>
+        <span class="mx-1 text-[color-mix(in_srgb,var(--color-ink)_30%,transparent)]">/</span>
+        <a class={`px-1.5 py-1 ${locale === "en" ? "text-ochre font-bold" : "text-muted hover:text-ochre transition-colors"}`} href={enHref}>EN</a>
       </div>
       <button
         aria-label={locale === "ru" ? "Сменить тему" : "Toggle theme"}
