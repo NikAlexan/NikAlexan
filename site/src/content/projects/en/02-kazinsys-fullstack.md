@@ -1,5 +1,5 @@
 ---
-title: "KazInSys — Junior Full Stack Developer"
+title: "Junior Full Stack Developer"
 description: "Jul 2023 — Apr 2025 · Astana, Kazakhstan"
 highlights:
   - "Maintained 37 government websites, including the National Bank of Kazakhstan, the Prime Minister’s Office, KEGOC and Baiterek."
@@ -13,7 +13,7 @@ tags:
   - "Sass"
   - "Bootstrap"
 stack:
-  - "Full stack"
+  - "KazInSys"
   - "Full-time"
 order: 2
 ---

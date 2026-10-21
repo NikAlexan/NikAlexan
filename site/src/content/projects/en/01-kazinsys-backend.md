@@ -1,5 +1,5 @@
 ---
-title: "KazInSys — Middle Backend Developer"
+title: "Middle Backend Developer"
 description: "Apr 2025 — Present · Astana, Kazakhstan"
 highlights:
   - "Migrated two government portals with 750K+ monthly visits from Laravel 5 to 11/12 on my own."
@@ -14,7 +14,7 @@ tags:
   - "GitLab CI"
   - "Graylog"
 stack:
-  - "Backend"
+  - "KazInSys"
   - "Full-time"
 order: 1
 ---
