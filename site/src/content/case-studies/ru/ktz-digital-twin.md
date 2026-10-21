@@ -1,6 +1,7 @@
 ---
 tag: "PET_02 / HackNU · кейс КТЖ"
 title: "Цифровой двойник локомотива"
+description: "Кейс Никиты Василенко с HackNU: цифровой двойник локомотивов KZ8A и TE33A на Python, MQTT и PostgreSQL с оценкой износа узлов."
 subtitle: "Телеметрия парка"
 version: "апрель 2026"
 roleLabel: "Моя роль"

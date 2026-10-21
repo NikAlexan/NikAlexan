@@ -41,6 +41,7 @@ const caseStudiesCollection = defineCollection({
   schema: z.object({
     tag: z.string(),
     title: z.string(),
+    description: z.string(),
     subtitle: z.string(),
     version: z.string(),
     roleLabel: z.string(),

@@ -1,6 +1,7 @@
 ---
 tag: "PET_02 / HackNU · KTZ challenge"
 title: "Locomotive Digital Twin"
+description: "Nikita Vassilenko's HackNU case study: a digital twin of KZ8A and TE33A locomotives on Python, MQTT and PostgreSQL that scores component wear."
 subtitle: "Fleet telemetry"
 version: "April 2026"
 roleLabel: "My role"

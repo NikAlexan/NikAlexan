@@ -1,6 +1,7 @@
 ---
 tag: "PET_01 / Team project"
 title: "Food Delivery Service"
+description: "Case study by Nikita Vassilenko: how a payment event overtook order creation in Go microservices on NATS JetStream, and how I fixed it."
 subtitle: "Event race"
 version: "May 2026"
 roleLabel: "My role"
