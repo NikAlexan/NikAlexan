@@ -7,7 +7,6 @@ stack:
   - "Foundry"
   - "Ethers.js"
 order: 3
-caseStudySlug: "solidity"
 links:
   - label: "Голосование"
     href: "https://github.com/NikAlexan/blockchain-week2"
