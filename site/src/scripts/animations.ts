@@ -152,6 +152,35 @@ const initPageTransition = () => {
   });
 };
 
+// A link to the page itself (the "Index" logo and menu item on the home page)
+// would reload it and land at the top in one jump, so scroll there instead.
+// Section anchors are left to the browser: html has scroll-behavior: smooth.
+const initScrollToTop = () => {
+  const handleClick = (event: MouseEvent) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as HTMLElement).closest<HTMLAnchorElement>("a[href]");
+    if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+    const url = new URL(link.href, window.location.href);
+    const here = window.location;
+    if (url.origin !== here.origin || url.pathname !== here.pathname || url.search !== here.search) return;
+    if (url.hash) return;
+
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+    if (here.hash) {
+      history.replaceState(history.state, "", url.pathname + url.search);
+    }
+  };
+
+  // Capture phase, so this runs before the page transition and the client router
+  document.addEventListener("click", handleClick, true);
+  registerCleanup(() => {
+    document.removeEventListener("click", handleClick, true);
+  });
+};
+
 const initHero = () => {
   const heroItems = document.querySelectorAll("[data-hero-item]");
   if (!heroItems.length || prefersReducedMotion) return;
@@ -231,17 +260,71 @@ const initMenu = () => {
     });
   };
 
-  const openMenu = () => {
+  const menuLinks = menu.querySelectorAll<HTMLElement>("[data-menu-link]");
+  let menuTimeline: gsap.core.Timeline | null = null;
+  let isOpen = false;
+
+  const openMenu = (animate = true) => {
+    if (isOpen) return;
+    isOpen = true;
     syncActiveLink();
+    menuTimeline?.kill();
     menu.classList.remove("hidden");
     document.body.style.overflow = "hidden";
     setExpanded(true);
+
+    if (!animate || prefersReducedMotion) {
+      gsap.set(menu, { clearProps: "clipPath,opacity,visibility" });
+      gsap.set(menuLinks, { clearProps: "opacity,transform" });
+      return;
+    }
+
+    menuTimeline = gsap
+      .timeline()
+      .fromTo(
+        menu,
+        { clipPath: "inset(0% 0% 100% 0%)", autoAlpha: 0.9 },
+        { clipPath: "inset(0% 0% 0% 0%)", autoAlpha: 1, duration: 0.45, ease: "power3.out" }
+      )
+      .fromTo(
+        menuLinks,
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", stagger: 0.05 },
+        "-=0.25"
+      );
+  };
+
+  const hideMenu = () => {
+    menu.classList.add("hidden");
+    gsap.set(menu, { clearProps: "clipPath,opacity,visibility" });
+    gsap.set(menuLinks, { clearProps: "opacity,transform" });
   };
 
   const closeMenu = () => {
-    menu.classList.add("hidden");
+    if (!isOpen) return;
+    isOpen = false;
+    menuTimeline?.kill();
+    // Unlock the page right away so a section link can start scrolling under the closing menu
     document.body.style.overflow = "";
     setExpanded(false);
+
+    if (prefersReducedMotion) {
+      hideMenu();
+      return;
+    }
+
+    menuTimeline = gsap
+      .timeline({ onComplete: hideMenu })
+      .to(menuLinks, { y: -12, opacity: 0, duration: 0.2, ease: "power1.in", stagger: 0.02 })
+      .to(
+        menu,
+        { clipPath: "inset(0% 0% 100% 0%)", autoAlpha: 0.9, duration: 0.35, ease: "power3.in" },
+        "-=0.12"
+      );
+  };
+
+  const handleKeydown = (event: KeyboardEvent) => {
+    if (event.key === "Escape" && isOpen) closeMenu();
   };
 
   const handleToggleClick = (event: Event) => {
@@ -280,9 +363,11 @@ const initMenu = () => {
   toggles.forEach((toggle) => toggle.addEventListener("click", handleToggleClick));
   closeBtn?.addEventListener("click", handleCloseClick);
   menu.addEventListener("click", handleMenuClick);
+  document.addEventListener("keydown", handleKeydown);
 
+  // After a language switch the menu was already open, so it reappears without the intro
   if (takeMenuReopen()) {
-    openMenu();
+    openMenu(false);
   } else {
     setExpanded(false);
   }
@@ -291,6 +376,8 @@ const initMenu = () => {
     toggles.forEach((toggle) => toggle.removeEventListener("click", handleToggleClick));
     closeBtn?.removeEventListener("click", handleCloseClick);
     menu.removeEventListener("click", handleMenuClick);
+    document.removeEventListener("keydown", handleKeydown);
+    menuTimeline?.kill();
   });
 };
 
@@ -477,6 +564,7 @@ const init = () => {
   runCleanup();
   restoreDocumentVisibility();
   applyTheme(document.documentElement);
+  initScrollToTop();
   initPageTransition();
   initHero();
   initMenu();
