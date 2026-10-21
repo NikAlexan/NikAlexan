@@ -34,9 +34,17 @@ const altHref = locale === "ru" ? enHref : ruHref;
     </div>
   </div>
   <div class="flex items-center gap-3 md:hidden">
-    <a class="font-mono text-[10px] text-ochre font-bold border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] px-2 py-1 rounded" href={altHref}>
+    <a class="w-9 h-9 flex items-center justify-center font-mono text-xs text-ochre font-bold border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)]" href={altHref}>
       {altLocale.toUpperCase()}
     </a>
+    <button
+      class="w-9 h-9 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-ochre flex items-center justify-center"
+      data-theme-toggle
+      aria-label={locale === "ru" ? "Сменить тему" : "Toggle theme"}
+    >
+      <span class="material-symbols-outlined text-[18px] theme-light">dark_mode</span>
+      <span class="material-symbols-outlined text-[18px] theme-dark">light_mode</span>
+    </button>
     <button
       class="w-9 h-9 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-muted flex items-center justify-center"
       data-menu-toggle
