@@ -5,6 +5,8 @@ import "@fontsource/space-mono/700.css";
 import "@fontsource/space-mono/400-italic.css";
 import "../styles/global.css";
 import spaceGroteskLatin from "@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url";
+import spaceMonoLatin400 from "@fontsource/space-mono/files/space-mono-latin-400-normal.woff2?url";
+import spaceMonoLatin700 from "@fontsource/space-mono/files/space-mono-latin-700-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
 import { getOgLocale } from "../data/seo";
 
@@ -70,6 +72,8 @@ const ogLocaleAlternates = alternateLinks
     <meta name="twitter:image" content={ogImage} />
     {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <link rel="preload" href={spaceGroteskLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={spaceMonoLatin400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={spaceMonoLatin700} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
     <script is:inline>
       const root = document.documentElement;

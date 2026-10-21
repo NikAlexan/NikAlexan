@@ -9,6 +9,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://nikalexan.com',
   trailingSlash: 'always',
+  // The whole stylesheet is ~12 KB, so inlining it removes a render-blocking request
+  build: {
+    inlineStylesheets: 'always'
+  },
   integrations: [
     mdx(),
     sitemap({
