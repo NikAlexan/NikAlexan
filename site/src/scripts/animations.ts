@@ -1,4 +1,10 @@
-import gsap from "gsap";
+// GSAP easings ported to cubic-bezier for the Web Animations API
+const EASE = {
+  power1In: "cubic-bezier(0.55, 0.085, 0.68, 0.53)",
+  power2Out: "cubic-bezier(0.215, 0.61, 0.355, 1)",
+  power3In: "cubic-bezier(0.895, 0.03, 0.685, 0.22)",
+  power3Out: "cubic-bezier(0.165, 0.84, 0.44, 1)"
+};
 
 const prefersReducedMotion =
   typeof window !== "undefined" &&
@@ -67,94 +73,6 @@ const restoreDocumentVisibility = () => {
   }
 };
 
-const initPageTransition = () => {
-  const overlay = document.querySelector("[data-page-transition]") as HTMLElement | null;
-  if (!overlay) return;
-
-  const hideOverlay = () => {
-    overlay.classList.remove("is-active");
-    gsap.set(overlay, { autoAlpha: 0 });
-    overlay.style.pointerEvents = "none";
-    overlay.style.display = "none";
-  };
-
-  overlay.style.display = "flex";
-  hideOverlay();
-
-  if (!prefersReducedMotion) {
-    gsap.fromTo(
-      overlay,
-      { autoAlpha: 1 },
-      { autoAlpha: 0, duration: 0.6, ease: "power2.out" }
-    );
-  } else {
-    hideOverlay();
-  }
-
-  const handlePageShow = () => hideOverlay();
-  window.addEventListener("pageshow", handlePageShow);
-  registerCleanup(() => {
-    window.removeEventListener("pageshow", handlePageShow);
-  });
-
-  const handleClick = (event: Event) => {
-    if (event.defaultPrevented) return;
-    const link = (event.target as HTMLElement).closest("a[href]") as HTMLAnchorElement | null;
-    if (!link) return;
-    if (link.hasAttribute("data-transition-skip")) return;
-    if (link.target === "_blank" || link.hasAttribute("download")) return;
-
-    const href = link.getAttribute("href");
-    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
-      return;
-    }
-
-    const url = new URL(href, window.location.href);
-    if (url.origin !== window.location.origin) return;
-    if (url.pathname === window.location.pathname && url.hash) return;
-
-    event.preventDefault();
-
-    if (prefersReducedMotion) {
-      window.location.href = url.href;
-      return;
-    }
-
-    overlay.classList.add("is-active");
-    overlay.style.pointerEvents = "auto";
-    overlay.style.display = "flex";
-
-    const go = () => {
-      window.location.href = url.href;
-    };
-
-    const fallback = window.setTimeout(go, 600);
-
-    try {
-      gsap.to(overlay, {
-        autoAlpha: 1,
-        duration: 0.4,
-        ease: "power2.out",
-        onComplete: () => {
-          window.clearTimeout(fallback);
-          go();
-        }
-      });
-    } catch {
-      window.clearTimeout(fallback);
-      go();
-    }
-  };
-
-  document.addEventListener("click", handleClick);
-  registerCleanup(() => {
-    document.removeEventListener("click", handleClick);
-  });
-};
-
-// A link to the page itself (the "Index" logo and menu item on the home page)
-// would reload it and land at the top in one jump, so scroll there instead.
-// Section anchors are left to the browser: html has scroll-behavior: smooth.
 const initScrollToTop = () => {
   const handleClick = (event: MouseEvent) => {
     if (event.defaultPrevented || event.button !== 0) return;
@@ -178,19 +96,6 @@ const initScrollToTop = () => {
   document.addEventListener("click", handleClick, true);
   registerCleanup(() => {
     document.removeEventListener("click", handleClick, true);
-  });
-};
-
-const initHero = () => {
-  const heroItems = document.querySelectorAll("[data-hero-item]");
-  if (!heroItems.length || prefersReducedMotion) return;
-
-  gsap.from(heroItems, {
-    y: 16,
-    opacity: 0,
-    duration: 0.8,
-    ease: "power2.out",
-    stagger: 0.08
   });
 };
 
@@ -261,49 +166,54 @@ const initMenu = () => {
   };
 
   const menuLinks = menu.querySelectorAll<HTMLElement>("[data-menu-link]");
-  let menuTimeline: gsap.core.Timeline | null = null;
+  let menuAnimations: Animation[] = [];
   let isOpen = false;
+
+  const stopMenuAnimations = () => {
+    menuAnimations.forEach((animation) => animation.cancel());
+    menuAnimations = [];
+  };
 
   const openMenu = (animate = true) => {
     if (isOpen) return;
     isOpen = true;
     syncActiveLink();
-    menuTimeline?.kill();
+    stopMenuAnimations();
     menu.classList.remove("hidden");
     document.body.style.overflow = "hidden";
     setExpanded(true);
 
-    if (!animate || prefersReducedMotion) {
-      gsap.set(menu, { clearProps: "clipPath,opacity,visibility" });
-      gsap.set(menuLinks, { clearProps: "opacity,transform" });
-      return;
-    }
+    if (!animate || prefersReducedMotion) return;
 
-    menuTimeline = gsap
-      .timeline()
-      .fromTo(
-        menu,
-        { clipPath: "inset(0% 0% 100% 0%)", autoAlpha: 0.9 },
-        { clipPath: "inset(0% 0% 0% 0%)", autoAlpha: 1, duration: 0.45, ease: "power3.out" }
+    menuAnimations = [
+      menu.animate(
+        [
+          { clipPath: "inset(0% 0% 100% 0%)", opacity: 0.9 },
+          { clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }
+        ],
+        { duration: 450, easing: EASE.power3Out }
+      ),
+      ...Array.from(menuLinks, (link, index) =>
+        link.animate(
+          [
+            { transform: "translateY(24px)", opacity: 0 },
+            { transform: "translateY(0)", opacity: 1 }
+          ],
+          { duration: 400, delay: 200 + index * 50, easing: EASE.power2Out, fill: "backwards" }
+        )
       )
-      .fromTo(
-        menuLinks,
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out", stagger: 0.05 },
-        "-=0.25"
-      );
+    ];
   };
 
   const hideMenu = () => {
+    stopMenuAnimations();
     menu.classList.add("hidden");
-    gsap.set(menu, { clearProps: "clipPath,opacity,visibility" });
-    gsap.set(menuLinks, { clearProps: "opacity,transform" });
   };
 
   const closeMenu = () => {
     if (!isOpen) return;
     isOpen = false;
-    menuTimeline?.kill();
+    stopMenuAnimations();
     // Unlock the page right away so a section link can start scrolling under the closing menu
     document.body.style.overflow = "";
     setExpanded(false);
@@ -313,14 +223,27 @@ const initMenu = () => {
       return;
     }
 
-    menuTimeline = gsap
-      .timeline({ onComplete: hideMenu })
-      .to(menuLinks, { y: -12, opacity: 0, duration: 0.2, ease: "power1.in", stagger: 0.02 })
-      .to(
-        menu,
-        { clipPath: "inset(0% 0% 100% 0%)", autoAlpha: 0.9, duration: 0.35, ease: "power3.in" },
-        "-=0.12"
-      );
+    const linksDuration = 200 + Math.max(menuLinks.length - 1, 0) * 20;
+    const panel = menu.animate(
+      [
+        { clipPath: "inset(0% 0% 0% 0%)", opacity: 1 },
+        { clipPath: "inset(0% 0% 100% 0%)", opacity: 0.9 }
+      ],
+      { duration: 350, delay: Math.max(linksDuration - 120, 0), easing: EASE.power3In, fill: "forwards" }
+    );
+    panel.onfinish = hideMenu;
+    menuAnimations = [
+      ...Array.from(menuLinks, (link, index) =>
+        link.animate(
+          [
+            { transform: "translateY(0)", opacity: 1 },
+            { transform: "translateY(-12px)", opacity: 0 }
+          ],
+          { duration: 200, delay: index * 20, easing: EASE.power1In, fill: "forwards" }
+        )
+      ),
+      panel
+    ];
   };
 
   const handleKeydown = (event: KeyboardEvent) => {
@@ -377,7 +300,7 @@ const initMenu = () => {
     closeBtn?.removeEventListener("click", handleCloseClick);
     menu.removeEventListener("click", handleMenuClick);
     document.removeEventListener("keydown", handleKeydown);
-    menuTimeline?.kill();
+    stopMenuAnimations();
   });
 };
 
@@ -428,16 +351,8 @@ const initSidebarNav = () => {
     const indicatorHeight = indicator.getBoundingClientRect().height || 0;
     const targetY = linkRect.top - railRect.top + (linkRect.height - indicatorHeight) / 2;
 
-    if (prefersReducedMotion) {
-      indicator.style.transform = `translateY(${targetY}px)`;
-      return;
-    }
-
-    gsap.to(indicator, {
-      y: targetY,
-      duration: 0.3,
-      ease: "power2.out"
-    });
+    indicator.style.transition = prefersReducedMotion ? "" : `transform 300ms ${EASE.power2Out}`;
+    indicator.style.transform = `translateY(${targetY}px)`;
   };
 
   const observer = new IntersectionObserver(
@@ -477,7 +392,7 @@ const initMascotTyping = () => {
   const nodes = document.querySelectorAll<HTMLElement>("[data-typing]");
   if (!nodes.length) return;
 
-  const timelines: gsap.core.Timeline[] = [];
+  const timers: Array<() => void> = [];
   const trackedNodes: HTMLElement[] = [];
 
   nodes.forEach((node) => {
@@ -508,51 +423,42 @@ const initMascotTyping = () => {
       return;
     }
 
-    const typeSpeed = 0.045;
-    const deleteSpeed = 0.022;
-    const pause = 1.2;
-    const between = 0.25;
-    const startDelay = 0.2;
+    const typeSpeed = 45;
+    const deleteSpeed = 22;
+    const pause = 1200;
+    const between = 250;
+    const startDelay = 200;
 
-    const timeline = gsap.timeline({ repeat: -1, delay: startDelay });
-    timelines.push(timeline);
+    let itemIndex = 0;
+    let count = 0;
+    let deleting = false;
 
-    items.forEach((text, itemIndex) => {
-      const state = { count: 0 };
-      const length = text.length;
+    // Types an item, holds it, deletes it, then moves on to the next one in a loop
+    const step = () => {
+      const text = items[itemIndex];
+      count += deleting ? -1 : 1;
+      textEl.textContent = text.slice(0, count);
 
-      timeline.to(state, {
-        count: length,
-        duration: Math.max(length * typeSpeed, 0.2),
-        ease: "none",
-        snap: { count: 1 },
-        onUpdate: () => {
-          textEl.textContent = text.slice(0, Math.round(state.count));
-        }
-      });
-
-      timeline.to({}, { duration: pause });
-
-      timeline.to(state, {
-        count: 0,
-        duration: Math.max(length * deleteSpeed, 0.15),
-        ease: "none",
-        snap: { count: 1 },
-        onUpdate: () => {
-          textEl.textContent = text.slice(0, Math.round(state.count));
-        }
-      });
-
-      if (itemIndex < items.length - 1) {
-        timeline.to({}, { duration: between });
+      if (!deleting && count === text.length) {
+        deleting = true;
+        timer = window.setTimeout(step, pause);
+      } else if (deleting && count === 0) {
+        deleting = false;
+        itemIndex = (itemIndex + 1) % items.length;
+        timer = window.setTimeout(step, between);
+      } else {
+        timer = window.setTimeout(step, deleting ? deleteSpeed : typeSpeed);
       }
-    });
+    };
 
-    node.dataset.typingTimeline = timeline.vars.id?.toString() ?? "active";
+    let timer = window.setTimeout(step, startDelay);
+    timers.push(() => window.clearTimeout(timer));
+
+    node.dataset.typingTimeline = "active";
   });
 
   registerCleanup(() => {
-    timelines.forEach((timeline) => timeline.kill());
+    timers.forEach((stop) => stop());
     trackedNodes.forEach((node) => {
       delete node.dataset.typingInit;
       delete node.dataset.typingTimeline;
@@ -565,8 +471,6 @@ const init = () => {
   restoreDocumentVisibility();
   applyTheme(document.documentElement);
   initScrollToTop();
-  initPageTransition();
-  initHero();
   initMenu();
   initSidebarNav();
   initMascotTyping();

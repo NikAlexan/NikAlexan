@@ -15,6 +15,12 @@
   src: url("/fonts/material-symbols-outlined.woff2") format("woff2");
 }
 
+/* ClientRouter crossfades the whole page between routes; slow it down a little from the default */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 300ms;
+}
+
 @layer base {
   .material-symbols-outlined {
     font-family: "Material Symbols Outlined";
@@ -321,16 +327,6 @@
   }
 
 
-  .page-transition {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 320ms ease;
-  }
-
-  .page-transition.is-active {
-    opacity: 1;
-    pointer-events: auto;
-  }
 }
 
 @utility scrollbar-none {
