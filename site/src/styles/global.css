@@ -1,3 +1,6 @@
+/* The icon font's stylesheet sets .material-symbols-outlined { font-size: 24px }.
+   Loaded unlayered it outranks every Tailwind text-* utility, so it goes into the base layer. */
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap") layer(base);
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));

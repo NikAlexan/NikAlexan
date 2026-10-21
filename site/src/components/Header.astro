@@ -38,6 +38,14 @@ const altHref = locale === "ru" ? enHref : ruHref;
       {altLocale.toUpperCase()}
     </a>
     <button
+      class="h-[25px] w-[30px] border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] rounded text-ochre flex items-center justify-center"
+      data-theme-toggle
+      aria-label={locale === "ru" ? "Сменить тему" : "Toggle theme"}
+    >
+      <span class="material-symbols-outlined text-[15px] theme-light">dark_mode</span>
+      <span class="material-symbols-outlined text-[15px] theme-dark">light_mode</span>
+    </button>
+    <button
       class="w-9 h-9 border border-[color-mix(in_srgb,var(--color-ink)_20%,transparent)] text-muted flex items-center justify-center"
       data-menu-toggle
       aria-label={locale === "ru" ? "Открыть меню" : "Open menu"}
