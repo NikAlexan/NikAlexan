@@ -123,7 +123,8 @@ export const GET: APIRoute = async ({ props }) => {
           color: C.amber,
           maxWidth: 1000
         },
-        data.subtitle
+        // Inter has no arrow glyph.
+        data.subtitle.replace("→", "->")
       ),
       h("div", {
         width: 280,
