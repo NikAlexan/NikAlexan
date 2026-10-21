@@ -41,6 +41,7 @@ const caseStudiesCollection = defineCollection({
   schema: z.object({
     tag: z.string(),
     title: z.string(),
+    description: z.string(),
     subtitle: z.string(),
     version: z.string(),
     roleLabel: z.string(),
@@ -86,6 +87,7 @@ const petProjectsCollection = defineCollection({
     stack: z.array(z.string()),
     order: z.number(),
     featured: z.boolean().default(false),
+    caseStudySlug: z.string().optional(),
     links: z.array(
       z.object({
         label: z.string(),

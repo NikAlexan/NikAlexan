@@ -53,8 +53,8 @@ const techStackGroups = site.about.stack;
     <div class="space-y-8 border-l border-soft pl-6 relative" data-nav-rail>
       <div class="absolute -left-[1px] top-0 w-[1px] h-12 bg-ochre shadow-[0_0_10px_rgba(217,119,6,0.5)]" data-nav-indicator></div>
       <div>
-        <div class="font-mono text-[9px] text-muted tracking-widest uppercase mb-4">{site.ui.navigation}</div>
-        <ul class="space-y-4 font-mono text-xs" data-nav-list>
+        <div class="font-mono text-[11px] text-muted tracking-widest uppercase mb-5">{site.ui.navigation}</div>
+        <ul class="space-y-5 font-mono text-sm" data-nav-list>
           {navItems.map((item, index) => (
             <li>
               <a
@@ -62,7 +62,7 @@ const techStackGroups = site.about.stack;
                 data-nav-link
                 href={item.href}
               >
-                <span class={`nav-bullet w-1 h-1 bg-[color-mix(in_srgb,var(--color-ink)_30%,transparent)] group-hover:bg-ochre transition-colors ${index === 0 ? "is-active bg-ochre shadow-[0_0_5px_rgba(217,119,6,0.8)]" : ""}`} data-nav-bullet></span>
+                <span class={`nav-bullet w-1.5 h-1.5 bg-[color-mix(in_srgb,var(--color-ink)_30%,transparent)] group-hover:bg-ochre transition-colors ${index === 0 ? "is-active bg-ochre shadow-[0_0_5px_rgba(217,119,6,0.8)]" : ""}`} data-nav-bullet></span>
                 {String(index).padStart(2, "0")}_{item.label.toUpperCase()}
               </a>
             </li>
@@ -263,6 +263,15 @@ const techStackGroups = site.about.stack;
               ))}
             </div>
             <div class="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-soft pt-4 mt-4 md:pt-5 md:mt-6">
+              {project.data.caseStudySlug && (
+                <a
+                  class="flex items-center gap-1 text-ochre font-mono text-sm hover:underline decoration-ochre underline-offset-4 uppercase"
+                  href={`${site.locale === "en" ? "/en" : ""}/project/${project.data.caseStudySlug}/`}
+                >
+                  {site.locale === "en" ? "Case study" : "Кейс"}
+                  <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+              )}
               {project.data.links.map((link) => (
                 <a
                   class="flex items-center gap-1 text-ochre font-mono text-sm hover:underline decoration-ochre underline-offset-4 uppercase"

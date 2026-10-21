@@ -52,3 +52,26 @@ export const getProfileJsonLd = (site: SiteContent) => {
     ]
   };
 };
+
+export const getCaseStudyAlternates = (slug: string): Alternates => ({
+  ru: `/project/${slug}/`,
+  en: `/en/project/${slug}/`
+});
+
+export const getCaseStudyJsonLd = (
+  caseStudy: { title: string; description: string },
+  locale: Locale,
+  url: string
+) => ({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: caseStudy.title,
+  description: caseStudy.description,
+  inLanguage: locale,
+  url,
+  author: {
+    "@type": "Person",
+    name: "Nikita Vassilenko",
+    url: "https://nikalexan.com/"
+  }
+});

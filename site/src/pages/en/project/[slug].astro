@@ -3,6 +3,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import CaseStudyPage from "../../../components/CaseStudyPage.astro";
 import { getCollection } from "astro:content";
 import { getSite } from "../../../data/site";
+import { getCaseStudyAlternates, getCaseStudyJsonLd } from "../../../data/seo";
 
 export async function getStaticPaths() {
   const entries = await getCollection("case-studies", ({ data, id }) => {
@@ -26,14 +27,18 @@ if (!entry || entry.data.published === false) {
 }
 
 const caseStudy = { slug, ...entry.data };
+const pageUrl = `${site.meta.url}/en/project/${slug}/`;
 ---
 
 <BaseLayout
   title={`${caseStudy.title} — Case Study`}
-  description={site.meta.description}
+  description={caseStudy.description}
   locale={site.locale}
-  ogImage={site.meta.ogImage}
-  url={`${site.meta.url}/project/${slug}`}
+  ogImage={`${Astro.site?.origin ?? "https://nikalexan.com"}/og/en/${slug}.png`}
+  url={pageUrl}
+  alternates={getCaseStudyAlternates(slug)}
+  ogType="article"
+  structuredData={getCaseStudyJsonLd(caseStudy, site.locale, pageUrl)}
 >
   <CaseStudyPage caseStudy={caseStudy} site={site} />
 </BaseLayout>
