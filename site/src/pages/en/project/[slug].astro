@@ -37,6 +37,7 @@ const pageUrl = `${site.meta.url}/en/project/${slug}/`;
   ogImage={site.meta.ogImage}
   url={pageUrl}
   alternates={getCaseStudyAlternates(slug)}
+  ogType="article"
   structuredData={getCaseStudyJsonLd(caseStudy, site.locale, pageUrl)}
 >
   <CaseStudyPage caseStudy={caseStudy} site={site} />
