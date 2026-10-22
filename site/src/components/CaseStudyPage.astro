@@ -254,30 +254,75 @@ const enHref = `/en/project/${caseStudy.slug}`;
   }
 </style>
 <script>
-  for (const root of document.querySelectorAll("[data-carousel]")) {
-    const track = root.querySelector("[data-carousel-track]");
-    const prev = root.querySelector("[data-carousel-prev]");
-    const next = root.querySelector("[data-carousel-next]");
-    if (!track || !prev || !next) continue;
-    const step = () => (track.firstElementChild?.getBoundingClientRect().width ?? track.clientWidth) + 16;
-    const update = () => {
-      prev.disabled = track.scrollLeft <= 1;
-      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
-    };
-    prev.addEventListener("click", () => track.scrollBy({ left: -step() }));
-    next.addEventListener("click", () => track.scrollBy({ left: step() }));
-    track.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-        event.preventDefault();
-        track.scrollBy({ left: event.key === "ArrowLeft" ? -step() : step() });
-      }
-    });
-    track.addEventListener("scroll", update, { passive: true });
-    update();
+  // Module scripts run once; ClientRouter swaps pages without reloading, so bind on every page load.
+  function initCarousels() {
+    for (const root of document.querySelectorAll<HTMLElement>("[data-carousel]")) {
+      if (root.dataset.carouselReady) continue;
+      root.dataset.carouselReady = "true";
+      const track = root.querySelector<HTMLElement>("[data-carousel-track]");
+      const prev = root.querySelector<HTMLButtonElement>("[data-carousel-prev]");
+      const next = root.querySelector<HTMLButtonElement>("[data-carousel-next]");
+      if (!track || !prev || !next) continue;
+      const step = () => (track.firstElementChild?.getBoundingClientRect().width ?? track.clientWidth) + 16;
+      const update = () => {
+        prev.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+      };
+      prev.addEventListener("click", () => track.scrollBy({ left: -step() }));
+      next.addEventListener("click", () => track.scrollBy({ left: step() }));
+      track.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+          event.preventDefault();
+          track.scrollBy({ left: event.key === "ArrowLeft" ? -step() : step() });
+        }
+      });
+
+      // Mouse drag; touch already scrolls natively.
+      let startX = 0;
+      let startScroll = 0;
+      let moved = false;
+      track.addEventListener("pointerdown", (event) => {
+        if (event.pointerType !== "mouse" || event.button !== 0) return;
+        startX = event.clientX;
+        startScroll = track.scrollLeft;
+        moved = false;
+        track.setPointerCapture(event.pointerId);
+        track.classList.add("is-dragging");
+      });
+      track.addEventListener("pointermove", (event) => {
+        if (!track.classList.contains("is-dragging")) return;
+        const dx = event.clientX - startX;
+        if (Math.abs(dx) > 3) moved = true;
+        track.scrollLeft = startScroll - dx;
+      });
+      const endDrag = (event: PointerEvent) => {
+        if (!track.classList.contains("is-dragging")) return;
+        track.classList.remove("is-dragging");
+        track.releasePointerCapture(event.pointerId);
+        // Settle on the nearest card once snapping is back on.
+        const index = Math.round(track.scrollLeft / step());
+        track.scrollTo({ left: index * step() });
+      };
+      track.addEventListener("pointerup", endDrag);
+      track.addEventListener("pointercancel", endDrag);
+      track.addEventListener("click", (event) => {
+        if (moved) {
+          event.preventDefault();
+          event.stopPropagation();
+          moved = false;
+        }
+      }, true);
+
+      track.addEventListener("scroll", update, { passive: true });
+      update();
+    }
   }
+  document.addEventListener("astro:page-load", initCarousels);
 </script>
 <style is:global>
   .case-carousel { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--color-bronze) 40%, transparent) transparent; }
+  .case-carousel { cursor: grab; user-select: none; }
+  .case-carousel.is-dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
   .case-carousel:focus-visible { outline: 2px solid var(--color-ochre); outline-offset: 4px; }
   @media (prefers-reduced-motion: reduce) { .case-carousel { scroll-behavior: auto; } }
   .carousel-btn {
